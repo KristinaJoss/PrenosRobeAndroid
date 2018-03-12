@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.toshiba.prenosrobe.activities.Offer">
+
+    <TextView
+        android:id="@+id/labelText1"
+        android:layout_width="0dp"
+        android:layout_height="30sp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/labelText1"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/labelDepLoc"
+        android:layout_width="150sp"
+        android:layout_height="35sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center|start"
+        android:text="@string/labelDepLoc"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelText1" />
+
+    <TextView
+        android:id="@+id/labelArrLoc"
+        android:layout_width="150sp"
+        android:layout_height="35sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center|start"
+        android:text="@string/labelText3"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelDepLoc" />
+
+    <EditText
+        android:id="@+id/inputDepLoc"
+        android:layout_width="0dp"
+        android:layout_height="35sp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labelDepLoc"
+        app:layout_constraintTop_toBottomOf="@+id/labelText1" />
+
+    <EditText
+        android:id="@+id/inputArrLoc"
+        android:layout_width="0dp"
+        android:layout_height="35sp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labelArrLoc"
+        app:layout_constraintTop_toBottomOf="@+id/labelDepLoc" />
+
+    <TextView
+        android:id="@+id/labelDate"
+        android:layout_width="150sp"
+        android:layout_height="35sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center|start"
+        android:text="@string/labelDate"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelArrLoc" />
+
+    <EditText
+        android:id="@+id/inputDate"
+        android:layout_width="0dp"
+        android:layout_height="35sp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="date"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labelDate"
+        app:layout_constraintTop_toBottomOf="@+id/inputArrLoc" />
+
+    <TextView
+        android:id="@+id/labelTime"
+        android:layout_width="150sp"
+        android:layout_height="35sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center|start"
+        android:text="@string/labelTime"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelDate" />
+
+    <EditText
+        android:id="@+id/inputTime"
+        android:layout_width="0dp"
+        android:layout_height="35sp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="time"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labelTime"
+        app:layout_constraintTop_toBottomOf="@+id/inputDate" />
+
+    <Button
+        android:id="@+id/buttonGo"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/buttonOffer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelTime" />
+
+    <Button
+        android:id="@+id/buttonProfile2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/buttonProfile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBack2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/buttonBack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</android.support.constraint.ConstraintLayout>
