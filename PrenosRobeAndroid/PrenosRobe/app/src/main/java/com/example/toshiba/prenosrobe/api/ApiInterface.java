@@ -18,6 +18,9 @@ public interface ApiInterface {
     @POST("user/register")
     Call<User> register(@Body User userDto);
 
+    @POST("user/login")
+    Call<User> login(@Body User userDto);
+
     @GET("driverOffers")
     Call<List<DriverOffer>> getAllDriverOffers();
 

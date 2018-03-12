@@ -82,5 +82,5 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
     public static User getUser() { return user; }
 
-    public static void setUser(User user) { user = user; }
+    public static void setUser(User newUser) { user = newUser; }
 }
