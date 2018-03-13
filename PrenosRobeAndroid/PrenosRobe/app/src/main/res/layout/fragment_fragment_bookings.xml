@@ -4,14 +4,21 @@
     android:layout_height="match_parent"
     tools:context="com.example.toshiba.prenosrobe.activities.FragmentBookings">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e6f2ff"
+        android:gravity="top|center"
         android:text="@string/bookings"
-        android:textColor="@color/colorPrimaryDark"
         android:textAllCaps="true"
-        android:textSize="18dp"
-        android:background="#e6f2ff" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <ListView
+        android:id="@+id/ListViewBookings"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="25dp" />
 
 </FrameLayout>

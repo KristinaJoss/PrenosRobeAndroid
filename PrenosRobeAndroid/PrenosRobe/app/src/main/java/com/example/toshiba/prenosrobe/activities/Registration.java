@@ -1,10 +1,13 @@
 package com.example.toshiba.prenosrobe.activities;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,7 +15,13 @@ import android.widget.TextView;
 import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
+import com.example.toshiba.prenosrobe.data.Language;
 import com.example.toshiba.prenosrobe.data.User;
+import com.example.toshiba.prenosrobe.data.VehicleType;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,11 +33,17 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     private EditText inputName, inputSurname, inputPhone, inputEmail, inputUser, inputPass;
     private TextView labelMsg2;
     private static User user;
+    private List<Language> languages;
+    private List<Language> selectedLanguages = new ArrayList<>();
+    private AlertDialog.Builder alertdialogbuilder;
+    private boolean[] selectedTrueFalse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         inputName = (EditText) findViewById(R.id.inputName);
         inputSurname = (EditText) findViewById(R.id.inputSurname);
@@ -40,7 +55,67 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         labelMsg2 = (TextView) findViewById(R.id.labelMsg2);
 
         ((Button) findViewById(R.id.buttonRegister)).setOnClickListener(this);
+        ((Button) findViewById(R.id.buttonMultiSpinner)).setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+
+                alertdialogbuilder = new AlertDialog.Builder(Registration.this);
+
+                String[] languagesNames = new String[languages.size()];
+                selectedTrueFalse = new boolean[languages.size()];
+
+                for (int i = 0; i < languages.size(); i++)
+                {
+                    languagesNames[i] = languages.get(i).getName();
+                    selectedTrueFalse[i] = false;
+                }
+
+                alertdialogbuilder.setMultiChoiceItems(languagesNames, selectedTrueFalse, new DialogInterface.OnMultiChoiceClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                    }
+                });
+
+                alertdialogbuilder.setCancelable(false);
+
+                alertdialogbuilder.setTitle("Selektujte jezike koje govorite.");
+
+                alertdialogbuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        int a = 0;
+                        while(a < selectedTrueFalse.length)
+                        {
+                            boolean value = selectedTrueFalse[a];
+
+                            if(value){
+                                selectedLanguages.add(languages.get(a));
+                            }
+
+                            a++;
+                        }
+
+                    }
+                });
+
+                alertdialogbuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = alertdialogbuilder.create();
+
+                dialog.show();
+            }
+        });
+
+        getInitData();
     }
 
     @Override
@@ -78,6 +153,26 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         });
 
         startActivity(new Intent(Registration.this, Pop.class));
+    }
+
+
+
+    private void getInitData() {
+        // Get all languages
+        Call<List<Language>> call = apiInterface.getAllLanguages();
+        call.enqueue(new Callback<List<Language>>() {
+            @Override
+            public void onResponse(Call<List<Language>> call, Response<List<Language>> response) {
+                if (response.code() == 200) {
+                    languages = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Language>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     public static User getUser() { return user; }

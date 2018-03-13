@@ -55,7 +55,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-        l = (ListView) findViewById(R.id.ListView);
+        l = (ListView) findViewById(R.id.ListViewHome);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.single_row, R.id.labelMsgListView, data); //layout koji opisuje posebni red u ListView, zatim gde da smesta upisane podatke
 //        l.setAdapter(adapter);
 
@@ -68,21 +68,36 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        Intent i;
         switch(view.getId()){
             case R.id.buttonOffer:
+                if(Registration.getUser() == null){
+                    i = new Intent(this, MainActivity.class);
+                }
+                else {
+                    i = new Intent(this, Offer.class);
+                }
+
+                startActivity(i);
                 break;
 
             case R.id.buttonSearch:
                 break;
 
             case R.id.buttonProfile:
-                Intent i = new Intent(this, Profile.class);
+                if(Registration.getUser() == null){
+                    i = new Intent(this, MainActivity.class);
+                }
+                else {
+                    i = new Intent(this, Profile.class);
+                }
+
                 startActivity(i);
                 break;
 
             case R.id.buttonBack:
-                Intent j = new Intent(this, MainActivity.class);
-                startActivity(j);
+                i = new Intent(this, MainActivity.class);
+                startActivity(i);
                 break;
         }
 

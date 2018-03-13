@@ -12,10 +12,10 @@
         android:layout_height="30sp"
         android:layout_marginEnd="100dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/labelText1"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,24 +25,26 @@
         android:layout_width="150sp"
         android:layout_height="35sp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:gravity="center|start"
         android:text="@string/labelDepLoc"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelText1" />
+        app:layout_constraintTop_toBottomOf="@+id/labelText1"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/labelArrLoc"
         android:layout_width="150sp"
         android:layout_height="35sp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:gravity="center|start"
         android:text="@string/labelText3"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelDepLoc" />
+        app:layout_constraintTop_toBottomOf="@+id/labelDepLoc"
+        android:layout_marginLeft="16dp" />
 
     <EditText
         android:id="@+id/inputDepLoc"
@@ -50,13 +52,15 @@
         android:layout_height="35sp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/labelDepLoc"
-        app:layout_constraintTop_toBottomOf="@+id/labelText1" />
+        app:layout_constraintTop_toBottomOf="@+id/labelText1"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="16dp" />
 
     <EditText
         android:id="@+id/inputArrLoc"
@@ -64,25 +68,28 @@
         android:layout_height="35sp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/labelArrLoc"
-        app:layout_constraintTop_toBottomOf="@+id/labelDepLoc" />
+        app:layout_constraintTop_toBottomOf="@+id/labelDepLoc"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/labelDate"
         android:layout_width="150sp"
         android:layout_height="35sp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:gravity="center|start"
         android:text="@string/labelDate"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelArrLoc" />
+        app:layout_constraintTop_toBottomOf="@+id/labelArrLoc"
+        android:layout_marginLeft="16dp" />
 
     <EditText
         android:id="@+id/inputDate"
@@ -90,25 +97,29 @@
         android:layout_height="35sp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="date"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/labelDate"
-        app:layout_constraintTop_toBottomOf="@+id/inputArrLoc" />
+        app:layout_constraintTop_toBottomOf="@+id/inputArrLoc"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="16dp"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/labelTime"
         android:layout_width="150sp"
-        android:layout_height="35sp"
+        android:layout_height="35dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:gravity="center|start"
         android:text="@string/labelTime"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelDate" />
+        app:layout_constraintTop_toBottomOf="@+id/labelDate"
+        android:layout_marginLeft="16dp" />
 
     <EditText
         android:id="@+id/inputTime"
@@ -116,41 +127,108 @@
         android:layout_height="35sp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="time"
-        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/labelTime"
-        app:layout_constraintTop_toBottomOf="@+id/inputDate" />
+        app:layout_constraintTop_toBottomOf="@+id/inputDate"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:focusable="false"
+        android:textSize="14sp"/>
 
     <Button
         android:id="@+id/buttonGo"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginStart="117dp"
         android:text="@string/buttonOffer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelTime" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonProfile2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
         android:text="@string/buttonProfile"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp" />
 
     <Button
         android:id="@+id/buttonBack2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/buttonBack"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="16dp" />
+
+    <TextView
+        android:id="@+id/labelVehicleNumber"
+        android:layout_width="150sp"
+        android:layout_height="45sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center|start"
+        android:text="@string/vehiclenumber"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelTime"
+        android:layout_marginLeft="16dp" />
+
+    <EditText
+        android:id="@+id/inputVehicleNumber"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/labelVehicleNumber"
+        app:layout_constraintTop_toBottomOf="@+id/inputTime"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="16dp" />
+
+    <TextView
+        android:id="@+id/labelVehicleType"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center|start"
+        android:text="@string/vehicletype"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelVehicleNumber"
+        android:layout_marginLeft="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerVehicleType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/labelVehicleType"
+        app:layout_constraintTop_toBottomOf="@+id/inputVehicleNumber"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="16dp" />
+
 </android.support.constraint.ConstraintLayout>

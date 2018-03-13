@@ -1,15 +1,23 @@
 package com.example.toshiba.prenosrobe.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
 import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
+import com.example.toshiba.prenosrobe.data.ClaimerOffer;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,10 +29,13 @@ public class FragmentMyOffers extends Fragment {
 
     private ApiInterface apiInterface;
     private List<DriverOffer> driverOffers;
+    private ListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_fragment_my_offers, container, false);
+
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         String token = Registration.getUser().getToken();
@@ -34,6 +45,7 @@ public class FragmentMyOffers extends Fragment {
             public void onResponse(Call<List<DriverOffer>> call, Response<List<DriverOffer>> response) {
                 if(response.code() == 200) {
                     driverOffers = response.body();
+                    lv.setAdapter(new FragmentMyOffers.DriverOfferAdapter(getActivity(), driverOffers));
                 }
             }
 
@@ -43,8 +55,73 @@ public class FragmentMyOffers extends Fragment {
              }
         });
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_my_offers, container, false);
+        lv = (ListView) view.findViewById(R.id.ListViewMyOffers);
+
+        return view;
+    }
+
+    class DriverOfferAdapter extends BaseAdapter{
+
+        private List<DriverOffer> driverOffers = new ArrayList<>();
+        private int count;
+        private Context context;
+
+        public DriverOfferAdapter(Context context, List<DriverOffer> driverOffers){
+            this.context = context;
+            this.driverOffers = driverOffers;
+            this.count = driverOffers.size();
+        }
+
+        @Override
+        public int getCount() {
+            return count;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return driverOffers.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int index, View view, ViewGroup viewGroup) {
+
+            FragmentMyOffers.ViewHolder viewHolder;
+
+            final DriverOffer tempDriverOffer = driverOffers.get(index);
+
+            if (view == null) {
+                view = LayoutInflater.from(context).inflate(R.layout.single_row, null);
+                viewHolder = new FragmentMyOffers.ViewHolder();
+                viewHolder.labelMsgListView = (TextView) view.findViewById(R.id.labelMsgListView);
+                viewHolder.ImageView = (ImageView) view.findViewById(R.id.ImageView);
+
+                view.setTag(viewHolder);
+            }
+            else
+                viewHolder = (FragmentMyOffers.ViewHolder) view.getTag();
+
+            viewHolder.labelMsgListView.setText(tempDriverOffer.getArrivalLocation());
+            viewHolder.ImageView.setImageResource(R.drawable.ic_email_black_24dp);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((TextView) getActivity().findViewById(R.id.textView2)).setText((CharSequence) tempDriverOffer.getArrivalLocation());
+                }
+            });
+
+            return view;
+        }
+    }
+
+    static class ViewHolder {
+        ImageView ImageView;
+        TextView labelMsgListView;
     }
 
 }
