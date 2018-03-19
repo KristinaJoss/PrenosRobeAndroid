@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -70,7 +72,7 @@ public class Offer extends AppCompatActivity implements View.OnClickListener, Ad
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month ++;
-                date = new Date(year, month , day);
+                date = new Date(year - 1900, month , day);
                 inputDate.setText(day + "." + month + "." + year + ".");
             }
         };
@@ -78,7 +80,7 @@ public class Offer extends AppCompatActivity implements View.OnClickListener, Ad
         onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                time = new Time(hour,minute,0);
+                time = new Time(hour, minute,0);
                 inputTime.setText(hour + ":" + minute);
             }
         };
@@ -233,30 +235,33 @@ public class Offer extends AppCompatActivity implements View.OnClickListener, Ad
             @Override
             public void onClick(View view) {
                 Calendar cal = Calendar.getInstance();
-                int hour = cal.get(Calendar.HOUR);
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
                 int minute = cal.get(Calendar.MINUTE);
 
-                TimePickerDialog dialog = new TimePickerDialog(Offer.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth , onTimeSetListener, hour, minute, true);
+                TimePickerDialog dialog = new TimePickerDialog(Offer.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, onTimeSetListener, hour, minute, true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
 
-        inputVehicleNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        inputVehicleNumber.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(!hasFocus && !inputVehicleNumber.getText().toString().isEmpty()) {
+            public void beforeTextChanged(CharSequence text, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence text, int start, int before, int count) {
+                if (!text.toString().isEmpty()) {
                     Call<UserVehicle> call = apiInterface.getUserVehicleByRegistrationNumber(Registration.getUser().getToken(), inputVehicleNumber.getText().toString());
                     call.enqueue(new Callback<UserVehicle>() {
                         @Override
                         public void onResponse(Call<UserVehicle> call, Response<UserVehicle> response) {
                             if (response.code() == 200){
                                 userVehicle = response.body();
-                                spinnerVehicleType.setVisibility(View.GONE);
-                                labelVehicleType.setVisibility(View.GONE);
-                            } else if (response.code() == 400) {
-                                spinnerVehicleType.setVisibility(View.VISIBLE);
-                                labelVehicleType.setVisibility(View.VISIBLE);
+                                visualizeVehicleTypeWidgets(View.GONE);
+                            } else if (response.code() == 204) {
+                                visualizeVehicleTypeWidgets(View.VISIBLE);
                             }
                         }
 
@@ -266,7 +271,20 @@ public class Offer extends AppCompatActivity implements View.OnClickListener, Ad
                         }
                     });
                 }
+                else {
+                    visualizeVehicleTypeWidgets(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
+    }
+
+    private void visualizeVehicleTypeWidgets(int newView) {
+        spinnerVehicleType.setVisibility(newView);
+        labelVehicleType.setVisibility(newView);
     }
 }

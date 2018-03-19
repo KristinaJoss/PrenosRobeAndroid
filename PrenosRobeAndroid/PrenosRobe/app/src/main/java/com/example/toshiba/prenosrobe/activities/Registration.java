@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,10 +16,9 @@ import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.Language;
 import com.example.toshiba.prenosrobe.data.User;
-import com.example.toshiba.prenosrobe.data.VehicleType;
+import com.example.toshiba.prenosrobe.data.UserLanguage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -68,7 +66,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 for (int i = 0; i < languages.size(); i++)
                 {
                     languagesNames[i] = languages.get(i).getName();
-                    selectedTrueFalse[i] = false;
+                    selectedTrueFalse[i] = selectedLanguages.contains(languages.get(i));
                 }
 
                 alertdialogbuilder.setMultiChoiceItems(languagesNames, selectedTrueFalse, new DialogInterface.OnMultiChoiceClickListener() {
@@ -80,25 +78,20 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                 });
 
                 alertdialogbuilder.setCancelable(false);
-
                 alertdialogbuilder.setTitle("Selektujte jezike koje govorite.");
 
                 alertdialogbuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        int a = 0;
-                        while(a < selectedTrueFalse.length)
+                        selectedLanguages.clear();
+                        for (int i = 0; i < selectedTrueFalse.length; i++)
                         {
-                            boolean value = selectedTrueFalse[a];
+                            boolean selected = selectedTrueFalse[i];
 
-                            if(value){
-                                selectedLanguages.add(languages.get(a));
-                            }
-
-                            a++;
+                            if (selected)
+                                selectedLanguages.add(languages.get(i));
                         }
-
                     }
                 });
 
@@ -121,14 +114,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        User newUser = new User();
-        newUser.setName(inputName.getText().toString());
-        newUser.setSurname(inputSurname.getText().toString());
-        newUser.setUsername(inputUser.getText().toString());
-        newUser.setPassword(inputPass.getText().toString());
-        newUser.setEmail(inputEmail.getText().toString());
-        newUser.setPhoneNumber(inputPhone.getText().toString());
-
+        User newUser = createUser();
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         Call<User> call = apiInterface.register(newUser);
@@ -155,7 +141,31 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         startActivity(new Intent(Registration.this, Pop.class));
     }
 
+    private User createUser()
+    {
+        User newUser = new User();
+        newUser.setName(inputName.getText().toString());
+        newUser.setSurname(inputSurname.getText().toString());
+        newUser.setUsername(inputUser.getText().toString());
+        newUser.setPassword(inputPass.getText().toString());
+        newUser.setEmail(inputEmail.getText().toString());
+        newUser.setPhoneNumber(inputPhone.getText().toString());
+        newUser.setUserLanguages(getUserLanguagesByLanguages());
 
+        return newUser;
+    }
+
+    private List<UserLanguage> getUserLanguagesByLanguages()
+    {
+        List<UserLanguage> userLanguages = new ArrayList<>();
+        for(Language language : selectedLanguages)
+        {
+            UserLanguage userLanguage = new UserLanguage(null, language);
+            userLanguages.add(userLanguage);
+        }
+
+        return userLanguages;
+    }
 
     private void getInitData() {
         // Get all languages
