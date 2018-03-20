@@ -36,7 +36,7 @@ public class FragmentBookings extends Fragment {
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        String token = Registration.getUser().getToken();
+        String token = RegistrationActivity.getUser().getToken();
         Call<List<ClaimerOffer>> call = apiInterface.getMyClaimerOffers(token);
         call.enqueue(new Callback<List<ClaimerOffer>>() {
             @Override

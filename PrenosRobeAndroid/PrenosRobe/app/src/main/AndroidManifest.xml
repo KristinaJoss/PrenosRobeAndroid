@@ -14,19 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity"/>
-        <activity android:name=".activities.Registration" />
-        <activity android:name=".activities.Home">
+        <activity android:name=".activities.LogInActivity"/>
+        <activity android:name=".activities.RegistrationActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.Offer" />
-        <activity android:name=".activities.Search" />
-        <activity android:name=".activities.Profile"/>
+        <activity android:name=".activities.OfferActivity" />
+        <activity android:name=".activities.SearchActivity" />
+        <activity android:name=".activities.ProfileActivity"/>
         <activity
-            android:name=".activities.Pop"
+            android:name=".activities.PopActivity"
             android:theme="@style/AppTheme.PopUp">
         </activity>
     </application>

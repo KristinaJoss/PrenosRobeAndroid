@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
-import com.example.toshiba.prenosrobe.data.ClaimerOffer;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class FragmentMyOffers extends Fragment {
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        String token = Registration.getUser().getToken();
+        String token = RegistrationActivity.getUser().getToken();
         Call<List<DriverOffer>> call = apiInterface.getMyDriverOffers(token);
         call.enqueue(new Callback<List<DriverOffer>>() {
             @Override

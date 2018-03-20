@@ -1,106 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.toshiba.prenosrobe.activities.MainActivity">
 
-    <TextView
-        android:id="@+id/labelUsername"
-        android:layout_width="125sp"
-        android:layout_height="40sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center_vertical|start"
-        android:text="@string/email"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlCompat" />
+    <ListView
+        android:id="@+id/ListViewHome"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
 
     <TextView
-        android:id="@+id/labelPassword"
-        android:layout_width="125sp"
-        android:layout_height="40sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center_vertical|start"
-        android:text="@string/password"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelUsername"
-        tools:ignore="RtlCompat" />
+        android:id="@+id/textView2"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/ListViewHome"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
 
-    <EditText
-        android:id="@+id/inputMail"
-        android:layout_width="0dp"
-        android:layout_height="40sp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/labelUsername"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/inputPassword"
-        android:layout_width="0dp"
-        android:layout_height="40sp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/labelPassword"
-        app:layout_constraintTop_toBottomOf="@+id/inputMail"
-        tools:ignore="RtlCompat" />
-
-    <Button
-        android:id="@+id/buttonSignIn"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:text="@string/signin"
-        android:textColorLink="?android:attr/textColorHighlightInverse"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelPassword" />
+        android:layout_alignParentBottom="true">
 
-    <TextView
-        android:id="@+id/labelMsg1"
-        android:layout_width="0dp"
-        android:layout_height="35sp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/message"
-        android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSignIn" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/gradientbackgorund"
+            />
 
-    <Button
-        android:id="@+id/buttonSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="180dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/signup"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="16dp"
-        tools:ignore="RtlCompat" />
+        <android.support.design.widget.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottom_navigation"
+            app:itemBackground="@color/colorPrimary"
+            app:itemIconTint="@drawable/nav_item_color_state"
+            app:itemTextColor="@drawable/nav_item_color_state"
+            app:menu="@menu/bottom_navigation_main"
+            />
 
-</android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+
+
+
+</RelativeLayout>
