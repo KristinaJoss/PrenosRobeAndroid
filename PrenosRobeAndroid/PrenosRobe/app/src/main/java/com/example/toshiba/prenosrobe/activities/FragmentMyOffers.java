@@ -15,6 +15,7 @@ import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,18 +39,18 @@ public class FragmentMyOffers extends Fragment {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         String token = RegistrationActivity.getUser().getToken();
-        Call<List<DriverOffer>> call = apiInterface.getMyDriverOffers(token);
-        call.enqueue(new Callback<List<DriverOffer>>() {
+        Call<RestRespondeDto<List<DriverOffer>>> call = apiInterface.getMyDriverOffers(token);
+        call.enqueue(new Callback<RestRespondeDto<List<DriverOffer>>>() {
             @Override
-            public void onResponse(Call<List<DriverOffer>> call, Response<List<DriverOffer>> response) {
+            public void onResponse(Call<RestRespondeDto<List<DriverOffer>>> call, Response<RestRespondeDto<List<DriverOffer>>> response) {
                 if(response.code() == 200) {
-                    driverOffers = response.body();
+                    driverOffers = response.body().getData();
                     lv.setAdapter(new FragmentMyOffers.DriverOfferAdapter(getActivity(), driverOffers));
                 }
             }
 
              @Override
-             public void onFailure(Call<List<DriverOffer>> call, Throwable t) {
+             public void onFailure(Call<RestRespondeDto<List<DriverOffer>>> call, Throwable t) {
                  t.printStackTrace();
              }
         });

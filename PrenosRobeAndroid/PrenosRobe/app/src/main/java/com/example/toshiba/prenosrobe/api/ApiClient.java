@@ -1,6 +1,8 @@
 package com.example.toshiba.prenosrobe.api;
 
 
+import com.example.toshiba.prenosrobe.util.TimeDeserializer;
+import com.example.toshiba.prenosrobe.util.TimeSerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -12,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL="http://192.168.1.6:8080/";
+    public static final String BASE_URL="http://10.10.14.49:8080/";
     private static Retrofit retrofit = null;
     static private Gson gson = new GsonBuilder().registerTypeAdapter(Time.class, new TimeDeserializer()).registerTypeAdapter(Time.class, new TimeSerializer()).setDateFormat("yyyy-MM-dd HH:mm").create();
 

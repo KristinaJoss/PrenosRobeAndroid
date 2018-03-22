@@ -27,6 +27,7 @@ import com.example.toshiba.prenosrobe.data.OfferStatus;
 import com.example.toshiba.prenosrobe.data.UserVehicle;
 import com.example.toshiba.prenosrobe.data.Vehicle;
 import com.example.toshiba.prenosrobe.data.VehicleType;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -143,18 +144,18 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
     {
         DriverOffer newDriverOffer = createDriverOffer();
 
-        Call<DriverOffer> call = apiInterface.addDriverOffer(RegistrationActivity.getUser().getToken(), newDriverOffer);
-        call.enqueue(new Callback<DriverOffer>() {
+        Call<RestRespondeDto<DriverOffer>> call = apiInterface.addDriverOffer(RegistrationActivity.getUser().getToken(), newDriverOffer);
+        call.enqueue(new Callback<RestRespondeDto<DriverOffer>>() {
             @Override
-            public void onResponse(Call<DriverOffer> call, Response<DriverOffer> response) {
-                if(response.code() == 200){
+            public void onResponse(Call<RestRespondeDto<DriverOffer>> call, Response<RestRespondeDto<DriverOffer>> response) {
+                if(response.code() == 201){
                     Intent i = i = new Intent(OfferActivity.this, MainActivity.class);
                     startActivity(i);
                 }
             }
 
             @Override
-            public void onFailure(Call<DriverOffer> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<DriverOffer>> call, Throwable t) {
                 t.printStackTrace();
             }
         });
@@ -176,12 +177,12 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
     private void getInitData()
     {
         // Get all vehicle types
-        Call<List<VehicleType>> call = apiInterface.getAllVehicleTypes(RegistrationActivity.getUser().getToken());
-        call.enqueue(new Callback<List<VehicleType>>() {
+        Call<RestRespondeDto<List<VehicleType>>> call = apiInterface.getAllVehicleTypes(RegistrationActivity.getUser().getToken());
+        call.enqueue(new Callback<RestRespondeDto<List<VehicleType>>>() {
             @Override
-            public void onResponse(Call<List<VehicleType>> call, Response<List<VehicleType>> response) {
+            public void onResponse(Call<RestRespondeDto<List<VehicleType>>> call, Response<RestRespondeDto<List<VehicleType>>> response) {
                 if(response.code() == 200){
-                    vehicleTypes = response.body();
+                    vehicleTypes = response.body().getData();
                     List<String> vehicleTypesNames = new ArrayList<>();
 
                     for (VehicleType vehicleType : vehicleTypes)
@@ -194,22 +195,22 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override
-            public void onFailure(Call<List<VehicleType>> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<List<VehicleType>>> call, Throwable t) {
                 t.printStackTrace();
             }
         });
 
         // Get all offer statuses
-        Call<List<OfferStatus>> call2 = apiInterface.getAllOfferStatuses();
-        call2.enqueue(new Callback<List<OfferStatus>>() {
+        Call<RestRespondeDto<List<OfferStatus>>> call2 = apiInterface.getAllOfferStatuses();
+        call2.enqueue(new Callback<RestRespondeDto<List<OfferStatus>>>() {
             @Override
-            public void onResponse(Call<List<OfferStatus>> call, Response<List<OfferStatus>> response) {
+            public void onResponse(Call<RestRespondeDto<List<OfferStatus>>> call, Response<RestRespondeDto<List<OfferStatus>>> response) {
                 if(response.code() == 200)
-                    offerStatuses = response.body();
+                    offerStatuses = response.body().getData();
             }
 
             @Override
-            public void onFailure(Call<List<OfferStatus>> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<List<OfferStatus>>> call, Throwable t) {
                 t.printStackTrace();
             }
         });
@@ -253,12 +254,12 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onTextChanged(CharSequence text, int start, int before, int count) {
                 if (!text.toString().isEmpty()) {
-                    Call<UserVehicle> call = apiInterface.getUserVehicleByRegistrationNumber(RegistrationActivity.getUser().getToken(), inputVehicleNumber.getText().toString());
-                    call.enqueue(new Callback<UserVehicle>() {
+                    Call<RestRespondeDto<UserVehicle>> call = apiInterface.getUserVehicleByRegistrationNumber(RegistrationActivity.getUser().getToken(), inputVehicleNumber.getText().toString());
+                    call.enqueue(new Callback<RestRespondeDto<UserVehicle>>() {
                         @Override
-                        public void onResponse(Call<UserVehicle> call, Response<UserVehicle> response) {
+                        public void onResponse(Call<RestRespondeDto<UserVehicle>> call, Response<RestRespondeDto<UserVehicle>> response) {
                             if (response.code() == 200){
-                                userVehicle = response.body();
+                                userVehicle = response.body().getData();
                                 visualizeVehicleTypeWidgets(View.GONE);
                             } else if (response.code() == 204) {
                                 visualizeVehicleTypeWidgets(View.VISIBLE);
@@ -266,7 +267,7 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
                         }
 
                         @Override
-                        public void onFailure(Call<UserVehicle> call, Throwable t) {
+                        public void onFailure(Call<RestRespondeDto<UserVehicle>> call, Throwable t) {
                             t.printStackTrace();
                         }
                     });

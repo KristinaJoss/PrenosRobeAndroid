@@ -12,6 +12,7 @@ import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.User;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,12 +61,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<User> call = apiInterface.login(newUser);
-        call.enqueue(new Callback<User>() {
+        Call<RestRespondeDto<User>> call = apiInterface.login(newUser);
+        call.enqueue(new Callback<RestRespondeDto<User>>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<RestRespondeDto<User>> call, Response<RestRespondeDto<User>> response) {
                 if (response.code() == 200) {
-                    RegistrationActivity.setUser(response.body());
+                    RegistrationActivity.setUser(response.body().getData());
 
                     Intent i = new Intent(LogInActivity.this, MainActivity.class);
                     startActivity(i);
@@ -73,7 +74,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<User>> call, Throwable t) {
                 t.printStackTrace();
             }
         });

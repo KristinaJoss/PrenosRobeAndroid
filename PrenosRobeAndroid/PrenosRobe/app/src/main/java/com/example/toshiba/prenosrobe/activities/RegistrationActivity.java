@@ -17,6 +17,7 @@ import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.Language;
 import com.example.toshiba.prenosrobe.data.User;
 import com.example.toshiba.prenosrobe.data.UserLanguage;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,12 +118,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         User newUser = createUser();
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<User> call = apiInterface.register(newUser);
-        call.enqueue(new Callback<User>() {
+        Call<RestRespondeDto<User>> call = apiInterface.register(newUser);
+        call.enqueue(new Callback<RestRespondeDto<User>>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<RestRespondeDto<User>> call, Response<RestRespondeDto<User>> response) {
                 if(response.code() == 201){
-                    user = response.body();
+                    user = response.body().getData();
                     labelMsg2.setText("Pozdrav  " + response.code());
                 }
                 else
@@ -132,7 +133,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<User>> call, Throwable t) {
                 labelMsg2.setText("neeeeeeee");
                 t.printStackTrace();
             }
@@ -169,17 +170,17 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     private void getInitData() {
         // Get all languages
-        Call<List<Language>> call = apiInterface.getAllLanguages();
-        call.enqueue(new Callback<List<Language>>() {
+        Call<RestRespondeDto<List<Language>>> call = apiInterface.getAllLanguages();
+        call.enqueue(new Callback<RestRespondeDto<List<Language>>>() {
             @Override
-            public void onResponse(Call<List<Language>> call, Response<List<Language>> response) {
+            public void onResponse(Call<RestRespondeDto<List<Language>>> call, Response<RestRespondeDto<List<Language>>> response) {
                 if (response.code() == 200) {
-                    languages = response.body();
+                    languages = response.body().getData();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Language>> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<List<Language>>> call, Throwable t) {
                 t.printStackTrace();
             }
         });

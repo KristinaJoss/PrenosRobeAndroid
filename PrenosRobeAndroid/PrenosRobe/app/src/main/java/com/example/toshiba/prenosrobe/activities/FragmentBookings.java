@@ -15,6 +15,7 @@ import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.ClaimerOffer;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,18 +38,18 @@ public class FragmentBookings extends Fragment {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         String token = RegistrationActivity.getUser().getToken();
-        Call<List<ClaimerOffer>> call = apiInterface.getMyClaimerOffers(token);
-        call.enqueue(new Callback<List<ClaimerOffer>>() {
+        Call<RestRespondeDto<List<ClaimerOffer>>> call = apiInterface.getMyClaimerOffers(token);
+        call.enqueue(new Callback<RestRespondeDto<List<ClaimerOffer>>>() {
             @Override
-            public void onResponse(Call<List<ClaimerOffer>> call, Response<List<ClaimerOffer>> response) {
+            public void onResponse(Call<RestRespondeDto<List<ClaimerOffer>>> call, Response<RestRespondeDto<List<ClaimerOffer>>> response) {
                 if(response.code() == 200) {
-                    claimerOffers = response.body();
+                    claimerOffers = response.body().getData();
                     lv .setAdapter(new FragmentBookings.ClaimerOfferAdapter(getActivity(), claimerOffers));
                 }
             }
 
             @Override
-            public void onFailure(Call<List<ClaimerOffer>> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<List<ClaimerOffer>>> call, Throwable t) {
                 t.printStackTrace();
             }
         });

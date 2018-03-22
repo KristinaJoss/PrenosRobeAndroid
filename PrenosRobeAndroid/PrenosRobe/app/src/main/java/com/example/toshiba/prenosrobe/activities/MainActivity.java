@@ -21,6 +21,7 @@ import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,18 +43,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<List<DriverOffer>> call = apiInterface.getAllDriverOffers();
-        call.enqueue(new Callback<List<DriverOffer>>() {
+        Call<RestRespondeDto<List<DriverOffer>>> call = apiInterface.getAllDriverOffers();
+        call.enqueue(new Callback<RestRespondeDto<List<DriverOffer>>>() {
             @Override
-            public void onResponse(Call<List<DriverOffer>> call, Response<List<DriverOffer>> response) {
+            public void onResponse(Call<RestRespondeDto<List<DriverOffer>>> call, Response<RestRespondeDto<List<DriverOffer>>> response) {
                 if(response.code() == 200){
-                    driverOffers = response.body();
+                    driverOffers = response.body().getData();
                     l.setAdapter(new DriverOfferAdapter(MainActivity.this, driverOffers));
                 }
             }
 
             @Override
-            public void onFailure(Call<List<DriverOffer>> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<List<DriverOffer>>> call, Throwable t) {
                 t.printStackTrace();
                 ((TextView) findViewById(R.id.textView2)).setText("neeeeeee");
             }

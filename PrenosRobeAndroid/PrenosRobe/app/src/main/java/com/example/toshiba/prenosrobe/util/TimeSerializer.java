@@ -1,4 +1,4 @@
-package com.example.toshiba.prenosrobe.api;
+package com.example.toshiba.prenosrobe.util;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
