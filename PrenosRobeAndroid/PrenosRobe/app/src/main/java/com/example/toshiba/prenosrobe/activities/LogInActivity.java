@@ -68,8 +68,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 if (response.code() == 200) {
                     RegistrationActivity.setUser(response.body().getData());
 
-                    Intent i = new Intent(LogInActivity.this, MainActivity.class);
-                    startActivity(i);
+                   startNextActivity();
                 }
             }
 
@@ -78,5 +77,20 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 t.printStackTrace();
             }
         });
+    }
+
+    public void startNextActivity()
+    {
+        Bundle extras = getIntent().getExtras();
+        String newActivityName = extras.getString("class");
+        Class<?> newActivityClass;
+        try {
+            newActivityClass = Class.forName(newActivityName);
+
+        } catch (ClassNotFoundException e) {
+            newActivityClass = MainActivity.class;
+        }
+        Intent i = new Intent(LogInActivity.this, newActivityClass);
+        startActivity(i);
     }
 }

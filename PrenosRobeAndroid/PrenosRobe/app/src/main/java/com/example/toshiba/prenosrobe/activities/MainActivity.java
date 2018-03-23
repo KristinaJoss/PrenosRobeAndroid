@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_offer:
                         if(RegistrationActivity.getUser() == null){
                             i = new Intent(MainActivity.this, LogInActivity.class);
+                            i.putExtra("class", "com.example.toshiba.prenosrobe.activities.OfferActivity");
                         }
                         else {
                             i = new Intent(MainActivity.this, OfferActivity.class);
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_profile:
                         if(RegistrationActivity.getUser() == null){
                             i = new Intent(MainActivity.this, LogInActivity.class);
+                            i.putExtra("class", "com.example.toshiba.prenosrobe.activities.ProfileActivity");
                         }
                         else {
                             i = new Intent(MainActivity.this, ProfileActivity.class);
