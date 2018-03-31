@@ -11,12 +11,13 @@ import android.widget.Button;
 import com.example.toshiba.prenosrobe.R;
 
 
-public class PopActivity extends Activity {
-
+public class PopActivity extends Activity
+{
     private Button buttonOK;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.popup);
@@ -24,7 +25,8 @@ public class PopActivity extends Activity {
         buttonOK = (Button) findViewById(R.id.buttonOK);
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 startNextActivity();
             }
         });
@@ -51,12 +53,13 @@ public class PopActivity extends Activity {
     public void startNextActivity()
     {
         Bundle extras = getIntent().getExtras();
-        String newActivityName = extras.getString("class");
+        String nextActivityName = extras.getString("class");
         Class<?> newActivityClass;
-        try {
-            newActivityClass = Class.forName(newActivityName);
-
-        } catch (ClassNotFoundException e) {
+        try
+        {
+            newActivityClass = Class.forName(nextActivityName);
+        } catch (ClassNotFoundException e)
+        {
             newActivityClass = MainActivity.class;
         }
         Intent i = new Intent(PopActivity.this, newActivityClass);

@@ -23,15 +23,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ProfileActivity extends AppCompatActivity {
-
+public class ProfileActivity extends AppCompatActivity
+{
     private ApiInterface apiInterface;
     private MagicButton magicButton;
     private TextView email, phone, nameSurname;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
@@ -45,11 +45,11 @@ public class ProfileActivity extends AppCompatActivity {
         phone.setText(RegistrationActivity.getUser().getPhoneNumber());
         nameSurname.setText(RegistrationActivity.getUser().getName() + " " + RegistrationActivity.getUser().getSurname());
 
-        Fragment navfragment = new NavigationFragment();
-        ((NavigationFragment) navfragment).setSelectedId(R.id.action_profile);
+        Fragment navigationFragment = new NavigationFragment();
+        ((NavigationFragment) navigationFragment).setSelectedId(R.id.action_profile);
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.bottom_navigation, navfragment);
+        ft.add(R.id.bottom_navigation, navigationFragment);
         ft.commit();
 
         magicButton = (MagicButton) findViewById(R.id.magicButton);
@@ -60,7 +60,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                 String token = RegistrationActivity.getUser().getToken();
                 Call<Void> call = apiInterface.logout(token);
-                call.enqueue(new Callback<Void>() {
+                call.enqueue(new Callback<Void>()
+                {
                      @Override
                      public void onResponse(Call<Void> call, Response<Void> response)
                      {
@@ -78,15 +79,16 @@ public class ProfileActivity extends AppCompatActivity {
                          t.printStackTrace();
                      }
                  });
-
             }
         });
     }
 
-    public void ChangeFragment (View view){
+    public void ChangeFragment (View view)
+    {
         Fragment fragment;
 
-        if (view == findViewById(R.id.buttonBookings)){
+        if (view == findViewById(R.id.buttonBookings))
+        {
             fragment = new FragmentBookings();
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -94,7 +96,8 @@ public class ProfileActivity extends AppCompatActivity {
             ft.commit(); //kad god se pocne transakcija, ona mora da se komituje!
         }
 
-        else if (view == findViewById(R.id.buttonMyOffer)){
+        else if (view == findViewById(R.id.buttonMyOffer))
+        {
             fragment = new FragmentMyOffers();
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
@@ -102,7 +105,4 @@ public class ProfileActivity extends AppCompatActivity {
             ft.commit();
         }
     }
-
-
-
 }

@@ -1,6 +1,5 @@
 package com.example.toshiba.prenosrobe.activities;
 
-
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -20,6 +19,7 @@ import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.Language;
 import com.example.toshiba.prenosrobe.data.User;
 import com.example.toshiba.prenosrobe.data.UserLanguage;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
 import java.util.ArrayList;
@@ -29,8 +29,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener
+{
     private ApiInterface apiInterface;
     private EditText inputName, inputSurname, inputPhone, inputEmail, inputUser, inputPass;
     private TextView labelMsg2;
@@ -41,7 +41,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private boolean[] selectedTrueFalse;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
@@ -73,12 +74,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     selectedTrueFalse[i] = selectedLanguages.contains(languages.get(i));
                 }
 
-                alertdialogbuilder.setMultiChoiceItems(languagesNames, selectedTrueFalse, new DialogInterface.OnMultiChoiceClickListener() {
-
+                alertdialogbuilder.setMultiChoiceItems(languagesNames, selectedTrueFalse, new DialogInterface.OnMultiChoiceClickListener()
+                {
                     @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-
-                    }
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {}
                 });
 
                 alertdialogbuilder.setCancelable(false);
@@ -86,8 +85,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
                 alertdialogbuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
+                    public void onClick(DialogInterface dialog, int which)
+                    {
                         selectedLanguages.clear();
                         for (int i = 0; i < selectedTrueFalse.length; i++)
                         {
@@ -99,11 +98,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     }
                 });
 
-                alertdialogbuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-
+                alertdialogbuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
+                {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
+                    public void onClick(DialogInterface dialog, int which) {}
                 });
 
                 AlertDialog dialog = alertdialogbuilder.create();
@@ -123,17 +121,20 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
-    public void onClick(View view) {
-
+    public void onClick(View view)
+    {
         User newUser = createUser();
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<User> call = apiInterface.register(newUser);
-        call.enqueue(new Callback<User>() {
+        Call<RestRespondeDto<User>> call = apiInterface.register(newUser);
+        call.enqueue(new Callback<RestRespondeDto<User>>()
+        {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if(response.code() == 201){
-                    user = response.body();
+            public void onResponse(Call<RestRespondeDto<User>> call, Response<RestRespondeDto<User>> response)
+            {
+                if(response.code() == 201)
+                {
+                    user = response.body().getData();
                     labelMsg2.setText("Pozdrav  " + response.code());
                     startNextActivity();
                 }
@@ -141,19 +142,18 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 {
                     labelMsg2.setText(":((  " + response.code() + "  " + response.message());
                     Intent i = new Intent(RegistrationActivity.this, ErrorPopActivity.class);
-//                    i.putExtra("errors", response.body().get)
+                    i.putExtra("errors", response.body());
                     startActivity(i);
                 }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<User>> call, Throwable t)
+            {
                 labelMsg2.setText("neeeeeeee");
                 t.printStackTrace();
             }
         });
-
-
     }
 
     private User createUser()
@@ -182,19 +182,23 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         return userLanguages;
     }
 
-    private void getInitData() {
+    private void getInitData()
+    {
         // Get all languages
-        Call<List<Language>> call = apiInterface.getAllLanguages();
-        call.enqueue(new Callback<List<Language>>() {
+        Call<RestRespondeDto<List<Language>>> call = apiInterface.getAllLanguages();
+        call.enqueue(new Callback<RestRespondeDto<List<Language>>>() {
             @Override
-            public void onResponse(Call<List<Language>> call, Response<List<Language>> response) {
-                if (response.code() == 200) {
-                    languages = response.body();
+            public void onResponse(Call<RestRespondeDto<List<Language>>> call, Response<RestRespondeDto<List<Language>>> response)
+            {
+                if (response.code() == 200)
+                {
+                    languages = response.body().getData();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Language>> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<List<Language>>> call, Throwable t)
+            {
                 t.printStackTrace();
             }
         });
@@ -206,9 +210,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
     public void startNextActivity()
     {
-        String newActivityName = getIntent().getExtras().getString("class");
+        String nextActivityName = getIntent().getExtras().getString("class");
         Intent i = new Intent(RegistrationActivity.this, PopActivity.class);
-        i.putExtra("class", newActivityName);
+        i.putExtra("class", nextActivityName);
         startActivity(i);
     }
 }

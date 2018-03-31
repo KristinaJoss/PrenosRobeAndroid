@@ -30,6 +30,7 @@ import com.example.toshiba.prenosrobe.data.OfferStatus;
 import com.example.toshiba.prenosrobe.data.UserVehicle;
 import com.example.toshiba.prenosrobe.data.Vehicle;
 import com.example.toshiba.prenosrobe.data.VehicleType;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
 import java.sql.Time;
@@ -42,8 +43,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OfferActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener{
-
+public class OfferActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener
+{
     private ApiInterface apiInterface;
     private EditText inputDepLoc, inputArrLoc, inputDate, inputTime, inputVehicleNumber;
     private TextView labelDepLoc, labelArrLoc, labelDate, labelTime, labelVehicleNumber, labelVehicleType, labelText1;
@@ -58,7 +59,8 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
     private TimePickerDialog.OnTimeSetListener onTimeSetListener;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer);
 
@@ -72,18 +74,22 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
         labelVehicleType = (TextView) findViewById(R.id.labelVehicleType);
         spinnerVehicleType = (Spinner) findViewById(R.id.spinnerVehicleType);
 
-        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        onDateSetListener = new DatePickerDialog.OnDateSetListener()
+        {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+            public void onDateSet(DatePicker datePicker, int year, int month, int day)
+            {
                 month ++;
                 date = new Date(year - 1900, month , day);
                 inputDate.setText(day + "." + month + "." + year + ".");
             }
         };
 
-        onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        onTimeSetListener = new TimePickerDialog.OnTimeSetListener()
+        {
             @Override
-            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+            public void onTimeSet(TimePicker timePicker, int hour, int minute)
+            {
                 time = new Time(hour, minute,0);
                 inputTime.setText(hour + ":" + minute);
             }
@@ -124,7 +130,8 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private DriverOffer createDriverOffer() {
+    private DriverOffer createDriverOffer()
+    {
         DriverOffer newDriverOffer = new DriverOffer();
         newDriverOffer.setDepartureLocation(inputDepLoc.getText().toString());
         newDriverOffer.setArrivalLocation(inputArrLoc.getText().toString());
@@ -136,8 +143,10 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
         return newDriverOffer;
     }
 
-    private UserVehicle createUserVehicle(){
-        if (userVehicle == null) {
+    private UserVehicle createUserVehicle()
+    {
+        if (userVehicle == null)
+        {
             Vehicle vehicle = new Vehicle();
             vehicle.setVehicleType(selectedVehicleTypes);
             vehicle.setRegistrationNumber(inputVehicleNumber.getText().toString());
@@ -154,45 +163,49 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
     {
         DriverOffer newDriverOffer = createDriverOffer();
 
-        Call<DriverOffer> call = apiInterface.addDriverOffer(RegistrationActivity.getUser().getToken(), newDriverOffer);
-        call.enqueue(new Callback<DriverOffer>() {
+        Call<RestRespondeDto<DriverOffer>> call = apiInterface.addDriverOffer(RegistrationActivity.getUser().getToken(), newDriverOffer);
+        call.enqueue(new Callback<RestRespondeDto<DriverOffer>>()
+        {
             @Override
-            public void onResponse(Call<DriverOffer> call, Response<DriverOffer> response) {
-                if(response.code() == 200){
-                    Intent i = i = new Intent(OfferActivity.this, MainActivity.class);
+            public void onResponse(Call<RestRespondeDto<DriverOffer>> call, Response<RestRespondeDto<DriverOffer>> response)
+            {
+                if(response.code() == 201)
+                {
+                    Intent i = new Intent(OfferActivity.this, MainActivity.class);
                     startActivity(i);
                 }
             }
 
             @Override
-            public void onFailure(Call<DriverOffer> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<DriverOffer>> call, Throwable t)
+            {
                 t.printStackTrace();
             }
         });
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+    {
       // Toast.makeText(getApplicationContext(),vehicleTypes.get(i).getName(), Toast.LENGTH_LONG).show();
         selectedVehicleTypes = vehicleTypes.get(i);
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
+    public void onNothingSelected(AdapterView<?> adapterView) {}
 
     public static List<OfferStatus> getOfferStatuses() { return offerStatuses; }
 
     private void getInitData()
     {
         // Get all vehicle types
-        Call<List<VehicleType>> call = apiInterface.getAllVehicleTypes(RegistrationActivity.getUser().getToken());
-        call.enqueue(new Callback<List<VehicleType>>() {
+        Call<RestRespondeDto<List<VehicleType>>> call = apiInterface.getAllVehicleTypes(RegistrationActivity.getUser().getToken());
+        call.enqueue(new Callback<RestRespondeDto<List<VehicleType>>>() {
             @Override
-            public void onResponse(Call<List<VehicleType>> call, Response<List<VehicleType>> response) {
-                if(response.code() == 200){
-                    vehicleTypes = response.body();
+            public void onResponse(Call<RestRespondeDto<List<VehicleType>>> call, Response<RestRespondeDto<List<VehicleType>>> response) {
+                if(response.code() == 200)
+                {
+                    vehicleTypes = response.body().getData();
                     List<String> vehicleTypesNames = new ArrayList<>();
 
                     for (VehicleType vehicleType : vehicleTypes)
@@ -205,22 +218,26 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override
-            public void onFailure(Call<List<VehicleType>> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<List<VehicleType>>> call, Throwable t)
+            {
                 t.printStackTrace();
             }
         });
 
         // Get all offer statuses
-        Call<List<OfferStatus>> call2 = apiInterface.getAllOfferStatuses();
-        call2.enqueue(new Callback<List<OfferStatus>>() {
+        Call<RestRespondeDto<List<OfferStatus>>> call2 = apiInterface.getAllOfferStatuses();
+        call2.enqueue(new Callback<RestRespondeDto<List<OfferStatus>>>()
+        {
             @Override
-            public void onResponse(Call<List<OfferStatus>> call, Response<List<OfferStatus>> response) {
+            public void onResponse(Call<RestRespondeDto<List<OfferStatus>>> call, Response<RestRespondeDto<List<OfferStatus>>> response)
+            {
                 if(response.code() == 200)
-                    offerStatuses = response.body();
+                    offerStatuses = response.body().getData();
             }
 
             @Override
-            public void onFailure(Call<List<OfferStatus>> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<List<OfferStatus>>> call, Throwable t)
+            {
                 t.printStackTrace();
             }
         });
@@ -257,44 +274,45 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
 
         inputVehicleNumber.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence text, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence text, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence text, int start, int before, int count) {
-                if (!text.toString().isEmpty()) {
-                    Call<UserVehicle> call = apiInterface.getUserVehicleByRegistrationNumber(RegistrationActivity.getUser().getToken(), inputVehicleNumber.getText().toString());
-                    call.enqueue(new Callback<UserVehicle>() {
+            public void onTextChanged(CharSequence text, int start, int before, int count)
+            {
+                if (!text.toString().isEmpty())
+                {
+                    Call<RestRespondeDto<UserVehicle>> call = apiInterface.getUserVehicleByRegistrationNumber(RegistrationActivity.getUser().getToken(), inputVehicleNumber.getText().toString());
+                    call.enqueue(new Callback<RestRespondeDto<UserVehicle>>()
+                    {
                         @Override
-                        public void onResponse(Call<UserVehicle> call, Response<UserVehicle> response) {
-                            if (response.code() == 200){
-                                userVehicle = response.body();
+                        public void onResponse(Call<RestRespondeDto<UserVehicle>> call, Response<RestRespondeDto<UserVehicle>> response)
+                        {
+                            if (response.code() == 200)
+                            {
+                                userVehicle = response.body().getData();
                                 visualizeVehicleTypeWidgets(View.GONE);
-                            } else if (response.code() == 204) {
+                            } else if (response.code() == 204)
                                 visualizeVehicleTypeWidgets(View.VISIBLE);
-                            }
                         }
 
                         @Override
-                        public void onFailure(Call<UserVehicle> call, Throwable t) {
+                        public void onFailure(Call<RestRespondeDto<UserVehicle>> call, Throwable t)
+                        {
                             t.printStackTrace();
                         }
                     });
                 }
-                else {
+                else
                     visualizeVehicleTypeWidgets(View.GONE);
-                }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) {}
         });
     }
 
-    private void visualizeVehicleTypeWidgets(int newView) {
+    private void visualizeVehicleTypeWidgets(int newView)
+    {
         spinnerVehicleType.setVisibility(newView);
         labelVehicleType.setVisibility(newView);
     }

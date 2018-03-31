@@ -16,6 +16,7 @@ import com.example.toshiba.prenosrobe.activities.RegistrationActivity;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.ClaimerOffer;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,32 +26,36 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentBookings extends Fragment {
-
+public class FragmentBookings extends Fragment
+{
     private ApiInterface apiInterface;
     private List<ClaimerOffer> claimerOffers;
     private ListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_fragment_bookings, container, false);
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         String token = RegistrationActivity.getUser().getToken();
-        Call<List<ClaimerOffer>> call = apiInterface.getMyClaimerOffers(token);
-        call.enqueue(new Callback<List<ClaimerOffer>>() {
+        Call<RestRespondeDto<List<ClaimerOffer>>> call = apiInterface.getMyClaimerOffers(token);
+        call.enqueue(new Callback<RestRespondeDto<List<ClaimerOffer>>>()
+        {
             @Override
-            public void onResponse(Call<List<ClaimerOffer>> call, Response<List<ClaimerOffer>> response) {
-                if(response.code() == 200) {
-                    claimerOffers = response.body();
+            public void onResponse(Call<RestRespondeDto<List<ClaimerOffer>>> call, Response<RestRespondeDto<List<ClaimerOffer>>> response) {
+                if(response.code() == 200)
+                {
+                    claimerOffers = response.body().getData();
                     lv .setAdapter(new FragmentBookings.ClaimerOfferAdapter(getActivity(), claimerOffers));
                 }
             }
 
             @Override
-            public void onFailure(Call<List<ClaimerOffer>> call, Throwable t) {
+            public void onFailure(Call<RestRespondeDto<List<ClaimerOffer>>> call, Throwable t)
+            {
                 t.printStackTrace();
             }
         });
@@ -60,13 +65,14 @@ public class FragmentBookings extends Fragment {
         return view;
     }
 
-    class ClaimerOfferAdapter extends BaseAdapter {
-
-        private List<ClaimerOffer> claimerOffers = new ArrayList<>();
+    class ClaimerOfferAdapter extends BaseAdapter
+    {
+       private List<ClaimerOffer> claimerOffers = new ArrayList<>();
         private int count;
         private Context context;
 
-        public ClaimerOfferAdapter(Context context, List<ClaimerOffer> claimerOffers){
+        public ClaimerOfferAdapter(Context context, List<ClaimerOffer> claimerOffers)
+        {
             this.context = context;
             this.claimerOffers = claimerOffers;
             this.count = claimerOffers.size();
@@ -88,13 +94,14 @@ public class FragmentBookings extends Fragment {
         }
 
         @Override
-        public View getView(int index, View view, ViewGroup viewGroup) {
-
+        public View getView(int index, View view, ViewGroup viewGroup)
+        {
             FragmentBookings.ViewHolder viewHolder;
 
             final ClaimerOffer tempClaimerOffer = claimerOffers.get(index);
 
-            if (view == null) {
+            if (view == null)
+            {
                 view = LayoutInflater.from(context).inflate(R.layout.single_row, null);
                 viewHolder = new FragmentBookings.ViewHolder();
                 viewHolder.labelMsgListView = (TextView) view.findViewById(R.id.labelMsgListView);
@@ -125,9 +132,9 @@ public class FragmentBookings extends Fragment {
         }
     }
 
-    static class ViewHolder {
+    static class ViewHolder
+    {
         ImageView ImageView;
         TextView labelMsgListView, listViewDate, listViewUsername;
     }
-
 }

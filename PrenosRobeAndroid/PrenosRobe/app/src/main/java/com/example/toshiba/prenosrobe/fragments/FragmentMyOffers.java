@@ -16,6 +16,7 @@ import com.example.toshiba.prenosrobe.activities.RegistrationActivity;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,32 +27,37 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FragmentMyOffers extends Fragment {
-
+public class FragmentMyOffers extends Fragment
+{
     private ApiInterface apiInterface;
     private List<DriverOffer> driverOffers;
     private ListView lv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_fragment_my_offers, container, false);
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         String token = RegistrationActivity.getUser().getToken();
-        Call<List<DriverOffer>> call = apiInterface.getMyDriverOffers(token);
-        call.enqueue(new Callback<List<DriverOffer>>() {
+        Call<RestRespondeDto<List<DriverOffer>>> call = apiInterface.getMyDriverOffers(token);
+        call.enqueue(new Callback<RestRespondeDto<List<DriverOffer>>>()
+        {
             @Override
-            public void onResponse(Call<List<DriverOffer>> call, Response<List<DriverOffer>> response) {
-                if(response.code() == 200) {
-                    driverOffers = response.body();
+            public void onResponse(Call<RestRespondeDto<List<DriverOffer>>> call, Response<RestRespondeDto<List<DriverOffer>>> response)
+            {
+                if(response.code() == 200)
+                {
+                    driverOffers = response.body().getData();
                     lv.setAdapter(new FragmentMyOffers.DriverOfferAdapter(getActivity(), driverOffers));
                 }
             }
 
              @Override
-             public void onFailure(Call<List<DriverOffer>> call, Throwable t) {
+             public void onFailure(Call<RestRespondeDto<List<DriverOffer>>> call, Throwable t)
+             {
                  t.printStackTrace();
              }
         });
@@ -61,13 +67,14 @@ public class FragmentMyOffers extends Fragment {
         return view;
     }
 
-    class DriverOfferAdapter extends BaseAdapter{
-
+    class DriverOfferAdapter extends BaseAdapter
+    {
         private List<DriverOffer> driverOffers = new ArrayList<>();
         private int count;
         private Context context;
 
-        public DriverOfferAdapter(Context context, List<DriverOffer> driverOffers){
+        public DriverOfferAdapter(Context context, List<DriverOffer> driverOffers)
+        {
             this.context = context;
             this.driverOffers = driverOffers;
             this.count = driverOffers.size();
@@ -89,13 +96,14 @@ public class FragmentMyOffers extends Fragment {
         }
 
         @Override
-        public View getView(int index, View view, ViewGroup viewGroup) {
-
+        public View getView(int index, View view, ViewGroup viewGroup)
+        {
             FragmentMyOffers.ViewHolder viewHolder;
 
             final DriverOffer tempDriverOffer = driverOffers.get(index);
 
-            if (view == null) {
+            if (view == null)
+            {
                 view = LayoutInflater.from(context).inflate(R.layout.single_row, null);
                 viewHolder = new FragmentMyOffers.ViewHolder();
                 viewHolder.labelMsgListView = (TextView) view.findViewById(R.id.labelMsgListView);
@@ -126,7 +134,8 @@ public class FragmentMyOffers extends Fragment {
         }
     }
 
-    static class ViewHolder {
+    static class ViewHolder
+    {
         ImageView ImageView;
         TextView labelMsgListView, listViewDate, listViewUsername;
     }

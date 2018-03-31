@@ -1,7 +1,5 @@
 package com.example.toshiba.prenosrobe.fragments;
 
-//import android.content.Context;
-//import android.net.Uri;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.activities.LogInActivity;
@@ -20,14 +17,14 @@ import com.example.toshiba.prenosrobe.activities.OfferActivity;
 import com.example.toshiba.prenosrobe.activities.ProfileActivity;
 import com.example.toshiba.prenosrobe.activities.RegistrationActivity;
 
-public class NavigationFragment extends Fragment {
-
+public class NavigationFragment extends Fragment
+{
     private int selectedItemId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+                             Bundle savedInstanceState)
+    {
         final View view = inflater.inflate(R.layout.fragment_navigation, container, false);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
@@ -55,9 +52,8 @@ public class NavigationFragment extends Fragment {
                             i = new Intent(getActivity(), LogInActivity.class);
                             i.putExtra("class", "com.example.toshiba.prenosrobe.activities.OfferActivity");
                         }
-                        else {
+                        else
                             i = new Intent(getActivity(), OfferActivity.class);
-                        }
 
                         startActivity(i);
                         break;
@@ -68,13 +64,13 @@ public class NavigationFragment extends Fragment {
 
                     case R.id.action_profile:
                         //Toast.makeText(getActivity(), "Profil", Toast.LENGTH_SHORT).show();
-                        if(RegistrationActivity.getUser() == null){
+                        if(RegistrationActivity.getUser() == null)
+                        {
                             i = new Intent(getActivity(), LogInActivity.class);
                             i.putExtra("class", "com.example.toshiba.prenosrobe.activities.ProfileActivity");
                         }
-                        else {
+                        else
                             i = new Intent(getActivity(), ProfileActivity.class);
-                        }
 
                         startActivity(i);
                         break;
@@ -90,6 +86,4 @@ public class NavigationFragment extends Fragment {
     {
         this.selectedItemId = selectedId;
     }
-
-
 }

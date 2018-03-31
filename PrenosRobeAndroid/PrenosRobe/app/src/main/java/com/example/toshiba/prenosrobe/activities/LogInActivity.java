@@ -15,6 +15,7 @@ import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.User;
+import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
 import retrofit2.Call;
@@ -24,11 +25,12 @@ import retrofit2.Response;
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ApiInterface apiInterface;
-    EditText inputMail, inputPassword;
-    TextView labelMsg1;
+    private EditText inputMail, inputPassword;
+    private TextView labelMsg1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
@@ -49,7 +51,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View view)
+    {
         switch(view.getId()){
             case R.id.buttonSignIn:
 
@@ -66,27 +69,30 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public void login() {
+    public void login()
+    {
         User newUser = new User();
         newUser.setEmail(inputMail.getText().toString());
         newUser.setPassword(inputPassword.getText().toString());
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<User> call = apiInterface.login(newUser);
-        call.enqueue(new Callback<User>() {
+        Call<RestRespondeDto<User>> call = apiInterface.login(newUser);
+        call.enqueue(new Callback<RestRespondeDto<User>>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.code() == 200) {
-                    RegistrationActivity.setUser(response.body());
+            public void onResponse(Call<RestRespondeDto<User>> call, Response<RestRespondeDto<User>> response)
+            {
+                if (response.code() == 200)
+                {
+                    RegistrationActivity.setUser(response.body().getData());
 
                     startNextActivity();
                 }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
+            public void onFailure(Call<RestRespondeDto<User>> call, Throwable t)
+            {
                 t.printStackTrace();
             }
         });
@@ -95,12 +101,14 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     public void startNextActivity()
     {
         Bundle extras = getIntent().getExtras();
-        String newActivityName = extras.getString("class");
+        String nextActivityName = extras.getString("class");
         Class<?> newActivityClass;
-        try {
-            newActivityClass = Class.forName(newActivityName);
-
-        } catch (ClassNotFoundException e) {
+        try
+        {
+            newActivityClass = Class.forName(nextActivityName);
+        }
+        catch (ClassNotFoundException e)
+        {
             newActivityClass = MainActivity.class;
         }
         Intent i = new Intent(LogInActivity.this, newActivityClass);
