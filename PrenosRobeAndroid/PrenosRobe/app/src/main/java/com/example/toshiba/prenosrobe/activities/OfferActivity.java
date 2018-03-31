@@ -1,6 +1,9 @@
 package com.example.toshiba.prenosrobe.activities;
 
 import android.app.DatePickerDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,6 +30,7 @@ import com.example.toshiba.prenosrobe.data.OfferStatus;
 import com.example.toshiba.prenosrobe.data.UserVehicle;
 import com.example.toshiba.prenosrobe.data.Vehicle;
 import com.example.toshiba.prenosrobe.data.VehicleType;
+import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -92,6 +96,13 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
 
         getInitData();
         registerListeners();
+
+        Fragment fragment = new NavigationFragment();
+        ((NavigationFragment) fragment).setSelectedId(R.id.action_offer);
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.bottom_navigation, fragment);
+        ft.commit();
     }
 
     @Override

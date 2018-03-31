@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.toshiba.prenosrobe.activities.OfferActivity">
+    tools:context="com.example.toshiba.prenosrobe.activities.OfferActivity"
+    android:background="@color/colorbackground">
 
     <TextView
         android:id="@+id/labelText1"
@@ -142,13 +143,14 @@
         android:id="@+id/buttonGo"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="70dp"
         android:layout_marginEnd="117dp"
         android:layout_marginStart="117dp"
         android:text="@string/buttonOffer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/buttonstylegradient"/>
 
     <Button
         android:id="@+id/buttonProfile2"
@@ -230,5 +232,25 @@
         app:layout_constraintTop_toBottomOf="@+id/inputVehicleNumber"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="16dp" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_main">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+        </FrameLayout>
+
+    </android.support.design.widget.BottomNavigationView>
 
 </android.support.constraint.ConstraintLayout>

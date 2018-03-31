@@ -1,25 +1,21 @@
-package com.example.toshiba.prenosrobe.activities;
+package com.example.toshiba.prenosrobe.fragments;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-//import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.toshiba.prenosrobe.R;
+import com.example.toshiba.prenosrobe.activities.RegistrationActivity;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
-import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,50 +25,41 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+
+public class FragmentMyOffers extends Fragment {
 
     private ApiInterface apiInterface;
     private List<DriverOffer> driverOffers;
-
-    ListView l;
+    private ListView lv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_fragment_my_offers, container, false);
+
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<List<DriverOffer>> call = apiInterface.getAllDriverOffers();
+        String token = RegistrationActivity.getUser().getToken();
+        Call<List<DriverOffer>> call = apiInterface.getMyDriverOffers(token);
         call.enqueue(new Callback<List<DriverOffer>>() {
             @Override
             public void onResponse(Call<List<DriverOffer>> call, Response<List<DriverOffer>> response) {
-                if(response.code() == 200){
+                if(response.code() == 200) {
                     driverOffers = response.body();
-                    l.setAdapter(new DriverOfferAdapter(MainActivity.this, driverOffers));
+                    lv.setAdapter(new FragmentMyOffers.DriverOfferAdapter(getActivity(), driverOffers));
                 }
             }
 
-            @Override
-            public void onFailure(Call<List<DriverOffer>> call, Throwable t) {
-                t.printStackTrace();
-                ((TextView) findViewById(R.id.textView2)).setText("neeeeeee");
-            }
+             @Override
+             public void onFailure(Call<List<DriverOffer>> call, Throwable t) {
+                 t.printStackTrace();
+             }
         });
 
-        l = (ListView) findViewById(R.id.ListViewHome);
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.single_row, R.id.labelMsgListView, data); //layout koji opisuje posebni red u ListView, zatim gde da smesta upisane podatke
-//        l.setAdapter(adapter);
+        lv = (ListView) view.findViewById(R.id.ListViewMyOffers);
 
-
-        Fragment fragment = new NavigationFragment();
-        ((NavigationFragment) fragment).setSelectedId(R.id.action_home);
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.bottom_navigation, fragment);
-        ft.commit();
+        return view;
     }
-
-
 
     class DriverOfferAdapter extends BaseAdapter{
 
@@ -104,13 +91,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int index, View view, ViewGroup viewGroup) {
 
-            ViewHolder viewHolder;
+            FragmentMyOffers.ViewHolder viewHolder;
 
             final DriverOffer tempDriverOffer = driverOffers.get(index);
 
             if (view == null) {
                 view = LayoutInflater.from(context).inflate(R.layout.single_row, null);
-                viewHolder = new ViewHolder();
+                viewHolder = new FragmentMyOffers.ViewHolder();
                 viewHolder.labelMsgListView = (TextView) view.findViewById(R.id.labelMsgListView);
                 viewHolder.listViewDate = (TextView) view.findViewById(R.id.ListViewDate);
                 viewHolder.listViewUsername = (TextView) view.findViewById(R.id.ListViewUsername);
@@ -119,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 view.setTag(viewHolder);
             }
             else
-                viewHolder = (ViewHolder) view.getTag();
+                viewHolder = (FragmentMyOffers.ViewHolder) view.getTag();
 
             viewHolder.labelMsgListView.setText(tempDriverOffer.getDepartureLocation() + " - " + tempDriverOffer.getArrivalLocation());
             Date date = tempDriverOffer.getDate();
@@ -131,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((TextView) findViewById(R.id.textView2)).setText((CharSequence) tempDriverOffer.getArrivalLocation());
+                    ((TextView) getActivity().findViewById(R.id.textView2)).setText((CharSequence) tempDriverOffer.getArrivalLocation());
                 }
             });
 
@@ -143,4 +130,5 @@ public class MainActivity extends AppCompatActivity {
         ImageView ImageView;
         TextView labelMsgListView, listViewDate, listViewUsername;
     }
+
 }

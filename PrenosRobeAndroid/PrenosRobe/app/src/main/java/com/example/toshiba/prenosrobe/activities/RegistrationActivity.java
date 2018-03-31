@@ -2,6 +2,9 @@ package com.example.toshiba.prenosrobe.activities;
 
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.Language;
 import com.example.toshiba.prenosrobe.data.User;
 import com.example.toshiba.prenosrobe.data.UserLanguage;
+import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,6 +113,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         });
 
         getInitData();
+
+        Fragment fragment = new NavigationFragment();
+        ((NavigationFragment) fragment).setSelectedId(R.id.action_home);
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.bottom_navigation, fragment);
+        ft.commit();
     }
 
     @Override
@@ -124,10 +135,14 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 if(response.code() == 201){
                     user = response.body();
                     labelMsg2.setText("Pozdrav  " + response.code());
+                    startNextActivity();
                 }
-                else
+                else if (response.code() == 409)
                 {
                     labelMsg2.setText(":((  " + response.code() + "  " + response.message());
+                    Intent i = new Intent(RegistrationActivity.this, ErrorPopActivity.class);
+//                    i.putExtra("errors", response.body().get)
+                    startActivity(i);
                 }
             }
 
@@ -138,7 +153,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
-        startActivity(new Intent(RegistrationActivity.this, PopActivity.class));
+
     }
 
     private User createUser()
@@ -188,4 +203,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     public static User getUser() { return user; }
 
     public static void setUser(User newUser) { user = newUser; }
+
+    public void startNextActivity()
+    {
+        String newActivityName = getIntent().getExtras().getString("class");
+        Intent i = new Intent(RegistrationActivity.this, PopActivity.class);
+        i.putExtra("class", newActivityName);
+        startActivity(i);
+    }
 }

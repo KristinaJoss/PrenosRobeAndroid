@@ -1,5 +1,8 @@
 package com.example.toshiba.prenosrobe.activities;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.User;
+import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +39,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         ((Button) findViewById(R.id.buttonSignUp)).setOnClickListener(this);
         
         labelMsg1 = (TextView) findViewById(R.id.labelMsg1);
+
+        Fragment fragment = new NavigationFragment();
+        ((NavigationFragment) fragment).setSelectedId(R.id.action_home);
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.bottom_navigation, fragment);
+        ft.commit();
 }
 
     @Override
@@ -48,6 +59,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             case R.id.buttonSignUp:
 
                 Intent j = new Intent(this, RegistrationActivity.class);
+                String newActivityName = getIntent().getExtras().getString("class");
+                j.putExtra("class", newActivityName);
                 startActivity(j);
                 break;
         }
@@ -67,15 +80,30 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 if (response.code() == 200) {
                     RegistrationActivity.setUser(response.body());
 
-                    Intent i = new Intent(LogInActivity.this, MainActivity.class);
-                    startActivity(i);
+                    startNextActivity();
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+
                 t.printStackTrace();
             }
         });
+    }
+
+    public void startNextActivity()
+    {
+        Bundle extras = getIntent().getExtras();
+        String newActivityName = extras.getString("class");
+        Class<?> newActivityClass;
+        try {
+            newActivityClass = Class.forName(newActivityName);
+
+        } catch (ClassNotFoundException e) {
+            newActivityClass = MainActivity.class;
+        }
+        Intent i = new Intent(LogInActivity.this, newActivityClass);
+        startActivity(i);
     }
 }

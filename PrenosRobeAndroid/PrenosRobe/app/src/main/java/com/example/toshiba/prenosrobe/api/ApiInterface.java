@@ -26,6 +26,9 @@ public interface ApiInterface {
     @POST("user/login")
     Call<User> login(@Body User userDto);
 
+    @POST("user/logout")
+    Call<Void> logout(@Header("token") String token);
+
     @GET("driverOffers")
     Call<List<DriverOffer>> getAllDriverOffers();
 

@@ -2,12 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.toshiba.prenosrobe.activities.FragmentBookings">
+    tools:context="com.example.toshiba.prenosrobe.fragments.FragmentBookings"
+    android:background="@color/colorbackground">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#e6f2ff"
+        android:background="@color/colorStart"
         android:gravity="top|center"
         android:text="@string/bookings"
         android:textAllCaps="true"
@@ -17,8 +18,9 @@
     <ListView
         android:id="@+id/ListViewBookings"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="25dp"
+        android:background="@color/colorbackground"/>
 
 </FrameLayout>

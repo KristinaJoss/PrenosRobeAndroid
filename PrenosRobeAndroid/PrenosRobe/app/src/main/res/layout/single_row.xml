@@ -1,22 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorbackground">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/ImageView"
-        android:layout_gravity="center_horizontal|top"
-        android:src="@drawable/ic_image_black_24dp"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/profile_icon"
+        android:layout_margin="5dp"/>
 
     <TextView
+        android:id="@+id/ListViewUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:layout_gravity="center_horizontal|top"
-        android:id="@+id/labelMsgListView"/>
+        android:layout_below="@id/ImageView"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center_horizontal"
+        android:text="Username"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14dp" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/labelMsgListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:text="Title text"
+        android:textSize="14dp"
+        android:textAllCaps="true"
+        android:layout_toRightOf="@id/ImageView"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@+id/ListViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|top"
+        android:text="Date"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:textSize="14dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@id/labelMsgListViewDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|top"
+        android:layout_below="@id/labelMsgListView"
+        android:layout_toRightOf="@id/ImageView"
+        android:text="Description text"
+        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorPrimaryDark"/>
+
+</RelativeLayout>

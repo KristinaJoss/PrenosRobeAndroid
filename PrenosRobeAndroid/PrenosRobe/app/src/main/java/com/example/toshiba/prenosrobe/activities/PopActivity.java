@@ -13,7 +13,7 @@ import com.example.toshiba.prenosrobe.R;
 
 public class PopActivity extends Activity {
 
-    Button buttonOK;
+    private Button buttonOK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class PopActivity extends Activity {
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(PopActivity.this, MainActivity.class));
+                startNextActivity();
             }
         });
 
@@ -46,8 +46,20 @@ public class PopActivity extends Activity {
         params.x = 0;
         params.y = -20;
         getWindow().setAttributes(params);
-
-
     }
 
+    public void startNextActivity()
+    {
+        Bundle extras = getIntent().getExtras();
+        String newActivityName = extras.getString("class");
+        Class<?> newActivityClass;
+        try {
+            newActivityClass = Class.forName(newActivityName);
+
+        } catch (ClassNotFoundException e) {
+            newActivityClass = MainActivity.class;
+        }
+        Intent i = new Intent(PopActivity.this, newActivityClass);
+        startActivity(i);
+    }
 }

@@ -1,106 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loginbg"
     tools:context="com.example.toshiba.prenosrobe.activities.LogInActivity">
 
-    <TextView
-        android:id="@+id/labelUsername"
-        android:layout_width="125sp"
-        android:layout_height="40sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center_vertical|start"
-        android:text="@string/email"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlCompat" />
-
-    <TextView
-        android:id="@+id/labelPassword"
-        android:layout_width="125sp"
-        android:layout_height="40sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center_vertical|start"
-        android:text="@string/password"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelUsername"
-        tools:ignore="RtlCompat" />
+    <ImageView
+        android:id="@+id/ImageViewLogIn"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_login_image"/>
 
     <EditText
         android:id="@+id/inputMail"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="40sp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ImageViewLogIn"
+        android:layout_marginTop="25dp"
         android:ems="10"
+        android:hint="E-mail"
         android:inputType="textEmailAddress"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/labelUsername"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <EditText
         android:id="@+id/inputPassword"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="40sp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_alignLeft="@+id/inputMail"
+        android:layout_alignStart="@+id/inputMail"
+        android:layout_below="@+id/inputMail"
+        android:layout_marginTop="15dp"
         android:ems="10"
+        android:hint="Lozinka"
         android:inputType="textPassword"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/labelPassword"
-        app:layout_constraintTop_toBottomOf="@+id/inputMail"
-        tools:ignore="RtlCompat" />
-
-    <Button
-        android:id="@+id/buttonSignIn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:text="@string/signin"
-        android:textColorLink="?android:attr/textColorHighlightInverse"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelPassword" />
+        android:textSize="16sp"
+        tools:ignore="RtlCompat"
+        android:textColor="@color/colorPrimaryDark"/>
 
     <TextView
         android:id="@+id/labelMsg1"
-        android:layout_width="0dp"
-        android:layout_height="35sp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/message"
-        android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSignIn" />
+        android:layout_width="200dp"
+        android:layout_height="20sp"
+        android:layout_above="@+id/buttonSignIn"
+        android:layout_alignLeft="@+id/inputPassword"
+        android:layout_alignStart="@+id/inputPassword"
+        android:layout_marginBottom="15dp"
+        android:text="" />
+
+    <Button
+        android:id="@+id/buttonSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSignUp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/buttonstylegradient"
+        android:text="@string/signin"
+        android:textColorLink="?android:attr/textColorHighlightInverse"
+        android:textSize="14sp"/>
 
     <Button
         android:id="@+id/buttonSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="180dp"
-        android:layout_marginStart="16dp"
+        android:layout_above="@+id/frameLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/buttonstylegradient"
         android:text="@string/signup"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="16dp"
+        android:textSize="14sp"
         tools:ignore="RtlCompat" />
 
-</android.support.constraint.ConstraintLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/frameLayout">
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemBackground="@color/colorPrimary"
+            app:itemIconTint="@drawable/nav_item_color_state"
+            app:itemTextColor="@drawable/nav_item_color_state"
+            app:menu="@menu/bottom_navigation_main" />
+
+    </FrameLayout>
+
+
+</RelativeLayout>

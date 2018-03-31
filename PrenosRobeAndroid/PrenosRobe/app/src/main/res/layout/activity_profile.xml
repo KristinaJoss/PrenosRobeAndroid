@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.toshiba.prenosrobe.activities.ProfileActivity"
-    android:background="@color/colorgraylight"
+    android:background="@color/colorbackground"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,13 +15,26 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:background="@drawable/gradientbackgorund"
             android:orientation="vertical">
 
-            <TextView
+            <br.com.bloder.magic.view.MagicButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:id="@+id/magicButton"
+                app:button_icon="@drawable/ic_logout"
+                app:magic_button_size="25dp"
+                app:button_icon_width="25dp"
+                app:button_icon_height="25dp"
+                app:hide_text="Logout"
+                app:hide_text_size="8dp"
+                app:hide_text_color="@color/colorPrimaryDark"
+                app:icon_button_color="@color/colorAccent"
+                app:expandable_area_color="@color/colorAccent"
+                >
+
+            </br.com.bloder.magic.view.MagicButton>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -31,7 +44,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/NameSurname"
             android:layout_width="200sp"
             android:layout_height="30sp"
             android:layout_below="@+id/linearLayout"
@@ -43,15 +56,16 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="85dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="180dp">
+            android:layout_marginTop="150dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2"
+                android:background="@color/colorbackground">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -68,6 +82,7 @@
                         android:layout_marginTop="10dp"/>
 
                     <TextView
+                        android:id="@+id/Email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -92,6 +107,7 @@
                         android:layout_marginTop="10dp"/>
 
                     <TextView
+                        android:id="@+id/Phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -109,13 +125,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="265dp">
+            android:layout_marginTop="230dp"
+            android:background="@color/colorbackground"
+            android:id="@+id/cardView">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="2"
+                android:background="@color/colorbackground">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -131,7 +150,7 @@
                         android:background="@drawable/buttonstylegradient"
                         android:onClick="ChangeFragment"
                         android:text="@string/bookings"
-                        android:textColor="#fff" />
+                        android:textColor="#000" />
 
                 </LinearLayout>
 
@@ -149,7 +168,7 @@
                         android:background="@drawable/buttonstylegradient"
                         android:onClick="ChangeFragment"
                         android:text="@string/moje_ponude"
-                        android:textColor="#fff" />
+                        android:textColor="#000" />
 
                 </LinearLayout>
 
@@ -158,11 +177,31 @@
         </android.support.v7.widget.CardView>
 
         <fragment
-            android:name="com.example.toshiba.prenosrobe.activities.FragmentBookings"
             android:id="@+id/fragmentBookings"
+            android:name="com.example.toshiba.prenosrobe.fragments.FragmentBookings"
             android:layout_width="match_parent"
-            android:layout_height="255dp"
-            android:layout_marginTop="315dp" />
+            android:layout_height="240dp"
+            android:layout_above="@+id/frameLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/cardView" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/frameLayout">
+
+            <android.support.design.widget.BottomNavigationView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bottom_navigation"
+                app:itemBackground="@color/colorPrimary"
+                app:itemIconTint="@drawable/nav_item_color_state"
+                app:itemTextColor="@drawable/nav_item_color_state"
+                app:menu="@menu/bottom_navigation_main"/>
+
+        </FrameLayout>
 
     </RelativeLayout>
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.toshiba.prenosrobe.activities.RegistrationActivity">
+    tools:context="com.example.toshiba.prenosrobe.activities.RegistrationActivity"
+    android:background="@color/colorbackground">
 
     <TextView
         android:id="@+id/labelName"
@@ -196,32 +197,32 @@
         android:text="@string/language"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelPass" />
+        app:layout_constraintTop_toBottomOf="@+id/labelPass"
+        android:layout_marginLeft="16dp" />
 
     <Button
         android:id="@+id/buttonRegister"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="120dp"
+        android:background="@drawable/buttonstylegradient"
         android:text="@string/register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelLanguage" />
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/labelMsg2"
         android:layout_width="0dp"
-        android:layout_height="15sp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="80dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/message"
+        app:layout_constraintBottom_toBottomOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegister" />
+        app:layout_constraintStart_toEndOf="@+id/buttonRegister" />
 
     <Button
         android:id="@+id/buttonMultiSpinner"
@@ -233,5 +234,27 @@
         android:text="@string/buttonMultiSpinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/labelLanguage"
-        app:layout_constraintTop_toBottomOf="@+id/inputPass" />
+        app:layout_constraintTop_toBottomOf="@+id/inputPass"
+        android:background="@drawable/gradientbackgorund"/>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_main">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+        </FrameLayout>
+
+    </android.support.design.widget.BottomNavigationView>
+
 </android.support.constraint.ConstraintLayout>
