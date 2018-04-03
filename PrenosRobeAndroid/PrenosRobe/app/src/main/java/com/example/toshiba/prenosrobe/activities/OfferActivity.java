@@ -82,6 +82,7 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
                 month ++;
                 date = new Date(year - 1900, month , day);
                 inputDate.setText(day + "." + month + "." + year + ".");
+                inputDate.setError(null);
             }
         };
 
@@ -92,6 +93,7 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
             {
                 time = new Time(hour, minute,0);
                 inputTime.setText(hour + ":" + minute);
+                inputTime.setError(null);
             }
         };
 
@@ -159,29 +161,65 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
         return userVehicle;
     }
 
+    private boolean validateNewDriverOffer(final DriverOffer newDriverOffer)
+    {
+        boolean isValid = true;
+
+        if (newDriverOffer.getDepartureLocation().isEmpty())
+        {
+            inputDepLoc.setError(getResources().getString(R.string.labelDepLoc_empty));
+            isValid = false;
+        }
+        if (newDriverOffer.getArrivalLocation().isEmpty())
+        {
+            inputArrLoc.setError(getResources().getString(R.string.labelArrLoc_empty));
+            isValid = false;
+        }
+        if (newDriverOffer.getDate() == null)
+        {
+            inputDate.setError(getResources().getString(R.string.labelDate_empty));
+            isValid = false;
+        }
+        if (newDriverOffer.getTime() == null)
+        {
+            inputTime.setError(getResources().getString(R.string.labelTime_empty));
+            isValid = false;
+        }
+        if (newDriverOffer.getUserVehicle().getVehicle().getRegistrationNumber().isEmpty())
+        {
+            inputVehicleNumber.setError(getResources().getString(R.string.vehiclenumber_empty));
+            isValid = false;
+        }
+
+        return  isValid;
+    }
+
     private void sendDriverOffer()
     {
         DriverOffer newDriverOffer = createDriverOffer();
 
-        Call<RestRespondeDto<DriverOffer>> call = apiInterface.addDriverOffer(RegistrationActivity.getUser().getToken(), newDriverOffer);
-        call.enqueue(new Callback<RestRespondeDto<DriverOffer>>()
+        if (validateNewDriverOffer(newDriverOffer))
         {
-            @Override
-            public void onResponse(Call<RestRespondeDto<DriverOffer>> call, Response<RestRespondeDto<DriverOffer>> response)
+            Call<RestRespondeDto<DriverOffer>> call = apiInterface.addDriverOffer(RegistrationActivity.getUser().getToken(), newDriverOffer);
+            call.enqueue(new Callback<RestRespondeDto<DriverOffer>>()
             {
-                if(response.code() == 201)
+                @Override
+                public void onResponse(Call<RestRespondeDto<DriverOffer>> call, Response<RestRespondeDto<DriverOffer>> response)
                 {
-                    Intent i = new Intent(OfferActivity.this, MainActivity.class);
-                    startActivity(i);
+                    if(response.code() == 201)
+                    {
+                        Intent i = new Intent(OfferActivity.this, MainActivity.class);
+                        startActivity(i);
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<RestRespondeDto<DriverOffer>> call, Throwable t)
-            {
-                t.printStackTrace();
-            }
-        });
+                @Override
+                public void onFailure(Call<RestRespondeDto<DriverOffer>> call, Throwable t)
+                {
+                    t.printStackTrace();
+                }
+            });
+        }
     }
 
     @Override
@@ -291,8 +329,11 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
                             {
                                 userVehicle = response.body().getData();
                                 visualizeVehicleTypeWidgets(View.GONE);
-                            } else if (response.code() == 204)
+                            }
+                            else if (response.code() == 204)
+                            {
                                 visualizeVehicleTypeWidgets(View.VISIBLE);
+                            }
                         }
 
                         @Override

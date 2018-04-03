@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient
 {
-    public static final String BASE_URL="http://192.168.1.8:8080/";
+    public static final String BASE_URL = "http://192.168.1.8:8080/";
     private static Retrofit retrofit = null;
     static private Gson gson = new GsonBuilder().registerTypeAdapter(Time.class, new TimeDeserializer()).registerTypeAdapter(Time.class, new TimeSerializer()).setDateFormat("yyyy-MM-dd HH:mm").create();
 

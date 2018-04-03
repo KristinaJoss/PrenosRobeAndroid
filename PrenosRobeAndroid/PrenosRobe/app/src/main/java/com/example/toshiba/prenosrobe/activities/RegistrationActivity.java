@@ -124,36 +124,40 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view)
     {
         User newUser = createUser();
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-        Call<RestRespondeDto<User>> call = apiInterface.register(newUser);
-        call.enqueue(new Callback<RestRespondeDto<User>>()
+        if (validateNewUser(newUser))
         {
-            @Override
-            public void onResponse(Call<RestRespondeDto<User>> call, Response<RestRespondeDto<User>> response)
-            {
-                if(response.code() == 201)
-                {
-                    user = response.body().getData();
-                    labelMsg2.setText("Pozdrav  " + response.code());
-                    startNextActivity();
-                }
-                else if (response.code() == 409)
-                {
-                    labelMsg2.setText(":((  " + response.code() + "  " + response.message());
-                    Intent i = new Intent(RegistrationActivity.this, ErrorPopActivity.class);
-                    i.putExtra("errors", response.body());
-                    startActivity(i);
-                }
-            }
+            apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-            @Override
-            public void onFailure(Call<RestRespondeDto<User>> call, Throwable t)
+            Call<RestRespondeDto<User>> call = apiInterface.register(newUser);
+            call.enqueue(new Callback<RestRespondeDto<User>>()
             {
-                labelMsg2.setText("neeeeeeee");
-                t.printStackTrace();
-            }
-        });
+                @Override
+                public void onResponse(Call<RestRespondeDto<User>> call, Response<RestRespondeDto<User>> response)
+                {
+                    if (response.code() == 201)
+                    {
+                        user = response.body().getData();
+                        labelMsg2.setText("Pozdrav  " + response.code());
+                        startNextActivity();
+                    }
+                    else if (response.code() == 208)
+                    {
+                        labelMsg2.setText(":((  " + response.code() + "  " + response.message());
+                        parseErrors(response.body().getErrorList());
+                        Intent i = new Intent(RegistrationActivity.this, ErrorPopActivity.class);
+                        i.putExtra("errors", response.body());
+                        startActivity(i);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<RestRespondeDto<User>> call, Throwable t)
+                {
+                    labelMsg2.setText("neeeeeeee");
+                    t.printStackTrace();
+                }
+            });
+        }
     }
 
     private User createUser()
@@ -168,6 +172,63 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         newUser.setUserLanguages(getUserLanguagesByLanguages());
 
         return newUser;
+    }
+
+    private boolean validateNewUser(final User newUser)
+    {
+        boolean isValid = true;
+
+        if (newUser.getName().isEmpty())
+        {
+            inputName.setError(getResources().getString(R.string.name_empty));
+            isValid = false;
+        }
+        if (newUser.getSurname().isEmpty())
+        {
+            inputSurname.setError(getResources().getString(R.string.surname_empty));
+            isValid = false;
+        }
+        if (newUser.getUsername().isEmpty())
+        {
+            inputUser.setError(getResources().getString(R.string.surname_empty));
+            isValid = false;
+        }
+        if (newUser.getPassword().isEmpty())
+        {
+            inputPass.setError(getResources().getString(R.string.password_empty));
+            isValid = false;
+        }
+        if (newUser.getEmail().isEmpty())
+        {
+            inputEmail.setError(getResources().getString(R.string.email_empty));
+            isValid = false;
+        }
+        if (newUser.getPhoneNumber().isEmpty())
+        {
+            inputPhone.setError(getResources().getString(R.string.phone_empty));
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private void parseErrors(final List<String> errorList)
+    {
+        for(String error : errorList)
+        {
+            if (error.equals(getResources().getString(R.string.email_used)))
+            {
+                inputEmail.setText("");
+            }
+            else if (error.equals(getResources().getString(R.string.username_used)))
+            {
+                inputUser.setText("");
+            }
+            else if (error.equals(getResources().getString(R.string.phone_used)))
+            {
+                inputPhone.setText("");
+            }
+        }
     }
 
     private List<UserLanguage> getUserLanguagesByLanguages()

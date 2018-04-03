@@ -22,8 +22,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class LogInActivity extends AppCompatActivity implements View.OnClickListener
+{
     private ApiInterface apiInterface;
     private EditText inputMail, inputPassword;
     private TextView labelMsg1;
@@ -53,7 +53,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view)
     {
-        switch(view.getId()){
+        switch(view.getId())
+        {
             case R.id.buttonSignIn:
 
                 login();
@@ -69,33 +70,61 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    private boolean validateNewUser(final User newUser)
+    {
+        boolean isValid = true;
+
+        if (newUser.getPassword().isEmpty())
+        {
+            inputPassword.setError(getResources().getString(R.string.password_empty));
+            isValid = false;
+        }
+        if (newUser.getEmail().isEmpty())
+        {
+            inputMail.setError(getResources().getString(R.string.email_empty));
+            isValid = false;
+        }
+
+        return  isValid;
+    }
+
     public void login()
     {
         User newUser = new User();
         newUser.setEmail(inputMail.getText().toString());
         newUser.setPassword(inputPassword.getText().toString());
 
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        if (validateNewUser(newUser))
+        {
+            apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<RestRespondeDto<User>> call = apiInterface.login(newUser);
-        call.enqueue(new Callback<RestRespondeDto<User>>() {
-            @Override
-            public void onResponse(Call<RestRespondeDto<User>> call, Response<RestRespondeDto<User>> response)
+            Call<RestRespondeDto<User>> call = apiInterface.login(newUser);
+            call.enqueue(new Callback<RestRespondeDto<User>>()
             {
-                if (response.code() == 200)
+                @Override
+                public void onResponse(Call<RestRespondeDto<User>> call, Response<RestRespondeDto<User>> response)
                 {
-                    RegistrationActivity.setUser(response.body().getData());
+                    if (response.code() == 200)
+                    {
+                        RegistrationActivity.setUser(response.body().getData());
 
-                    startNextActivity();
+                        startNextActivity();
+                    }
+                    else if (response.code() == 204)
+                    {
+                        ((TextView) findViewById(R.id.labelMsg1)).setText(getResources().getString(R.string.password_email_used));
+                        inputMail.setText("");
+                        inputPassword.setText("");
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<RestRespondeDto<User>> call, Throwable t)
-            {
-                t.printStackTrace();
-            }
-        });
+                @Override
+                public void onFailure(Call<RestRespondeDto<User>> call, Throwable t)
+                {
+                    t.printStackTrace();
+                }
+            });
+        }
     }
 
     public void startNextActivity()

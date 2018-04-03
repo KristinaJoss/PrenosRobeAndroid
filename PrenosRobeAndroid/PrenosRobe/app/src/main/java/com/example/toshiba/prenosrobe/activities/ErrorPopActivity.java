@@ -42,7 +42,7 @@ public class ErrorPopActivity extends AppCompatActivity
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int)(width*1),(int)(height*.8)); //sirina 80% ekrana, visina 60% ekrana
+        getWindow().setLayout((int)(width*.95),(int)(height*.6)); //sirina 80% ekrana, visina 60% ekrana
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;

@@ -41,11 +41,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:gravity="center|start"
-        android:text="@string/labelText3"
+        android:text="@string/labelArrLoc"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelDepLoc"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/labelDepLoc" />
 
     <EditText
         android:id="@+id/inputDepLoc"

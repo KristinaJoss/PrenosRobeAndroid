@@ -46,13 +46,14 @@
 
     <TextView
         android:id="@+id/labelMsg1"
-        android:layout_width="200dp"
-        android:layout_height="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
         android:layout_above="@+id/buttonSignIn"
-        android:layout_alignLeft="@+id/inputPassword"
-        android:layout_alignStart="@+id/inputPassword"
-        android:layout_marginBottom="15dp"
-        android:text="" />
+        android:layout_marginBottom="22dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#ff0000"
+        android:textSize="14dp" />
 
     <Button
         android:id="@+id/buttonSignIn"

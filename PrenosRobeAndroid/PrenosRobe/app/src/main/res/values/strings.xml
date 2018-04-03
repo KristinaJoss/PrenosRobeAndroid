@@ -1,13 +1,23 @@
 <resources>
     <string name="app_name">PrenosRobe</string>
     <string name="username">Korisnicko ime</string>
+    <string name="username_empty">Korisničko ime mora biti uneto.</string>
+    <string name="username_used">Korisničko ime je već u upotrebi.</string>
     <string name="password">Lozinka</string>
+    <string name="password_empty">Lozinka mora biti uneta.</string>
+    <string name="password_email_used">Email adresa ili lozinka nisu pravilno uneti.</string>
     <string name="signin">PRIJAVI SE</string>
     <string name="message" />
     <string name="name">Ime</string>
+    <string name="name_empty">Ime mora biti uneto.</string>
     <string name="surname">Prezime</string>
+    <string name="surname_empty">Prezime mora biti uneto.</string>
     <string name="phone">Telefon</string>
+    <string name="phone_empty">Telefon mora biti unet.</string>
+    <string name="phone_used">Telefonski broj je već u upotrebi.</string>
     <string name="email">E-mail</string>
+    <string name="email_empty">E-mail mora biti unet.</string>
+    <string name="email_used">E-mail adresa je već u upotrebi.</string>
     <string name="register">REGISTRUJ SE</string>
     <string name="signup">Registracija</string>
     <string name="buttonOffer">Ponudi</string>
@@ -16,9 +26,13 @@
     <string name="buttonBack">Nazad</string>
     <string name="labelText1">MOJA PONUDA</string>
     <string name="labelDepLoc" translatable="false">Trenutna lokacija</string>
-    <string name="labelText3" translatable="false">Krajnja destinacija</string>
+    <string name="labelDepLoc_empty">Trenutna lokacija mora biti uneta.</string>
+    <string name="labelArrLoc" translatable="false">Krajnja destinacija</string>
+    <string name="labelArrLoc_empty">Krajnja destinacija mora biti uneta.</string>
     <string name="labelDate">Datum polaska</string>
+    <string name="labelDate_empty">Datum polaska mora biti unet.</string>
     <string name="labelTime">Vreme polaska</string>
+    <string name="labelTime_empty">Vreme polaska mora biti uneto.</string>
     <string name="profile">Ime i prezime</string>
     <string name="bookings">Bookings</string>
     <string name="moje_ponude">Moje ponude</string>
@@ -30,6 +44,7 @@
     <string name="hello_bobi">Hello Bobi :D</string>
     <string name="textViewText">Large Text</string>
     <string name="vehiclenumber">Registracioni broj vozila</string>
+    <string name="vehiclenumber_empty">Registracioni broj vozila mora biti unet.</string>
     <string name="vehicletype">Tip vozila</string>
     <string name="language">Jezici</string>
     <string name="buttonMultiSpinner">Izaberi jezike</string>
