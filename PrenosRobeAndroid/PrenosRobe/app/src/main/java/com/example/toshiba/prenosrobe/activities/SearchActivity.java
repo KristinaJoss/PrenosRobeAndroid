@@ -11,17 +11,26 @@ import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
 public class SearchActivity extends AppCompatActivity
 {
+    private  Fragment navigationFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Fragment fragment = new NavigationFragment();
-        ((NavigationFragment) fragment).setSelectedId(R.id.action_search);
+        navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.bottom_navigation, fragment);
+        ft.add(R.id.bottom_navigation, navigationFragment);
         ft.commit();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        ((NavigationFragment) navigationFragment).setectItem(R.id.action_search);
     }
 }

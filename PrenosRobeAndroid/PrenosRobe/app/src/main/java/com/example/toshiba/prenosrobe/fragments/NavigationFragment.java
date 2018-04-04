@@ -19,7 +19,7 @@ import com.example.toshiba.prenosrobe.activities.RegistrationActivity;
 
 public class NavigationFragment extends Fragment
 {
-    private int selectedItemId;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,9 +27,9 @@ public class NavigationFragment extends Fragment
     {
         final View view = inflater.inflate(R.layout.fragment_navigation, container, false);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(selectedItemId);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
+        {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item)
             {
@@ -48,7 +48,8 @@ public class NavigationFragment extends Fragment
 
                     case R.id.action_offer:
                         //Toast.makeText(getActivity(), "Ponude", Toast.LENGTH_SHORT).show();
-                        if(RegistrationActivity.getUser() == null){
+                        if (RegistrationActivity.getUser() == null)
+                        {
                             i = new Intent(getActivity(), LogInActivity.class);
                             i.putExtra("class", "com.example.toshiba.prenosrobe.activities.OfferActivity");
                         }
@@ -64,7 +65,7 @@ public class NavigationFragment extends Fragment
 
                     case R.id.action_profile:
                         //Toast.makeText(getActivity(), "Profil", Toast.LENGTH_SHORT).show();
-                        if(RegistrationActivity.getUser() == null)
+                        if (RegistrationActivity.getUser() == null)
                         {
                             i = new Intent(getActivity(), LogInActivity.class);
                             i.putExtra("class", "com.example.toshiba.prenosrobe.activities.ProfileActivity");
@@ -82,8 +83,8 @@ public class NavigationFragment extends Fragment
         return view;
     }
 
-    public void setSelectedId(int selectedId)
+    public void setectItem(final int selectedId)
     {
-        this.selectedItemId = selectedId;
+        bottomNavigationView.getMenu().findItem(selectedId).setChecked(true);
     }
 }

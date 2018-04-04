@@ -43,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OfferActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener
+public class OfferActivity extends AppCompatActivity implements View.OnClickListener
 {
     private ApiInterface apiInterface;
     private EditText inputDepLoc, inputArrLoc, inputDate, inputTime, inputVehicleNumber;
@@ -57,6 +57,7 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
     private static List<OfferStatus> offerStatuses;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private TimePickerDialog.OnTimeSetListener onTimeSetListener;
+    private Fragment navigationFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -74,49 +75,35 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
         labelVehicleType = (TextView) findViewById(R.id.labelVehicleType);
         spinnerVehicleType = (Spinner) findViewById(R.id.spinnerVehicleType);
 
-        onDateSetListener = new DatePickerDialog.OnDateSetListener()
-        {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day)
-            {
-                month ++;
-                date = new Date(year - 1900, month , day);
-                inputDate.setText(day + "." + month + "." + year + ".");
-                inputDate.setError(null);
-            }
-        };
-
-        onTimeSetListener = new TimePickerDialog.OnTimeSetListener()
-        {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hour, int minute)
-            {
-                time = new Time(hour, minute,0);
-                inputTime.setText(hour + ":" + minute);
-                inputTime.setError(null);
-            }
-        };
-
-        spinnerVehicleType.setOnItemSelectedListener(this);
         ((Button) findViewById(R.id.buttonGo)).setOnClickListener(this);
         ((Button) findViewById(R.id.buttonProfile2)).setOnClickListener(this);
         ((Button) findViewById(R.id.buttonBack2)).setOnClickListener(this);
 
-        getInitData();
         registerListeners();
 
-        Fragment fragment = new NavigationFragment();
-        ((NavigationFragment) fragment).setSelectedId(R.id.action_offer);
+        navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.bottom_navigation, fragment);
+        ft.add(R.id.bottom_navigation, navigationFragment);
         ft.commit();
     }
 
     @Override
-    public void onClick(View view) {
+    protected void onResume()
+    {
+        super.onResume();
+
+        getInitData();
+        clearAllEditTexts();
+        ((NavigationFragment) navigationFragment).setectItem(R.id.action_offer);
+    }
+
+    @Override
+    public void onClick(View view)
+    {
         Intent i;
-        switch(view.getId()) {
+        switch(view.getId())
+        {
             case R.id.buttonGo:
                 sendDriverOffer();
                 break;
@@ -147,7 +134,7 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
 
     private UserVehicle createUserVehicle()
     {
-        if (userVehicle == null)
+        if (userVehicle == null || userVehicle.getId() == null)
         {
             Vehicle vehicle = new Vehicle();
             vehicle.setVehicleType(selectedVehicleTypes);
@@ -222,18 +209,6 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
-    {
-      // Toast.makeText(getApplicationContext(),vehicleTypes.get(i).getName(), Toast.LENGTH_LONG).show();
-        selectedVehicleTypes = vehicleTypes.get(i);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
-
-    public static List<OfferStatus> getOfferStatuses() { return offerStatuses; }
-
     private void getInitData()
     {
         // Get all vehicle types
@@ -283,9 +258,34 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
 
     private void registerListeners()
     {
-        inputDate.setOnClickListener(new View.OnClickListener() {
+        onDateSetListener = new DatePickerDialog.OnDateSetListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onDateSet(DatePicker datePicker, int year, int month, int day)
+            {
+                month ++;
+                date = new Date(year - 1900, month , day);
+                inputDate.setText(day + "." + month + "." + year + ".");
+                inputDate.setError(null);
+            }
+        };
+
+        onTimeSetListener = new TimePickerDialog.OnTimeSetListener()
+        {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute)
+            {
+                time = new Time(hour, minute,0);
+                inputTime.setText(hour + ":" + minute);
+                inputTime.setError(null);
+            }
+        };
+
+        inputDate.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
@@ -297,9 +297,11 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        inputTime.setOnClickListener(new View.OnClickListener() {
+        inputTime.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Calendar cal = Calendar.getInstance();
                 int hour = cal.get(Calendar.HOUR_OF_DAY);
                 int minute = cal.get(Calendar.MINUTE);
@@ -310,7 +312,8 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        inputVehicleNumber.addTextChangedListener(new TextWatcher() {
+        inputVehicleNumber.addTextChangedListener(new TextWatcher()
+        {
             @Override
             public void beforeTextChanged(CharSequence text, int start, int count, int after) {}
 
@@ -350,6 +353,19 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void afterTextChanged(Editable s) {}
         });
+
+        spinnerVehicleType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                // Toast.makeText(getApplicationContext(),vehicleTypes.get(i).getName(), Toast.LENGTH_LONG).show();
+                selectedVehicleTypes = vehicleTypes.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
     }
 
     private void visualizeVehicleTypeWidgets(int newView)
@@ -357,4 +373,21 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
         spinnerVehicleType.setVisibility(newView);
         labelVehicleType.setVisibility(newView);
     }
+
+    private void clearAllEditTexts()
+    {
+        inputDepLoc.setText("");
+        inputArrLoc.setText("");
+        inputDate.setText("");
+        inputTime.setText("");
+        inputVehicleNumber.setText("");
+
+        userVehicle = null;
+        time = null;
+        date = null;
+        if (vehicleTypes != null && vehicleTypes.size() > 0)
+            selectedVehicleTypes = vehicleTypes.get(0);
+    }
+
+    public static List<OfferStatus> getOfferStatuses() { return offerStatuses; }
 }

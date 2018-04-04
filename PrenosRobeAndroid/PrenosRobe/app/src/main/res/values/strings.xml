@@ -18,6 +18,7 @@
     <string name="email">E-mail</string>
     <string name="email_empty">E-mail mora biti unet.</string>
     <string name="email_used">E-mail adresa je već u upotrebi.</string>
+    <string name="email_format">Format e-mail adrese nije validan.</string>
     <string name="register">REGISTRUJ SE</string>
     <string name="signup">Registracija</string>
     <string name="buttonOffer">Ponudi</string>

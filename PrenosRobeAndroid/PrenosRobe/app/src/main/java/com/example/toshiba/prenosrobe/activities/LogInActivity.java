@@ -27,6 +27,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private ApiInterface apiInterface;
     private EditText inputMail, inputPassword;
     private TextView labelMsg1;
+    private Fragment navigationFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,19 +37,26 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
         inputMail = (EditText) findViewById(R.id.inputMail);
         inputPassword = (EditText) findViewById(R.id.inputPassword);
+        labelMsg1 = (TextView) findViewById(R.id.labelMsg1);
 
         ((Button) findViewById(R.id.buttonSignIn)).setOnClickListener(this);
         ((Button) findViewById(R.id.buttonSignUp)).setOnClickListener(this);
-        
-        labelMsg1 = (TextView) findViewById(R.id.labelMsg1);
 
-        Fragment fragment = new NavigationFragment();
-        ((NavigationFragment) fragment).setSelectedId(R.id.action_home);
+        navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.bottom_navigation, fragment);
+        ft.add(R.id.bottom_navigation, navigationFragment);
         ft.commit();
-}
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        clearAllEditTexts();
+        ((NavigationFragment) navigationFragment).setectItem(R.id.action_home);
+    }
 
     @Override
     public void onClick(View view)
@@ -112,7 +120,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                     }
                     else if (response.code() == 204)
                     {
-                        ((TextView) findViewById(R.id.labelMsg1)).setText(getResources().getString(R.string.password_email_used));
+                        labelMsg1.setText(getResources().getString(R.string.password_email_used));
                         inputMail.setText("");
                         inputPassword.setText("");
                     }
@@ -142,5 +150,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
         Intent i = new Intent(LogInActivity.this, newActivityClass);
         startActivity(i);
+    }
+
+    private void clearAllEditTexts()
+    {
+        inputMail.setText("");
+        inputPassword.setText("");
+        labelMsg1.setText("");
     }
 }

@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener
+public class RegistrationActivity extends AppCompatActivity
 {
     private ApiInterface apiInterface;
     private EditText inputName, inputSurname, inputPhone, inputEmail, inputUser, inputPass;
@@ -39,6 +39,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private List<Language> selectedLanguages = new ArrayList<>();
     private AlertDialog.Builder alertdialogbuilder;
     private boolean[] selectedTrueFalse;
+    private Fragment navigationFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,107 +58,31 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         labelMsg2 = (TextView) findViewById(R.id.labelMsg2);
 
-        ((Button) findViewById(R.id.buttonRegister)).setOnClickListener(this);
-        ((Button) findViewById(R.id.buttonMultiSpinner)).setOnClickListener(new View.OnClickListener() {
+        registerListeners();
 
-            @Override
-            public void onClick(View view) {
-
-                alertdialogbuilder = new AlertDialog.Builder(RegistrationActivity.this);
-
-                String[] languagesNames = new String[languages.size()];
-                selectedTrueFalse = new boolean[languages.size()];
-
-                for (int i = 0; i < languages.size(); i++)
-                {
-                    languagesNames[i] = languages.get(i).getName();
-                    selectedTrueFalse[i] = selectedLanguages.contains(languages.get(i));
-                }
-
-                alertdialogbuilder.setMultiChoiceItems(languagesNames, selectedTrueFalse, new DialogInterface.OnMultiChoiceClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {}
-                });
-
-                alertdialogbuilder.setCancelable(false);
-                alertdialogbuilder.setTitle("Selektujte jezike koje govorite.");
-
-                alertdialogbuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
-                        selectedLanguages.clear();
-                        for (int i = 0; i < selectedTrueFalse.length; i++)
-                        {
-                            boolean selected = selectedTrueFalse[i];
-
-                            if (selected)
-                                selectedLanguages.add(languages.get(i));
-                        }
-                    }
-                });
-
-                alertdialogbuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {}
-                });
-
-                AlertDialog dialog = alertdialogbuilder.create();
-
-                dialog.show();
-            }
-        });
-
-        getInitData();
-
-        Fragment fragment = new NavigationFragment();
-        ((NavigationFragment) fragment).setSelectedId(R.id.action_home);
+        navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.bottom_navigation, fragment);
+        ft.add(R.id.bottom_navigation, navigationFragment);
         ft.commit();
     }
 
     @Override
-    public void onClick(View view)
+    protected void onResume()
     {
-        User newUser = createUser();
-        if (validateNewUser(newUser))
-        {
-            apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        super.onResume();
+        System.out.println("JOVU - onResume() REGISTRATION");
 
-            Call<RestRespondeDto<User>> call = apiInterface.register(newUser);
-            call.enqueue(new Callback<RestRespondeDto<User>>()
-            {
-                @Override
-                public void onResponse(Call<RestRespondeDto<User>> call, Response<RestRespondeDto<User>> response)
-                {
-                    if (response.code() == 201)
-                    {
-                        user = response.body().getData();
-                        labelMsg2.setText("Pozdrav  " + response.code());
-                        startNextActivity();
-                    }
-                    else if (response.code() == 208)
-                    {
-                        labelMsg2.setText(":((  " + response.code() + "  " + response.message());
-                        parseErrors(response.body().getErrorList());
-                        Intent i = new Intent(RegistrationActivity.this, ErrorPopActivity.class);
-                        i.putExtra("errors", response.body());
-                        startActivity(i);
-                    }
-                }
+        getInitData();
+        //TODO: smisli kako da se ovo resi!!!!
+//        clearAllEditTexts();
+        ((NavigationFragment) navigationFragment).setectItem(R.id.action_home);
+    }
 
-                @Override
-                public void onFailure(Call<RestRespondeDto<User>> call, Throwable t)
-                {
-                    labelMsg2.setText("neeeeeeee");
-                    t.printStackTrace();
-                }
-            });
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("JOVU - onPause() REGISTRATION");
     }
 
     private User createUser()
@@ -220,6 +145,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             {
                 inputEmail.setText("");
             }
+            if (error.equals(getResources().getString(R.string.email_format)))
+            {
+                inputEmail.setText("");
+            }
             else if (error.equals(getResources().getString(R.string.username_used)))
             {
                 inputUser.setText("");
@@ -229,6 +158,19 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 inputPhone.setText("");
             }
         }
+    }
+
+    private void clearAllEditTexts()
+    {
+        inputName.setText("");
+        inputSurname.setText("");
+        inputPhone.setText("");
+        inputEmail.setText("");
+        inputUser.setText("");
+        inputPass.setText("");
+        labelMsg2.setText("");
+
+        selectedLanguages.clear();
     }
 
     private List<UserLanguage> getUserLanguagesByLanguages()
@@ -241,6 +183,106 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
 
         return userLanguages;
+    }
+
+    private void registerListeners()
+    {
+        ((Button) findViewById(R.id.buttonRegister)).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                User newUser = createUser();
+                if (validateNewUser(newUser))
+                {
+                    apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+                    Call<RestRespondeDto<User>> call = apiInterface.register(newUser);
+                    call.enqueue(new Callback<RestRespondeDto<User>>()
+                    {
+                        @Override
+                        public void onResponse(Call<RestRespondeDto<User>> call, Response<RestRespondeDto<User>> response)
+                        {
+                            if (response.code() == 201)
+                            {
+                                user = response.body().getData();
+                                labelMsg2.setText("Pozdrav  " + response.code());
+
+                                startNextActivity();
+                            }
+                            else if (response.code() == 208)
+                            {
+                                labelMsg2.setText(":((  " + response.code() + "  " + response.message());
+                                parseErrors(response.body().getErrorList());
+                                Intent i = new Intent(RegistrationActivity.this, ErrorPopActivity.class);
+                                i.putExtra("errors", response.body());
+                                startActivity(i);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<RestRespondeDto<User>> call, Throwable t)
+                        {
+                            labelMsg2.setText("neeeeeeee");
+                            t.printStackTrace();
+                        }
+                    });
+                }
+            }
+        });
+
+        ((Button) findViewById(R.id.buttonMultiSpinner)).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                alertdialogbuilder = new AlertDialog.Builder(RegistrationActivity.this);
+
+                String[] languagesNames = new String[languages.size()];
+                selectedTrueFalse = new boolean[languages.size()];
+
+                for (int i = 0; i < languages.size(); i++)
+                {
+                    languagesNames[i] = languages.get(i).getName();
+                    selectedTrueFalse[i] = selectedLanguages.contains(languages.get(i));
+                }
+
+                alertdialogbuilder.setMultiChoiceItems(languagesNames, selectedTrueFalse, new DialogInterface.OnMultiChoiceClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {}
+                });
+
+                alertdialogbuilder.setCancelable(false);
+                alertdialogbuilder.setTitle("Selektujte jezike koje govorite.");
+
+                alertdialogbuilder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        selectedLanguages.clear();
+                        for (int i = 0; i < selectedTrueFalse.length; i++)
+                        {
+                            boolean selected = selectedTrueFalse[i];
+
+                            if (selected)
+                                selectedLanguages.add(languages.get(i));
+                        }
+                    }
+                });
+
+                alertdialogbuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+
+                AlertDialog dialog = alertdialogbuilder.create();
+
+                dialog.show();
+            }
+        });
     }
 
     private void getInitData()

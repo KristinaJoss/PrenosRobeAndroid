@@ -22,12 +22,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class ProfileActivity extends AppCompatActivity
 {
     private ApiInterface apiInterface;
     private MagicButton magicButton;
     private TextView email, phone, nameSurname;
+    private Fragment navigationFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,50 +35,78 @@ public class ProfileActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        System.out.println("JOVU - onCreate() PROFILE");
+
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         email = (TextView) findViewById(R.id.Email);
         phone = (TextView) findViewById(R.id.Phone);
         nameSurname = (TextView) findViewById(R.id.NameSurname);
+        magicButton = (MagicButton) findViewById(R.id.magicButton);
 
-        email.setText(RegistrationActivity.getUser().getEmail());
-        phone.setText(RegistrationActivity.getUser().getPhoneNumber());
-        nameSurname.setText(RegistrationActivity.getUser().getName() + " " + RegistrationActivity.getUser().getSurname());
-
-        Fragment navigationFragment = new NavigationFragment();
-        ((NavigationFragment) navigationFragment).setSelectedId(R.id.action_profile);
+        navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.bottom_navigation, navigationFragment);
         ft.commit();
 
-        magicButton = (MagicButton) findViewById(R.id.magicButton);
-        magicButton.setMagicButtonClickListener(new View.OnClickListener() {
+        registerListeners();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        System.out.println("JOVU - onResume() PROFILE");
+
+        ((NavigationFragment) navigationFragment).setectItem(R.id.action_profile);
+
+        email.setText(RegistrationActivity.getUser().getEmail());
+        phone.setText(RegistrationActivity.getUser().getPhoneNumber());
+        nameSurname.setText(RegistrationActivity.getUser().getName() + " " + RegistrationActivity.getUser().getSurname());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("JOVU - onPause() PROFILE");
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("JOVU - onDestroy() PROFILE");
+    }
+
+    private void registerListeners()
+    {
+        magicButton.setMagicButtonClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Toast.makeText(ProfileActivity.this, "Logout", Toast.LENGTH_SHORT).show();
 
                 String token = RegistrationActivity.getUser().getToken();
                 Call<Void> call = apiInterface.logout(token);
                 call.enqueue(new Callback<Void>()
                 {
-                     @Override
-                     public void onResponse(Call<Void> call, Response<Void> response)
-                     {
-                         if(response.code() == 200)
-                         {
-                             RegistrationActivity.setUser(null);
-                             Intent j = new Intent(ProfileActivity.this, MainActivity.class);
-                             startActivity(j);
-                         }
-                     }
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response)
+                    {
+                        if(response.code() == 200)
+                        {
+                            RegistrationActivity.setUser(null);
+                            Intent j = new Intent(ProfileActivity.this, MainActivity.class);
+                            startActivity(j);
+                        }
+                    }
 
-                     @Override
-                     public void onFailure(Call<Void> call, Throwable t)
-                     {
-                         t.printStackTrace();
-                     }
-                 });
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t)
+                    {
+                        t.printStackTrace();
+                    }
+                });
             }
         });
     }
