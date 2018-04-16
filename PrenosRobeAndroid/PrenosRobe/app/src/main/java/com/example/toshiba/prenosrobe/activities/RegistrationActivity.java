@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,9 +38,10 @@ public class RegistrationActivity extends AppCompatActivity
     private static User user;
     private List<Language> languages;
     private List<Language> selectedLanguages = new ArrayList<>();
-    private AlertDialog.Builder alertdialogbuilder;
+    private AlertDialog.Builder alertDialogBuilder;
     private boolean[] selectedTrueFalse;
     private Fragment navigationFragment;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,15 +59,6 @@ public class RegistrationActivity extends AppCompatActivity
         inputEmail = (EditText) findViewById(R.id.inputEmail);
         labelMsg2 = (TextView) findViewById(R.id.labelMsg2);
 
-//        ((Button) findViewById(R.id.buttonRegister)).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(RegistrationActivity.this);
-//                View mView = getLayoutInflater().inflate(R.layout.dialog_errors, null);
-//
-//            }
-//        });
-
         registerListeners();
 
         navigationFragment = new NavigationFragment();
@@ -84,8 +75,7 @@ public class RegistrationActivity extends AppCompatActivity
         System.out.println("JOVU - onResume() REGISTRATION");
 
         getInitData();
-        //TODO: smisli kako da se ovo resi!!!!
-//        clearAllEditTexts();
+        clearAllEditTexts();
         ((NavigationFragment) navigationFragment).setectItem(R.id.action_home);
     }
 
@@ -231,9 +221,37 @@ public class RegistrationActivity extends AppCompatActivity
                             {
                                 labelMsg2.setText(":((  " + response.code() + "  " + response.message());
                                 parseErrors(response.body().getErrorList());
-                                Intent i = new Intent(RegistrationActivity.this, ErrorPopActivity.class);
-                                i.putExtra("errors", response.body());
-                                startActivity(i);
+
+                                AlertDialog.Builder mBuilder = new AlertDialog.Builder(RegistrationActivity.this);
+                                View mView = getLayoutInflater().inflate(R.layout.dialog_errors, null);
+                                mView.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+                                    }
+                                });
+
+                                List<String> errorList = response.body().getErrorList();
+                                List<TextView> errorTextViews = getErrorTextViews(mView);
+
+                                int numberOfShownErrors = Math.min(errorTextViews.size(), errorList.size());
+                                // Init text views
+                                for (int i = 0; i < numberOfShownErrors; i++)
+                                {
+                                    errorTextViews.get(i).setText(errorList.get(i));
+                                }
+
+                                // Delete unused text views
+                                for (int i = numberOfShownErrors; i < errorTextViews.size(); i++)
+                                {
+                                    errorTextViews.get(i).setHeight(0);
+                                }
+
+                                mBuilder.setView(mView);
+                                alertDialog = mBuilder.create();
+                                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+
+                                alertDialog.show();
                             }
                         }
 
@@ -253,7 +271,7 @@ public class RegistrationActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                alertdialogbuilder = new AlertDialog.Builder(RegistrationActivity.this);
+                alertDialogBuilder = new AlertDialog.Builder(RegistrationActivity.this);
 
                 String[] languagesNames = new String[languages.size()];
                 selectedTrueFalse = new boolean[languages.size()];
@@ -264,16 +282,16 @@ public class RegistrationActivity extends AppCompatActivity
                     selectedTrueFalse[i] = selectedLanguages.contains(languages.get(i));
                 }
 
-                alertdialogbuilder.setMultiChoiceItems(languagesNames, selectedTrueFalse, new DialogInterface.OnMultiChoiceClickListener()
+                alertDialogBuilder.setMultiChoiceItems(languagesNames, selectedTrueFalse, new DialogInterface.OnMultiChoiceClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {}
                 });
 
-                alertdialogbuilder.setCancelable(false);
-                alertdialogbuilder.setTitle("Selektujte jezike koje govorite.");
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.setTitle("Selektujte jezike koje govorite.");
 
-                alertdialogbuilder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
@@ -289,18 +307,31 @@ public class RegistrationActivity extends AppCompatActivity
                     }
                 });
 
-                alertdialogbuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
+                alertDialogBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {}
                 });
 
-                AlertDialog dialog = alertdialogbuilder.create();
+                AlertDialog dialog = alertDialogBuilder.create();
                 dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.loginbg, null));
 
                 dialog.show();
             }
         });
+    }
+
+    private List<TextView> getErrorTextViews(View mView)
+    {
+        List<TextView> errorTextViews = new ArrayList<>();
+
+        errorTextViews.add((TextView) mView.findViewById(R.id.labelError1));
+        errorTextViews.add((TextView) mView.findViewById(R.id.labelError2));
+        errorTextViews.add((TextView) mView.findViewById(R.id.labelError3));
+        errorTextViews.add((TextView) mView.findViewById(R.id.labelError4));
+        errorTextViews.add((TextView) mView.findViewById(R.id.labelError5));
+
+        return errorTextViews;
     }
 
     private void getInitData()
