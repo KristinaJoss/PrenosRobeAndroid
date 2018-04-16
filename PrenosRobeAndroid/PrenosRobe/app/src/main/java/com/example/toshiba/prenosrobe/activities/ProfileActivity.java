@@ -3,10 +3,13 @@ package com.example.toshiba.prenosrobe.activities;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,9 +28,13 @@ import retrofit2.Response;
 public class ProfileActivity extends AppCompatActivity
 {
     private ApiInterface apiInterface;
-    private MagicButton magicButton;
+    //private MagicButton magicButton;
     private TextView email, phone, nameSurname;
     private Fragment navigationFragment;
+
+    private FloatingActionButton fab_menu, fab_logout, fab_settings;
+    private Animation FabOpen, FabClose, FabRForward, FabRBackward;
+    private boolean isOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,13 +49,21 @@ public class ProfileActivity extends AppCompatActivity
         email = (TextView) findViewById(R.id.Email);
         phone = (TextView) findViewById(R.id.Phone);
         nameSurname = (TextView) findViewById(R.id.NameSurname);
-        magicButton = (MagicButton) findViewById(R.id.magicButton);
+        //magicButton = (MagicButton) findViewById(R.id.magicButton);
 
         navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.bottom_navigation, navigationFragment);
         ft.commit();
+
+        fab_menu = (FloatingActionButton) findViewById(R.id.fab_menu);
+        fab_logout = (FloatingActionButton) findViewById(R.id.fab_logout);
+        fab_settings = (FloatingActionButton) findViewById(R.id.fab_settings);
+        FabOpen = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
+        FabClose = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
+        FabRForward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_forward);
+        FabRBackward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_backward);
 
         registerListeners();
     }
@@ -79,7 +94,7 @@ public class ProfileActivity extends AppCompatActivity
 
     private void registerListeners()
     {
-        magicButton.setMagicButtonClickListener(new View.OnClickListener()
+        fab_logout.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -107,6 +122,32 @@ public class ProfileActivity extends AppCompatActivity
                         t.printStackTrace();
                     }
                 });
+            }
+        });
+
+        fab_menu.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(isOpen)
+                {
+                    fab_settings.startAnimation(FabClose);
+                    fab_logout.startAnimation(FabClose);
+                    fab_menu.startAnimation(FabRBackward);
+                    fab_settings.setClickable(false);
+                    fab_logout.setClickable(false);
+                    isOpen = false;
+                }
+                else
+                {
+                    fab_settings.startAnimation(FabOpen);
+                    fab_logout.startAnimation(FabOpen);
+                    fab_menu.startAnimation(FabRForward);
+                    fab_settings.setClickable(true);
+                    fab_logout.setClickable(true);
+                    isOpen = true;
+                }
             }
         });
     }

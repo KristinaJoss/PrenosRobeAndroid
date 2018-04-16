@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +8,39 @@
     tools:context="com.example.toshiba.prenosrobe.activities.SearchActivity"
     android:background="@color/colorbackground">
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_logout"
+        android:elevation="6dp"
+        android:id="@+id/fab_logout"
+        app:pressedTranslationZ="12dp"
+        android:visibility="invisible"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/ic_settings"
+        android:elevation="6dp"
+        android:id="@+id/fab_settings"
+        app:pressedTranslationZ="12dp"
+        android:visibility="invisible"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/ic_menu"
+        android:elevation="6dp"
+        android:id="@+id/fab_menu"
+        app:pressedTranslationZ="12dp"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -25,4 +58,4 @@
             android:layout_alignParentBottom="true"/>
     </FrameLayout>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

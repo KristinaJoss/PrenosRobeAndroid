@@ -43,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OfferActivity extends AppCompatActivity implements View.OnClickListener
+public class OfferActivity extends AppCompatActivity
 {
     private ApiInterface apiInterface;
     private EditText inputDepLoc, inputArrLoc, inputDate, inputTime, inputVehicleNumber;
@@ -75,10 +75,6 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
         labelVehicleType = (TextView) findViewById(R.id.labelVehicleType);
         spinnerVehicleType = (Spinner) findViewById(R.id.spinnerVehicleType);
 
-        ((Button) findViewById(R.id.buttonGo)).setOnClickListener(this);
-        ((Button) findViewById(R.id.buttonProfile2)).setOnClickListener(this);
-        ((Button) findViewById(R.id.buttonBack2)).setOnClickListener(this);
-
         registerListeners();
 
         navigationFragment = new NavigationFragment();
@@ -96,27 +92,6 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
         getInitData();
         clearAllEditTexts();
         ((NavigationFragment) navigationFragment).setectItem(R.id.action_offer);
-    }
-
-    @Override
-    public void onClick(View view)
-    {
-        Intent i;
-        switch(view.getId())
-        {
-            case R.id.buttonGo:
-                sendDriverOffer();
-                break;
-
-            case R.id.buttonProfile2:
-                i = new Intent(this, ProfileActivity.class);
-                startActivity(i);
-                break;
-
-            case R.id.buttonBack2:
-                break;
-        }
-
     }
 
     private DriverOffer createDriverOffer()
@@ -258,6 +233,15 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
 
     private void registerListeners()
     {
+        findViewById(R.id.buttonGo).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                sendDriverOffer();
+            }
+        });
+
         onDateSetListener = new DatePickerDialog.OnDateSetListener()
         {
             @Override
@@ -377,10 +361,15 @@ public class OfferActivity extends AppCompatActivity implements View.OnClickList
     private void clearAllEditTexts()
     {
         inputDepLoc.setText("");
+        inputDepLoc.setError(null);
         inputArrLoc.setText("");
+        inputArrLoc.setError(null);
         inputDate.setText("");
+        inputDate.setError(null);
         inputTime.setText("");
+        inputTime.setError(null);
         inputVehicleNumber.setText("");
+        inputVehicleNumber.setError(null);
 
         userVehicle = null;
         time = null;

@@ -16,6 +16,7 @@ import com.example.toshiba.prenosrobe.activities.MainActivity;
 import com.example.toshiba.prenosrobe.activities.OfferActivity;
 import com.example.toshiba.prenosrobe.activities.ProfileActivity;
 import com.example.toshiba.prenosrobe.activities.RegistrationActivity;
+import com.example.toshiba.prenosrobe.activities.SearchActivity;
 
 public class NavigationFragment extends Fragment
 {
@@ -43,6 +44,8 @@ public class NavigationFragment extends Fragment
                         break;
 
                     case R.id.action_search:
+                        i = new Intent(getActivity(), SearchActivity.class);
+                        startActivity(i);
                         //Toast.makeText(getActivity(), "Pretraga", Toast.LENGTH_SHORT).show();
                         break;
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@drawable/pop_background">
+
+    <TextView
+        android:id="@+id/labelError1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/labelError2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/labelError1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/labelError3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/labelError2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/labelError4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/labelError3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/labelError5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/labelError4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/buttonOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonstylegradient"
+        android:paddingTop="15dp"
+        android:text="@string/buttonOK"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+</RelativeLayout>

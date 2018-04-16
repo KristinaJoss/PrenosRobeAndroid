@@ -155,7 +155,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private void clearAllEditTexts()
     {
         inputMail.setText("");
+        inputMail.setError(null);
         inputPassword.setText("");
+        inputPassword.setError(null);
         labelMsg1.setText("");
     }
 }

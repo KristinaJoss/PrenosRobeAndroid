@@ -6,6 +6,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -55,8 +57,16 @@ public class RegistrationActivity extends AppCompatActivity
         inputPass = (EditText) findViewById(R.id.inputPass);
         inputPhone = (EditText) findViewById(R.id.inputPhone);
         inputEmail = (EditText) findViewById(R.id.inputEmail);
-
         labelMsg2 = (TextView) findViewById(R.id.labelMsg2);
+
+//        ((Button) findViewById(R.id.buttonRegister)).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(RegistrationActivity.this);
+//                View mView = getLayoutInflater().inflate(R.layout.dialog_errors, null);
+//
+//            }
+//        });
 
         registerListeners();
 
@@ -163,11 +173,18 @@ public class RegistrationActivity extends AppCompatActivity
     private void clearAllEditTexts()
     {
         inputName.setText("");
+        inputName.setError(null);
         inputSurname.setText("");
+        inputSurname.setError(null);
         inputPhone.setText("");
+        inputPhone.setError(null);
         inputEmail.setText("");
+        inputEmail.setError(null);
         inputUser.setText("");
+        inputUser.setError(null);
         inputPass.setText("");
+        inputPass.setError(null);
+
         labelMsg2.setText("");
 
         selectedLanguages.clear();
@@ -279,6 +296,7 @@ public class RegistrationActivity extends AppCompatActivity
                 });
 
                 AlertDialog dialog = alertdialogbuilder.create();
+                dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.loginbg, null));
 
                 dialog.show();
             }

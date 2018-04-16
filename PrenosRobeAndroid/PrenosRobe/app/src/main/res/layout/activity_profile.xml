@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +8,46 @@
     tools:context="com.example.toshiba.prenosrobe.activities.ProfileActivity"
     android:background="@color/colorbackground"
     android:orientation="vertical">
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_menu"
+        android:elevation="6dp"
+        android:id="@+id/fab_menu"
+        app:pressedTranslationZ="12dp"
+        app:fabSize="mini"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_logout"
+        android:elevation="6dp"
+        android:id="@+id/fab_logout"
+        app:pressedTranslationZ="12dp"
+        android:visibility="invisible"
+        app:fabSize="mini"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/ic_settings"
+        android:elevation="6dp"
+        android:id="@+id/fab_settings"
+        app:pressedTranslationZ="12dp"
+        android:visibility="invisible"
+        app:fabSize="mini"/>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,22 +60,21 @@
             android:background="@drawable/gradientbackgorund"
             android:orientation="vertical">
 
-            <br.com.bloder.magic.view.MagicButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/magicButton"
-                app:button_icon="@drawable/ic_logout"
-                app:magic_button_size="25dp"
-                app:button_icon_width="25dp"
-                app:button_icon_height="25dp"
-                app:hide_text="Logout"
-                app:hide_text_size="8dp"
-                app:hide_text_color="@color/colorPrimaryDark"
-                app:icon_button_color="@color/colorAccent"
-                app:expandable_area_color="@color/colorAccent"
-                >
+            <!--<br.com.bloder.magic.view.MagicButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/magicButton"-->
+                <!--app:button_icon="@drawable/ic_logout"-->
+                <!--app:magic_button_size="25dp"-->
+                <!--app:button_icon_width="25dp"-->
+                <!--app:button_icon_height="25dp"-->
+                <!--app:hide_text="Logout"-->
+                <!--app:hide_text_size="8dp"-->
+                <!--app:hide_text_color="@color/colorPrimaryDark"-->
+                <!--app:icon_button_color="@color/colorAccent"-->
+                <!--app:expandable_area_color="@color/colorAccent"-->
+                <!--/>-->
 
-            </br.com.bloder.magic.view.MagicButton>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -140,17 +180,20 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp">
 
                     <Button
                         android:id="@+id/buttonBookings"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/buttonstylegradient"
                         android:onClick="ChangeFragment"
                         android:text="@string/bookings"
-                        android:textColor="#000" />
+                        android:textColor="#000"
+                        android:textSize="12dp" />
 
                 </LinearLayout>
 
@@ -158,17 +201,20 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp">
 
                     <Button
                         android:id="@+id/buttonMyOffer"
-                        android:layout_width="130dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@drawable/buttonstylegradient"
                         android:onClick="ChangeFragment"
                         android:text="@string/moje_ponude"
-                        android:textColor="#000" />
+                        android:textColor="#000"
+                        android:textSize="12dp"/>
 
                 </LinearLayout>
 
@@ -206,4 +252,4 @@
     </RelativeLayout>
 
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
