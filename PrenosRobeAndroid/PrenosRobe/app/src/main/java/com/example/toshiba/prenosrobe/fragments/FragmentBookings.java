@@ -117,7 +117,8 @@ public class FragmentBookings extends Fragment
             viewHolder.labelMsgListView.setText(tempClaimerOffer.getDepartureLocation() + " - " + tempClaimerOffer.getArrivalLocation());
             Date date = tempClaimerOffer.getDriverOffer().getDate();
             int year = date.getYear() + 1900;
-            viewHolder.listViewDate.setText(date.getDate() + "." + date.getMonth()+ "." + year + ".");
+            int month = date.getMonth() + 1;
+            viewHolder.listViewDate.setText(date.getDate() + "." + month + "." + year + ".");
             viewHolder.listViewUsername.setText(tempClaimerOffer.getDriverOffer().getUserVehicle().getUser().getUsername());
             viewHolder.ImageView.setImageResource(R.drawable.profile_icon);
 

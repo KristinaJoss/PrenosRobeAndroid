@@ -26,7 +26,9 @@ import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
+import com.example.toshiba.prenosrobe.data.DriverOfferStation;
 import com.example.toshiba.prenosrobe.data.OfferStatus;
+import com.example.toshiba.prenosrobe.data.Station;
 import com.example.toshiba.prenosrobe.data.UserVehicle;
 import com.example.toshiba.prenosrobe.data.Vehicle;
 import com.example.toshiba.prenosrobe.data.VehicleType;
@@ -38,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -103,6 +106,7 @@ public class OfferActivity extends AppCompatActivity
         newDriverOffer.setTime(time);
         newDriverOffer.setOfferStatus(offerStatuses.get(1));
         newDriverOffer.setUserVehicle(createUserVehicle());
+        newDriverOffer.setDriverOfferStations(createDriverOfferStations(newDriverOffer));
 
         return newDriverOffer;
     }
@@ -121,6 +125,53 @@ public class OfferActivity extends AppCompatActivity
         }
 
         return userVehicle;
+    }
+
+    private List<DriverOfferStation> createDriverOfferStations(final DriverOffer driverOffer)
+    {
+        List<DriverOfferStation> driverOfferStations = new ArrayList<>();
+        List<String> stationsNames = getEnteredStationsNames();
+        int serialNumber = 1;
+
+        DriverOfferStation departureDriverOfferStation = createDriverOfferStation(driverOffer.getDepartureLocation(), serialNumber);
+        driverOfferStations.add(departureDriverOfferStation);
+        serialNumber++;
+
+        for (String stationName : stationsNames)
+        {
+            DriverOfferStation newDriverOfferStation = createDriverOfferStation(stationName, serialNumber);
+            driverOfferStations.add(newDriverOfferStation);
+            serialNumber++;
+        }
+
+        DriverOfferStation arrivalDriverOfferStation = createDriverOfferStation(driverOffer.getArrivalLocation(), serialNumber);
+        driverOfferStations.add(arrivalDriverOfferStation);
+
+        return driverOfferStations;
+    }
+
+    private DriverOfferStation createDriverOfferStation(final String stationName, final int serialNumber)
+    {
+        Station station = new Station();
+        station.setName(stationName);
+
+        DriverOfferStation driverOfferStation = new DriverOfferStation();
+        driverOfferStation.setSerialNumber(serialNumber);
+        driverOfferStation.setStation(station);
+
+        return driverOfferStation;
+    }
+
+    private List<String> getEnteredStationsNames()
+    {
+        List<String> stations = new ArrayList<>();
+
+        // privremena lista, trebalo bi da cita iz aktivitija sta je korisnik uneo
+        stations.add("BEOGRAD");
+        stations.add("JAGODINA");
+        stations.add("ALEKSINAC");
+
+        return stations;
     }
 
     private boolean validateNewDriverOffer(final DriverOffer newDriverOffer)
@@ -247,8 +298,8 @@ public class OfferActivity extends AppCompatActivity
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day)
             {
-                month ++;
                 date = new Date(year - 1900, month , day);
+                month++;
                 inputDate.setText(day + "." + month + "." + year + ".");
                 inputDate.setError(null);
             }
@@ -286,7 +337,7 @@ public class OfferActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Calendar cal = Calendar.getInstance();
+                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Belgrade"));
                 int hour = cal.get(Calendar.HOUR_OF_DAY);
                 int minute = cal.get(Calendar.MINUTE);
 

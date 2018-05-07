@@ -151,7 +151,8 @@ public class MainActivity extends AppCompatActivity
             viewHolder.labelMsgListView.setText(tempDriverOffer.getDepartureLocation() + " - " + tempDriverOffer.getArrivalLocation());
             Date date = tempDriverOffer.getDate();
             int year = date.getYear() + 1900;
-            viewHolder.listViewDate.setText(date.getDate() + "." + date.getMonth()+ "." + year + ".");
+            int month = date.getMonth() + 1;
+            viewHolder.listViewDate.setText(date.getDate() + "." + month + "." + year + ".");
             viewHolder.listViewUsername.setText(tempDriverOffer.getUserVehicle().getUser().getUsername());
             viewHolder.ImageView.setImageResource(R.drawable.profile_icon);
 
