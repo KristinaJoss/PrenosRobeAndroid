@@ -1,163 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.toshiba.prenosrobe.activities.OfferActivity"
-    android:background="@drawable/loginbg">
+    android:background="@drawable/loginbg"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/labelText1"
-        android:layout_width="0dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/frameLayout2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/labelText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:fadingEdge="none"
+                android:gravity="center"
+                android:text="@string/labelText1"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                 />
+
+            <EditText
+                android:id="@+id/inputDepLoc"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:hint="Pocetna lokacija"
+                android:inputType="textPersonName"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/inputArrLoc"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Krajnja lokacija"
+                android:inputType="textPersonName"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/inputDate"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+               android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Datum polaska"
+                android:inputType="date"
+                android:textSize="16sp"/>
+
+            <EditText
+                android:id="@+id/inputTime"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Vreme polaska"
+                android:inputType="time"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/inputVehicleNumber"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Registracioni broj vozila"
+                android:inputType="text"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/labelVehicleType"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:gravity="center|start"
+                android:text="@string/vehicletype"
+                android:textSize="16sp"
+                android:visibility="visible"
+                tools:layout_editor_absoluteY="305dp" />
+
+            <Spinner
+                android:id="@+id/spinnerVehicleType"
+                android:layout_width="200dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:visibility="visible"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/inputStations"
+                    android:layout_width="170dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="55dp"
+                    android:ems="10"
+                    android:hint="Unesite medjustanice"
+                    android:inputType="text"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/buttonAdd"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/colorStart"
+                    android:text="@string/Dodaj"
+                    android:textSize="12dp"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonGo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="bottom|center"
+                android:background="@drawable/buttonstylegradient"
+                android:text="@string/buttonOffer"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="16dp"
-        android:fadingEdge="none"
-        android:gravity="center"
-        android:text="@string/labelText1"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/inputDepLoc"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Pocetna lokacija"
-        android:inputType="textPersonName"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelText1" />
-
-    <EditText
-        android:id="@+id/inputArrLoc"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Krajnja lokacija"
-        android:inputType="textPersonName"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputDepLoc" />
-
-    <EditText
-        android:id="@+id/inputDate"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Datum polaska"
-        android:focusable="false"
-        android:inputType="date"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputArrLoc" />
-
-    <EditText
-        android:id="@+id/inputTime"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Vreme polaska"
-        android:focusable="false"
-        android:inputType="time"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputDate" />
-
-    <Button
-        android:id="@+id/buttonGo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
-        android:layout_marginEnd="117dp"
-        android:layout_marginStart="117dp"
-        android:background="@drawable/buttonstylegradient"
-        android:text="@string/buttonOffer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/inputVehicleNumber"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Registracioni broj vozila"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputTime" />
-
-    <TextView
-        android:id="@+id/labelVehicleType"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center|start"
-        android:text="@string/vehicletype"
-        android:textSize="18sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputVehicleNumber" />
-
-    <Spinner
-        android:id="@+id/spinnerVehicleType"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelVehicleType" />
+        android:layout_alignParentBottom="true"
+        android:id="@+id/frameLayout2"
+        android:layout_marginTop="0dp">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@drawable/nav_item_color_state"
         app:itemTextColor="@drawable/nav_item_color_state"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_main">
+        app:menu="@menu/bottom_navigation_main" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-        </FrameLayout>
+    </FrameLayout>
 
-    </android.support.design.widget.BottomNavigationView>
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

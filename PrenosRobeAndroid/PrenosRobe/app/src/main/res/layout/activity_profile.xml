@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:src="@drawable/ic_menu"
         android:elevation="6dp"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="50dp"
         android:src="@drawable/ic_logout"
         android:elevation="6dp"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|right"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="90dp"
         android:src="@drawable/ic_settings"
         android:elevation="6dp"
@@ -48,133 +48,98 @@
         app:fabSize="mini"/>
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <RelativeLayout
+            android:id="@+id/RelativeLayout1"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@drawable/gradientbackgorund"
-            android:orientation="vertical">
-
-            <!--<br.com.bloder.magic.view.MagicButton-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/magicButton"-->
-                <!--app:button_icon="@drawable/ic_logout"-->
-                <!--app:magic_button_size="25dp"-->
-                <!--app:button_icon_width="25dp"-->
-                <!--app:button_icon_height="25dp"-->
-                <!--app:hide_text="Logout"-->
-                <!--app:hide_text_size="8dp"-->
-                <!--app:hide_text_color="@color/colorPrimaryDark"-->
-                <!--app:icon_button_color="@color/colorAccent"-->
-                <!--app:expandable_area_color="@color/colorAccent"-->
-                <!--/>-->
-
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradientbackgorund">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="left"
                 android:src="@drawable/profile_icon" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/NameSurname"
+                android:layout_width="wrap_content"
+                android:layout_height="30sp"
+                android:layout_toEndOf="@+id/imageView"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="@string/profile"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/NameSurname"
-            android:layout_width="200sp"
-            android:layout_height="30sp"
-            android:layout_below="@+id/linearLayout"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_vertical|center"
-            android:text="@string/profile"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/ic_email"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/ic_email_black_24dp"
+                android:layout_gravity="center_vertical"
+                android:layout_toEndOf="@+id/imageView"
+                android:layout_below="@+id/NameSurname"/>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="85dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="150dp">
+            <TextView
+                android:id="@+id/Email"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_toEndOf="@+id/ic_email"
+                android:layout_below="@+id/NameSurname"
+                android:text="@string/email"
+                android:textSize="14dp"
+                android:textColor="@color/colorPrimaryDark"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:background="@color/colorbackground">
+            <ImageView
+                android:id="@+id/ic_phone"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/imageView"
+                android:layout_below="@+id/ic_email"
+                android:src="@drawable/ic_phone_black_24dp"
+                android:layout_gravity="center_vertical"/>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_gravity="center">
+            <TextView
+                android:id="@+id/Phone"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_toEndOf="@+id/ic_phone"
+                android:layout_below="@+id/Email"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/phone"
+                android:textSize="14dp"
+                android:textColor="@color/colorPrimaryDark"/>
 
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_email_black_24dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"/>
+        </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/Email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/email"
-                        android:textColor="@color/colorPrimaryDark"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_phone_black_24dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"/>
-
-                    <TextView
-                        android:id="@+id/Phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/phone"
-                        android:textColor="@color/colorPrimaryDark"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="230dp"
-            android:background="@color/colorbackground"
+            android:layout_below="@+id/RelativeLayout1"
+            android:background="@color/colorStart"
             android:id="@+id/cardView">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2"
-                android:background="@color/colorbackground">
+                android:weightSum="3"
+                android:background="@color/colorStart">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -186,14 +151,14 @@
 
                     <Button
                         android:id="@+id/buttonBookings"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/buttonstylegradient"
+                        android:background="@color/colorStart"
                         android:onClick="ChangeFragment"
                         android:text="@string/bookings"
                         android:textColor="#000"
-                        android:textSize="12dp" />
+                        android:textSize="14dp" />
 
                 </LinearLayout>
 
@@ -207,14 +172,35 @@
 
                     <Button
                         android:id="@+id/buttonMyOffer"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/buttonstylegradient"
+                        android:background="@color/colorStart"
                         android:onClick="ChangeFragment"
                         android:text="@string/moje_ponude"
                         android:textColor="#000"
-                        android:textSize="12dp"/>
+                        android:textSize="14dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp">
+
+                    <Button
+                        android:id="@+id/buttonComments"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorStart"
+                        android:onClick="ChangeFragment"
+                        android:text="@string/komentari"
+                        android:textColor="#000"
+                        android:textSize="14dp"/>
 
                 </LinearLayout>
 
@@ -250,6 +236,5 @@
         </FrameLayout>
 
     </RelativeLayout>
-
 
 </android.support.design.widget.CoordinatorLayout>

@@ -7,26 +7,73 @@
     tools:context="com.example.toshiba.prenosrobe.activities.MainActivity"
     android:background="@drawable/loginbg">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Pretrazi pocetnu stranu"
+        android:textSize="18dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:gravity="center" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:hint="Pocetna lokacija"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAllCaps="true"
+        android:textSize="16dp"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"/>
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:hint="Krajnja lokacija"
+        android:layout_below="@+id/editText1"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAllCaps="true"
+        android:textSize="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"/>
+    <EditText
+        android:id="@+id/inputDate"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/editText2"
+        android:layout_marginLeft="25dp"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="Datum polaska"
+        android:inputType="date"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_toEndOf="@+id/inputDate"
+        android:layout_below="@+id/editText2"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/ic_search"/>
+
     <ListView
         android:id="@+id/ListViewHome"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_height="300dp"
+        android:layout_above="@+id/frameLayout" />
 
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="100dp"
-        android:layout_height="25dp"
-        android:layout_below="@+id/ListViewHome"
-        android:layout_centerHorizontal="true"
-        android:gravity="center" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/frameLayout">
 
         <android.support.design.widget.BottomNavigationView
             android:layout_width="match_parent"
@@ -39,6 +86,5 @@
             />
 
     </FrameLayout>
-
 
 </RelativeLayout>

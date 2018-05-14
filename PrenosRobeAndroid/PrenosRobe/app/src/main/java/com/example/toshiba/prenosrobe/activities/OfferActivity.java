@@ -342,7 +342,8 @@ public class OfferActivity extends AppCompatActivity
                 int minute = cal.get(Calendar.MINUTE);
 
                 TimePickerDialog dialog = new TimePickerDialog(OfferActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, onTimeSetListener, hour, minute, true);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.loginbg, null));
                 dialog.show();
             }
         });

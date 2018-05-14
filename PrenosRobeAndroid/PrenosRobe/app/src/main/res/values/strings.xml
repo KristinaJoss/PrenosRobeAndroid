@@ -49,5 +49,7 @@
     <string name="vehicletype">Tip vozila</string>
     <string name="language">Jezici</string>
     <string name="buttonMultiSpinner">Izaberi jezike</string>
+    <string name="Dodaj">Dodaj</string>
+    <string name="komentari">Komentari</string>
 
 </resources>
