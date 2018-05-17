@@ -1,15 +1,20 @@
 package com.example.toshiba.prenosrobe.activities;
 
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,6 +27,7 @@ import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +41,10 @@ public class MainActivity extends AppCompatActivity
     private List<DriverOffer> driverOffers;
     private ListView l;
     private Fragment navigationFragment;
+    private EditText inputDepLoc, inputArrLoc, inputDate;
+    private Date date;
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
+    private ImageView ic_search1, ic_search2, ic_search3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,6 +58,12 @@ public class MainActivity extends AppCompatActivity
         l = (ListView) findViewById(R.id.ListViewHome);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.single_row, R.id.labelMsgListView, data); //layout koji opisuje posebni red u ListView, zatim gde da smesta upisane podatke
 //        l.setAdapter(adapter);
+
+        EditText inputDepLoc = (EditText) findViewById(R.id.editText1);
+        EditText inputArrLoc = (EditText) findViewById(R.id.editText2);
+        EditText inputDate = (EditText) findViewById(R.id.editText3);
+
+        searchOffers();
 
         navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
@@ -171,5 +187,59 @@ public class MainActivity extends AppCompatActivity
     {
         ImageView ImageView;
         TextView labelMsgListView, listViewDate, listViewUsername;
+    }
+
+    private void searchOffers()
+    {
+        inputDepLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                visualizeSearchWidgets(View.VISIBLE);
+            }
+        });
+
+        inputArrLoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                visualizeSearchWidgets(View.VISIBLE);
+            }
+        });
+
+        onDateSetListener = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day)
+            {
+                date = new Date(year - 1900, month , day);
+                month++;
+                inputDate.setText(day + "." + month + "." + year + ".");
+                inputDate.setError(null);
+            }
+        };
+
+        inputDate.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(MainActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, onDateSetListener, year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                visualizeSearchWidgets(View.VISIBLE);
+            }
+        });
+    }
+
+    private void visualizeSearchWidgets(int newView)
+    {
+        ic_search1.setVisibility(newView);
+        ic_search2.setVisibility(newView);
+        ic_search3.setVisibility(newView);
     }
 }

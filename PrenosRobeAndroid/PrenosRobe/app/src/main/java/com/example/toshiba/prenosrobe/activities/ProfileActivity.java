@@ -1,12 +1,12 @@
 package com.example.toshiba.prenosrobe.activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.app.Fragment;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,9 +18,9 @@ import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.fragments.FragmentBookings;
 import com.example.toshiba.prenosrobe.fragments.FragmentMyOffers;
+import com.example.toshiba.prenosrobe.fragments.FragmentComments;
 import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
-import br.com.bloder.magic.view.MagicButton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,10 +28,8 @@ import retrofit2.Response;
 public class ProfileActivity extends AppCompatActivity
 {
     private ApiInterface apiInterface;
-    //private MagicButton magicButton;
     private TextView email, phone, nameSurname;
     private Fragment navigationFragment;
-
     private FloatingActionButton fab_menu, fab_logout, fab_settings;
     private Animation FabOpen, FabClose, FabRForward, FabRBackward;
     private boolean isOpen = false;
@@ -49,7 +47,6 @@ public class ProfileActivity extends AppCompatActivity
         email = (TextView) findViewById(R.id.Email);
         phone = (TextView) findViewById(R.id.Phone);
         nameSurname = (TextView) findViewById(R.id.NameSurname);
-        //magicButton = (MagicButton) findViewById(R.id.magicButton);
 
         navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
@@ -156,22 +153,32 @@ public class ProfileActivity extends AppCompatActivity
     {
         Fragment fragment;
 
-        if (view == findViewById(R.id.buttonBookings))
+        switch (view.getId())
         {
-            fragment = new FragmentBookings();
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.fragmentBookings, fragment);
-            ft.commit(); //kad god se pocne transakcija, ona mora da se komituje!
-        }
+            case R.id.buttonBookings:
+                fragment = new FragmentBookings();
+                FragmentManager fm1 = getFragmentManager();
+                FragmentTransaction ft1 = fm1.beginTransaction();
+                ft1.replace(R.id.fragmentBookings, fragment);
+                ft1.commit(); //kad god se pocne transakcija, ona mora da se komituje!
+                break;
 
-        else if (view == findViewById(R.id.buttonMyOffer))
-        {
-            fragment = new FragmentMyOffers();
-            FragmentManager fm = getFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.fragmentBookings, fragment);
-            ft.commit();
+            case R.id.buttonMyOffer:
+                fragment = new FragmentMyOffers();
+                FragmentManager fm2 = getFragmentManager();
+                FragmentTransaction ft2 = fm2.beginTransaction();
+                ft2.replace(R.id.fragmentBookings, fragment);
+                ft2.commit();
+                break;
+
+            case R.id.buttonComments:
+                fragment = new FragmentComments();
+                FragmentManager fm3 = getFragmentManager();
+                FragmentTransaction ft3 = fm3.beginTransaction();
+                ft3.replace(R.id.fragmentBookings, fragment);
+                ft3.commit();
+                break;
         }
     }
+
 }

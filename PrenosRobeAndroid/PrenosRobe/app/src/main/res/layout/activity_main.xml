@@ -9,65 +9,112 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="Pretrazi pocetnu stranu"
-        android:textSize="18dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:gravity="center" />
+        android:orientation="vertical"
+        android:id="@+id/LinearLayout1"
+        android:layout_alignParentTop="true">
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:hint="Pocetna lokacija"
-        android:textColor="@color/colorPrimaryDark"
-        android:textAllCaps="true"
-        android:textSize="16dp"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="25dp"/>
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:hint="Krajnja lokacija"
-        android:layout_below="@+id/editText1"
-        android:textColor="@color/colorPrimaryDark"
-        android:textAllCaps="true"
-        android:textSize="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="25dp"/>
-    <EditText
-        android:id="@+id/inputDate"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/editText2"
-        android:layout_marginLeft="25dp"
-        android:ems="10"
-        android:focusable="false"
-        android:hint="Datum polaska"
-        android:inputType="date"
-        android:textSize="16sp"/>
 
-    <ImageView
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_toEndOf="@+id/inputDate"
-        android:layout_below="@+id/editText2"
-        android:layout_marginLeft="15dp"
-        android:src="@drawable/ic_search"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="300dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:layout_height="match_parent"
+                android:hint="Pocetna lokacija"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAllCaps="true"
+                android:textSize="16dp"/>
+
+            <ImageView
+                android:id="@+id/ic_search1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="right"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_search"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="300dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:layout_height="match_parent"
+                android:hint="Krajnja lokacija"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAllCaps="true"
+                android:textSize="16dp"/>
+
+            <ImageView
+                android:id="@+id/ic_search2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="right"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_search"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp">
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="300dp"
+                android:layout_marginLeft="15dp"
+                android:gravity="left"
+                android:layout_height="match_parent"
+                android:hint="Datum polaska"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAllCaps="true"
+                android:textSize="16dp"
+                android:focusable="false"
+                android:inputType="date"/>
+
+            <ImageView
+                android:id="@+id/ic_search3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="right"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_search"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/ListViewHome"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_above="@+id/frameLayout" />
+        android:layout_above="@+id/frameLayout"
+        android:layout_below="@+id/LinearLayout1" />
 
     <FrameLayout
         android:layout_width="match_parent"
