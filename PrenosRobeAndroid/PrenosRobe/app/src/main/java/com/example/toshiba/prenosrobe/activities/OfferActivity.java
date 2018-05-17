@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,10 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.toshiba.prenosrobe.DynamicViews;
 import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
@@ -61,6 +64,9 @@ public class OfferActivity extends AppCompatActivity
     private DatePickerDialog.OnDateSetListener onDateSetListener;
     private TimePickerDialog.OnTimeSetListener onTimeSetListener;
     private Fragment navigationFragment;
+    private GridLayout gridStations;
+    Context context;
+    Button buttonAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,6 +83,8 @@ public class OfferActivity extends AppCompatActivity
         inputVehicleNumber = (EditText) findViewById(R.id.inputVehicleNumber);
         labelVehicleType = (TextView) findViewById(R.id.labelVehicleType);
         spinnerVehicleType = (Spinner) findViewById(R.id.spinnerVehicleType);
+        gridStations = (GridLayout) findViewById(R.id.gridStations);
+        buttonAdd = (Button) findViewById(R.id.buttonAdd);
 
         registerListeners();
 
@@ -166,10 +174,11 @@ public class OfferActivity extends AppCompatActivity
     {
         List<String> stations = new ArrayList<>();
 
-        // privremena lista, trebalo bi da cita iz aktivitija sta je korisnik uneo
-        stations.add("BEOGRAD");
-        stations.add("JAGODINA");
-        stations.add("ALEKSINAC");
+        for (int i = gridStations.getChildCount(); i > 0; i -=2)
+        {
+            EditText editText = (EditText) gridStations.getChildAt(i - 1);
+            stations.add(editText.getText().toString());
+        }
 
         return stations;
     }
@@ -342,8 +351,7 @@ public class OfferActivity extends AppCompatActivity
                 int minute = cal.get(Calendar.MINUTE);
 
                 TimePickerDialog dialog = new TimePickerDialog(OfferActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, onTimeSetListener, hour, minute, true);
-                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.loginbg, null));
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
@@ -401,6 +409,19 @@ public class OfferActivity extends AppCompatActivity
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DynamicViews dnv = new DynamicViews(context);
+                gridStations.addView(dnv.descriptionStations(getApplicationContext(), "Medjustanica"),0);
+//                gridStations.addView(dnv.receivedQuantityEditText(getApplicationContext()),4);
+                gridStations.addView(dnv.enterStations(getApplicationContext()),1);
+            }
         });
     }
 

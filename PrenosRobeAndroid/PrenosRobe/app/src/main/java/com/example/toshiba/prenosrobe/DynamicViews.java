@@ -17,26 +17,37 @@ public class DynamicViews {
         this.ctx = ctx;
     }
 
-    public TextView descriptionTextView (Context context, String text)
+    public TextView descriptionStations (Context context, String text)
     {
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final TextView textView = new TextView(context);
         textView.setLayoutParams(lparams);
-        textView.setTextSize(10);
+        textView.setText(text);
+        textView.setTextSize(16);
         textView.setTextColor(Color.BLACK);
-        textView.setMaxEms(10);
+        textView.setMaxEms(15);
         return textView;
     }
 
-    public EditText receivedQuantityEditText (Context context)
+    public EditText enterStations (Context context)
     {
         final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final EditText editText = new EditText(context);
         int id = 0;
         editText.setId(id);
-        editText.setMinEms(2);
+        editText.setMinEms(10);
         editText.setTextColor(Color.BLACK);
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
         return editText;
     }
+
+//    public TextView stations (Context context, String text)
+//    {
+//        final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        final TextView textView = new TextView(context);
+//        textView.setLayoutParams(lparams);
+//        textView.setTextColor(Color.BLACK);
+//        textView.setText(text);
+//        return textView;
+//    }
 }

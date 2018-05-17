@@ -17,77 +17,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/LinearLayout1"
-        android:layout_alignParentTop="true">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp">
 
             <EditText
                 android:id="@+id/editText1"
                 android:layout_width="300dp"
-                android:layout_marginLeft="15dp"
-                android:gravity="left"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="match_parent"
                 android:hint="Pocetna lokacija"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAllCaps="true"
+                android:inputType="text"
                 android:textSize="16dp"/>
-
-            <ImageView
-                android:id="@+id/ic_search1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:gravity="right"
-                android:layout_marginLeft="15dp"
-                android:src="@drawable/ic_search"
-                android:visibility="invisible"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
 
             <EditText
                 android:id="@+id/editText2"
                 android:layout_width="300dp"
-                android:layout_marginLeft="15dp"
-                android:gravity="left"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
                 android:hint="Krajnja lokacija"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAllCaps="true"
+                android:inputType="text"
                 android:textSize="16dp"/>
-
-            <ImageView
-                android:id="@+id/ic_search2"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:gravity="right"
-                android:layout_marginLeft="15dp"
-                android:src="@drawable/ic_search"
-                android:visibility="invisible"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="15dp">
 
             <EditText
                 android:id="@+id/editText3"
                 android:layout_width="300dp"
-                android:layout_marginLeft="15dp"
-                android:gravity="left"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="match_parent"
                 android:hint="Datum polaska"
                 android:textColor="@color/colorPrimaryDark"
@@ -96,19 +54,42 @@
                 android:focusable="false"
                 android:inputType="date"/>
 
-            <ImageView
-                android:id="@+id/ic_search3"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:gravity="right"
-                android:layout_marginLeft="15dp"
-                android:src="@drawable/ic_search"
-                android:visibility="invisible"/>
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:gravity="center">
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/buttonReset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/buttonstylegradient"
+                    android:text="Obrisi"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"/>
+
+                <Space
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"/>
+
+                <Button
+                    android:id="@+id/buttonSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/buttonstylegradient"
+                    android:text="Trazi"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"/>
+
+            </LinearLayout>
 
     </LinearLayout>
-
+    
     <ListView
         android:id="@+id/ListViewHome"
         android:layout_width="match_parent"

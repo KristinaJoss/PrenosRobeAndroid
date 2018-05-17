@@ -9,10 +9,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +26,7 @@ import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
+import com.example.toshiba.prenosrobe.dto.HomeSearchDto;
 import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
 
@@ -39,12 +43,12 @@ public class MainActivity extends AppCompatActivity
 {
     private ApiInterface apiInterface;
     private List<DriverOffer> driverOffers;
-    private ListView l;
+    private ListView listViewHome;
     private Fragment navigationFragment;
     private EditText inputDepLoc, inputArrLoc, inputDate;
     private Date date;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
-    private ImageView ic_search1, ic_search2, ic_search3;
+    private Button buttonSearch, buttonReset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,15 +59,17 @@ public class MainActivity extends AppCompatActivity
         System.out.println("JOVU - onCreate() MAIN");
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        l = (ListView) findViewById(R.id.ListViewHome);
+        listViewHome = (ListView) findViewById(R.id.ListViewHome);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.single_row, R.id.labelMsgListView, data); //layout koji opisuje posebni red u ListView, zatim gde da smesta upisane podatke
 //        l.setAdapter(adapter);
 
-        EditText inputDepLoc = (EditText) findViewById(R.id.editText1);
-        EditText inputArrLoc = (EditText) findViewById(R.id.editText2);
-        EditText inputDate = (EditText) findViewById(R.id.editText3);
+        inputDepLoc = findViewById(R.id.editText1);
+        inputArrLoc = findViewById(R.id.editText2);
+        inputDate = findViewById(R.id.editText3);
+        buttonSearch = findViewById(R.id.buttonSearch);
+        buttonReset = findViewById(R.id.buttonReset);
 
-        searchOffers();
+        registerListeners();
 
         navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
@@ -80,6 +86,8 @@ public class MainActivity extends AppCompatActivity
 
         ((NavigationFragment) navigationFragment).setectItem(R.id.action_home);
 
+        clearAllEditTexts();
+
         // Get all driver offers
         Call<RestRespondeDto<List<DriverOffer>>> call = apiInterface.getAllDriverOffers();
         call.enqueue(new Callback<RestRespondeDto<List<DriverOffer>>>()
@@ -90,7 +98,7 @@ public class MainActivity extends AppCompatActivity
                 if(response.code() == 200)
                 {
                     driverOffers = response.body().getData();
-                    l.setAdapter(new DriverOfferAdapter(MainActivity.this, driverOffers));
+                    listViewHome.setAdapter(new DriverOfferAdapter(MainActivity.this, driverOffers));
                 }
             }
 
@@ -165,10 +173,10 @@ public class MainActivity extends AppCompatActivity
                 viewHolder = (ViewHolder) view.getTag();
 
             viewHolder.labelMsgListView.setText(tempDriverOffer.getDepartureLocation() + " - " + tempDriverOffer.getArrivalLocation());
-            Date date = tempDriverOffer.getDate();
-            int year = date.getYear() + 1900;
-            int month = date.getMonth() + 1;
-            viewHolder.listViewDate.setText(date.getDate() + "." + month + "." + year + ".");
+            Date offerDate = tempDriverOffer.getDate();
+            int year = offerDate.getYear() + 1900;
+            int month = offerDate.getMonth() + 1;
+            viewHolder.listViewDate.setText(offerDate.getDate() + "." + month + "." + year + ".");
             viewHolder.listViewUsername.setText(tempDriverOffer.getUserVehicle().getUser().getUsername());
             viewHolder.ImageView.setImageResource(R.drawable.profile_icon);
 
@@ -189,34 +197,8 @@ public class MainActivity extends AppCompatActivity
         TextView labelMsgListView, listViewDate, listViewUsername;
     }
 
-    private void searchOffers()
+    private void registerListeners()
     {
-        inputDepLoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                visualizeSearchWidgets(View.VISIBLE);
-            }
-        });
-
-        inputArrLoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                visualizeSearchWidgets(View.VISIBLE);
-            }
-        });
-
-        onDateSetListener = new DatePickerDialog.OnDateSetListener()
-        {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day)
-            {
-                date = new Date(year - 1900, month , day);
-                month++;
-                inputDate.setText(day + "." + month + "." + year + ".");
-                inputDate.setError(null);
-            }
-        };
-
         inputDate.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -231,15 +213,124 @@ public class MainActivity extends AppCompatActivity
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
-                visualizeSearchWidgets(View.VISIBLE);
             }
+        });
+
+        onDateSetListener = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day)
+            {
+                date = new Date(year - 1900, month , day);
+                month++;
+                inputDate.setText(day + "." + month + "." + year + ".");
+                inputDate.setError(null);
+
+                enableButtonReset();
+            }
+        };
+
+        buttonReset.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                clearAllEditTexts();
+            }
+        });
+
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String departureLocation = inputDepLoc.getText().toString();
+                String arrivalLocation = inputArrLoc.getText().toString();
+
+                HomeSearchDto homeSearchDto = new HomeSearchDto(departureLocation, arrivalLocation, date);
+                Call<RestRespondeDto<List<DriverOffer>>> call = apiInterface.getDriverOffersByLocationAndDate(homeSearchDto);
+                call.enqueue(new Callback<RestRespondeDto<List<DriverOffer>>>()
+                {
+                    @Override
+                    public void onResponse(Call<RestRespondeDto<List<DriverOffer>>> call, Response<RestRespondeDto<List<DriverOffer>>> response)
+                    {
+                        if(response.code() == 200)
+                        {
+                            driverOffers = response.body().getData();
+                            listViewHome.setAdapter(new DriverOfferAdapter(MainActivity.this, driverOffers));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RestRespondeDto<List<DriverOffer>>> call, Throwable t)
+                    {
+                        t.printStackTrace();
+                        ((TextView) findViewById(R.id.textView2)).setText("neeeeeee");
+                    }
+                });
+            }
+        });
+
+        inputDepLoc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                enableButtonSearch();
+                enableButtonReset();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        inputArrLoc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                enableButtonSearch();
+                enableButtonReset();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
         });
     }
 
-    private void visualizeSearchWidgets(int newView)
+    private void enableButtonSearch()
     {
-        ic_search1.setVisibility(newView);
-        ic_search2.setVisibility(newView);
-        ic_search3.setVisibility(newView);
+        if(!inputDepLoc.getText().toString().isEmpty() && !inputArrLoc.getText().toString().isEmpty())
+        {
+            buttonSearch.setEnabled(true);
+        }
+        else
+        {
+            buttonSearch.setEnabled(false);
+        }
+    }
+
+    private void enableButtonReset()
+    {
+        if(!inputDepLoc.getText().toString().isEmpty() || !inputArrLoc.getText().toString().isEmpty() || date != null)
+        {
+            buttonReset.setEnabled(true);
+        }
+        else
+        {
+            buttonReset.setEnabled(false);
+        }
+    }
+
+    private void clearAllEditTexts()
+    {
+        inputDepLoc.setText("");
+        inputArrLoc.setText("");
+        inputDate.setText("");
+        buttonSearch.setEnabled(false);
+        buttonReset.setEnabled(false);
+        date = null;
     }
 }

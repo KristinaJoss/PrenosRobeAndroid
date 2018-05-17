@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Bojana on 31.3.2018..
- */
 public class RestRespondeDto<T> implements Serializable
 {
     private static final long serialVersionUID = 266446195575446911L;

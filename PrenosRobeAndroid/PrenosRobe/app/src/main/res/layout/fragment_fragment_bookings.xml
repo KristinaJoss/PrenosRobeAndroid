@@ -5,16 +5,6 @@
     tools:context="com.example.toshiba.prenosrobe.fragments.FragmentBookings"
     android:background="@color/colorbackground">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorStart"
-        android:gravity="top|center"
-        android:text="@string/bookings"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
-
     <ListView
         android:id="@+id/ListViewBookings"
         android:layout_width="match_parent"
