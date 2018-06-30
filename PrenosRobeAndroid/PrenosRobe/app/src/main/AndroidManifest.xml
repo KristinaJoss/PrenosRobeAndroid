@@ -16,13 +16,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.LogInActivity"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.RegistrationActivity"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.MainActivity"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,19 +34,23 @@
         </activity>
         <activity
             android:name=".activities.OfferActivity"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.SearchActivity"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.ProfileActivity"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.PopActivity"
             android:theme="@style/AppTheme.PopUp"/>
         <activity
             android:name=".activities.ErrorPopActivity"
-            android:theme="@style/AppTheme.PopUp"/>
+            android:theme="@style/AppTheme.PopUp"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

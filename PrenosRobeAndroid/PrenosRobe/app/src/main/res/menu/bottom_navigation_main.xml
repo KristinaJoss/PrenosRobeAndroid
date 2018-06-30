@@ -7,35 +7,35 @@
         android:id="@+id/action_home"
         android:enabled="true"
         android:icon="@drawable/ic_home"
-        android:title="Pocetna"
+        android:title="@string/buttonHome"
         app:showAsAction="ifRoom"
         />
     <item
         android:id="@+id/action_search"
         android:enabled="true"
         android:icon="@drawable/ic_search"
-        android:title="Trazi"
+        android:title="@string/buttonSearch"
         app:showAsAction="ifRoom"
         />
     <item
         android:id="@+id/action_offer"
         android:enabled="true"
         android:icon="@drawable/ic_offer"
-        android:title="Ponudi"
+        android:title="@string/buttonOffer"
         app:showAsAction="ifRoom"
         />
     <item
         android:id="@+id/action_notification"
         android:enabled="true"
         android:icon="@drawable/ic_notification"
-        android:title="Obavestenja"
+        android:title="@string/buttonNotifications"
         app:showAsAction="ifRoom"
         />
     <item
         android:id="@+id/action_profile"
         android:enabled="true"
         android:icon="@drawable/ic_profile"
-        android:title="Profil"
+        android:title="@string/buttonProfile"
         app:showAsAction="ifRoom"
         />
 

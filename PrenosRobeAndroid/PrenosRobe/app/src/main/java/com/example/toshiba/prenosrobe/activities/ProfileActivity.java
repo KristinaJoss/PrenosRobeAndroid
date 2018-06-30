@@ -4,12 +4,14 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,9 +46,9 @@ public class ProfileActivity extends AppCompatActivity
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        email = (TextView) findViewById(R.id.Email);
-        phone = (TextView) findViewById(R.id.Phone);
-        nameSurname = (TextView) findViewById(R.id.NameSurname);
+        email = findViewById(R.id.Email);
+        phone = findViewById(R.id.Phone);
+        nameSurname = findViewById(R.id.NameSurname);
 
         navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
@@ -54,9 +56,9 @@ public class ProfileActivity extends AppCompatActivity
         ft.add(R.id.bottom_navigation, navigationFragment);
         ft.commit();
 
-        fab_menu = (FloatingActionButton) findViewById(R.id.fab_menu);
-        fab_logout = (FloatingActionButton) findViewById(R.id.fab_logout);
-        fab_settings = (FloatingActionButton) findViewById(R.id.fab_settings);
+        fab_menu = findViewById(R.id.fab_menu);
+        fab_logout = findViewById(R.id.fab_logout);
+        fab_settings = findViewById(R.id.fab_settings);
         FabOpen = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
         FabClose = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
         FabRForward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_forward);
@@ -72,10 +74,12 @@ public class ProfileActivity extends AppCompatActivity
         System.out.println("JOVU - onResume() PROFILE");
 
         ((NavigationFragment) navigationFragment).setectItem(R.id.action_profile);
+        changeFragment(findViewById(R.id.buttonBookings));
 
         email.setText(RegistrationActivity.getUser().getEmail());
         phone.setText(RegistrationActivity.getUser().getPhoneNumber());
         nameSurname.setText(RegistrationActivity.getUser().getName() + " " + RegistrationActivity.getUser().getSurname());
+        closeFloatingButtons();
     }
 
     @Override
@@ -129,12 +133,7 @@ public class ProfileActivity extends AppCompatActivity
             {
                 if(isOpen)
                 {
-                    fab_settings.startAnimation(FabClose);
-                    fab_logout.startAnimation(FabClose);
-                    fab_menu.startAnimation(FabRBackward);
-                    fab_settings.setClickable(false);
-                    fab_logout.setClickable(false);
-                    isOpen = false;
+                    closeFloatingButtons();
                 }
                 else
                 {
@@ -149,7 +148,17 @@ public class ProfileActivity extends AppCompatActivity
         });
     }
 
-    public void ChangeFragment (View view)
+    private void closeFloatingButtons()
+    {
+        fab_settings.startAnimation(FabClose);
+        fab_logout.startAnimation(FabClose);
+        fab_menu.startAnimation(FabRBackward);
+        fab_settings.setClickable(false);
+        fab_logout.setClickable(false);
+        isOpen = false;
+    }
+
+    public void changeFragment(View view)
     {
         Fragment fragment;
 
@@ -159,7 +168,7 @@ public class ProfileActivity extends AppCompatActivity
                 fragment = new FragmentBookings();
                 FragmentManager fm1 = getFragmentManager();
                 FragmentTransaction ft1 = fm1.beginTransaction();
-                ft1.replace(R.id.fragmentBookings, fragment);
+                ft1.replace(R.id.fragmentProfile, fragment);
                 ft1.commit(); //kad god se pocne transakcija, ona mora da se komituje!
                 break;
 
@@ -167,7 +176,7 @@ public class ProfileActivity extends AppCompatActivity
                 fragment = new FragmentMyOffers();
                 FragmentManager fm2 = getFragmentManager();
                 FragmentTransaction ft2 = fm2.beginTransaction();
-                ft2.replace(R.id.fragmentBookings, fragment);
+                ft2.replace(R.id.fragmentProfile, fragment);
                 ft2.commit();
                 break;
 
@@ -175,10 +184,22 @@ public class ProfileActivity extends AppCompatActivity
                 fragment = new FragmentComments();
                 FragmentManager fm3 = getFragmentManager();
                 FragmentTransaction ft3 = fm3.beginTransaction();
-                ft3.replace(R.id.fragmentBookings, fragment);
+                ft3.replace(R.id.fragmentProfile, fragment);
                 ft3.commit();
                 break;
         }
+
+        emphasizePressedButton(view.getId());
     }
 
+    private void emphasizePressedButton(int buttonId)
+    {
+        ((Button) findViewById(R.id.buttonBookings)).setTextColor(Color.BLACK);
+        ((Button) findViewById(R.id.buttonMyOffer)).setTextColor(Color.BLACK);
+        ((Button) findViewById(R.id.buttonComments)).setTextColor(Color.BLACK);
+
+        Button pressedButton = findViewById(buttonId);
+        if (pressedButton != null)
+            pressedButton.setTextColor(getResources().getColor(R.color.colorPrimary, null));
+    }
 }

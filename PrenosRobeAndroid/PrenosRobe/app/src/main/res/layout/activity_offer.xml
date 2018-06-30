@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
                 android:ems="10"
-                android:hint="Pocetna lokacija"
+                android:hint="@string/labelDepLoc"
                 android:inputType="textPersonName"
                 android:textSize="16sp"/>
 
@@ -49,7 +49,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:ems="10"
-                android:hint="Krajnja lokacija"
+                android:hint="@string/labelArrLoc"
                 android:inputType="textPersonName"
                 android:textSize="16sp"/>
 
@@ -61,7 +61,7 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:focusable="false"
-                android:hint="Datum polaska"
+                android:hint="@string/labelDate"
                 android:inputType="date"
                 android:textSize="16sp"/>
 
@@ -73,7 +73,7 @@
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:focusable="false"
-                android:hint="Vreme polaska"
+                android:hint="@string/labelTime"
                 android:inputType="time"
                 android:textSize="16sp" />
 
@@ -84,7 +84,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:ems="10"
-                android:hint="Registracioni broj vozila"
+                android:hint="@string/vehiclenumber"
                 android:inputType="text"
                 android:textSize="16sp"/>
 
@@ -137,7 +137,7 @@
                         android:layout_marginLeft="55dp"
                         android:ems="10"
                         android:gravity="center_vertical"
-                        android:hint="Unesite medjustanice"
+                        android:hint="@string/addStations"
                         android:textSize="16sp" />
 
                     <Button

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorbackground">
+
+    <ImageView
+        android:id="@+id/imageDriver"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/profile_icon"
+        android:layout_margin="5dp"/>
+
+    <TextView
+        android:id="@+id/labelDriverUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageDriver"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center_horizontal"
+        android:text="@string/username"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/labelLocations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:text="@string/locations"
+        android:textSize="14dp"
+        android:textAllCaps="true"
+        android:layout_toRightOf="@id/imageDriver"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@+id/labelOfferDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|top"
+        android:text="@string/labelDate"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:textSize="14dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@+id/labelOfferDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|top"
+        android:layout_below="@id/labelLocations"
+        android:layout_toRightOf="@id/imageDriver"
+        android:text="@string/offerDescription"
+        android:textSize="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/colorPrimaryDark"/>
+
+</RelativeLayout>

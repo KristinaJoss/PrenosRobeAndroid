@@ -289,9 +289,9 @@ public class RegistrationActivity extends AppCompatActivity
                 });
 
                 alertDialogBuilder.setCancelable(false);
-                alertDialogBuilder.setTitle("Selektujte jezike koje govorite.");
+                alertDialogBuilder.setTitle(getResources().getString(R.string.selectLanguageDialogTitle));
 
-                alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                alertDialogBuilder.setPositiveButton(getResources().getString(R.string.buttonOK), new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which)
@@ -307,7 +307,7 @@ public class RegistrationActivity extends AppCompatActivity
                     }
                 });
 
-                alertDialogBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener()
+                alertDialogBuilder.setNeutralButton(getResources().getString(R.string.buttonCancel), new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {}

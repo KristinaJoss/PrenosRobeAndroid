@@ -24,7 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.example.toshiba.prenosrobe.DynamicViews;
+import com.example.toshiba.prenosrobe.util.DynamicViews;
 import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
@@ -418,8 +418,7 @@ public class OfferActivity extends AppCompatActivity
             public void onClick(View v) {
 
                 DynamicViews dnv = new DynamicViews(context);
-                gridStations.addView(dnv.descriptionStations(getApplicationContext(), "Medjustanica"),0);
-//                gridStations.addView(dnv.receivedQuantityEditText(getApplicationContext()),4);
+                gridStations.addView(dnv.descriptionStations(getApplicationContext(), getResources().getString(R.string.station)),0);
                 gridStations.addView(dnv.enterStations(getApplicationContext()),1);
             }
         });
@@ -443,6 +442,7 @@ public class OfferActivity extends AppCompatActivity
         inputTime.setError(null);
         inputVehicleNumber.setText("");
         inputVehicleNumber.setError(null);
+        gridStations.removeAllViews();
 
         userVehicle = null;
         time = null;

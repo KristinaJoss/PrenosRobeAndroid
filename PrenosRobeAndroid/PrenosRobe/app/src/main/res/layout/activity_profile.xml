@@ -155,7 +155,7 @@
                         android:layout_height="35dp"
                         android:layout_gravity="center"
                         android:background="@color/colorStart"
-                        android:onClick="ChangeFragment"
+                        android:onClick="changeFragment"
                         android:text="@string/bookings"
                         android:textColor="#000"
                         android:textSize="14dp" />
@@ -176,7 +176,7 @@
                         android:layout_height="35dp"
                         android:layout_gravity="center"
                         android:background="@color/colorStart"
-                        android:onClick="ChangeFragment"
+                        android:onClick="changeFragment"
                         android:text="@string/moje_ponude"
                         android:textColor="#000"
                         android:textSize="14dp"/>
@@ -197,7 +197,7 @@
                         android:layout_height="35dp"
                         android:layout_gravity="center"
                         android:background="@color/colorStart"
-                        android:onClick="ChangeFragment"
+                        android:onClick="changeFragment"
                         android:text="@string/komentari"
                         android:textColor="#000"
                         android:textSize="14dp"/>
@@ -209,7 +209,7 @@
         </android.support.v7.widget.CardView>
 
         <fragment
-            android:id="@+id/fragmentBookings"
+            android:id="@+id/fragmentProfile"
             android:name="com.example.toshiba.prenosrobe.fragments.FragmentBookings"
             android:layout_width="match_parent"
             android:layout_height="240dp"

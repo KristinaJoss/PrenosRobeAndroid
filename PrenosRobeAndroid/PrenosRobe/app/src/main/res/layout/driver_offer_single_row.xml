@@ -20,7 +20,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="0dp"
         android:gravity="center_horizontal"
-        android:text="Korisnicko ime"
+        android:text="@string/username"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="14dp" />
 
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:text="Lokacije"
+        android:text="@string/locations"
         android:textSize="14dp"
         android:textAllCaps="true"
         android:layout_toRightOf="@id/ImageView"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|top"
-        android:text="Datum"
+        android:text="@string/labelDate"
         android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
         android:layout_marginRight="40dp"
@@ -57,9 +57,21 @@
         android:gravity="center_horizontal|top"
         android:layout_below="@id/labelMsgListView"
         android:layout_toRightOf="@id/ImageView"
-        android:text="Opis"
+        android:text="@string/stations"
         android:textSize="16dp"
         android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
         android:textColor="@color/colorPrimaryDark"/>
+
+    <GridLayout
+        android:id="@+id/gridAllStations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/labelMsgListView"
+        android:layout_toRightOf="@id/labelMsgListViewDes"
+        android:layout_marginTop="5dp"
+        android:columnCount="1">
+
+    </GridLayout>
 
 </RelativeLayout>

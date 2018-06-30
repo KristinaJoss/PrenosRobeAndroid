@@ -25,7 +25,7 @@
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="match_parent"
-                android:hint="Pocetna lokacija"
+                android:hint="@string/labelDepLoc"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAllCaps="true"
                 android:inputType="text"
@@ -36,7 +36,7 @@
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
-                android:hint="Krajnja lokacija"
+                android:hint="@string/labelArrLoc"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAllCaps="true"
                 android:inputType="text"
@@ -47,7 +47,7 @@
                 android:layout_width="300dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="match_parent"
-                android:hint="Datum polaska"
+                android:hint="@string/labelDate"
                 android:textColor="@color/colorPrimaryDark"
                 android:textAllCaps="true"
                 android:textSize="16dp"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center">
 
                 <Button
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/buttonstylegradient"
-                    android:text="Obrisi"
+                    android:text="@string/buttonReset"
                     android:textSize="14dp"
                     android:gravity="center"
                     android:layout_gravity="center_horizontal"/>
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/buttonstylegradient"
-                    android:text="Trazi"
+                    android:text="@string/buttonSearch"
                     android:textSize="14dp"
                     android:gravity="center"
                     android:layout_gravity="center_horizontal"/>
@@ -96,6 +96,15 @@
         android:layout_height="300dp"
         android:layout_above="@+id/frameLayout"
         android:layout_below="@+id/LinearLayout1" />
+
+    <TextView
+        android:id="@+id/labelNoOffers"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/LinearLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/noOffers" />
 
     <FrameLayout
         android:layout_width="match_parent"
