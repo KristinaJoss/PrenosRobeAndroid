@@ -49,7 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OfferActivity extends AppCompatActivity
+public class CreateDriverOfferActivity extends AppCompatActivity
 {
     private ApiInterface apiInterface;
     private EditText inputDepLoc, inputArrLoc, inputDate, inputTime, inputVehicleNumber;
@@ -72,7 +72,7 @@ public class OfferActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_offer);
+        setContentView(R.layout.activity_create_driver_offer);
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -230,7 +230,7 @@ public class OfferActivity extends AppCompatActivity
                 {
                     if(response.code() == 201)
                     {
-                        Intent i = new Intent(OfferActivity.this, MainActivity.class);
+                        Intent i = new Intent(CreateDriverOfferActivity.this, MainActivity.class);
                         startActivity(i);
                     }
                 }
@@ -259,7 +259,7 @@ public class OfferActivity extends AppCompatActivity
                     for (VehicleType vehicleType : vehicleTypes)
                         vehicleTypesNames.add(vehicleType.getName());
 
-                    ArrayAdapter aa = new ArrayAdapter(OfferActivity.this, android.R.layout.simple_spinner_item, vehicleTypesNames);
+                    ArrayAdapter aa = new ArrayAdapter(CreateDriverOfferActivity.this, android.R.layout.simple_spinner_item, vehicleTypesNames);
                     aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerVehicleType.setAdapter(aa);
                 }
@@ -335,7 +335,7 @@ public class OfferActivity extends AppCompatActivity
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog dialog = new DatePickerDialog(OfferActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, onDateSetListener, year, month, day);
+                DatePickerDialog dialog = new DatePickerDialog(CreateDriverOfferActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, onDateSetListener, year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -350,7 +350,7 @@ public class OfferActivity extends AppCompatActivity
                 int hour = cal.get(Calendar.HOUR_OF_DAY);
                 int minute = cal.get(Calendar.MINUTE);
 
-                TimePickerDialog dialog = new TimePickerDialog(OfferActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, onTimeSetListener, hour, minute, true);
+                TimePickerDialog dialog = new TimePickerDialog(CreateDriverOfferActivity.this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, onTimeSetListener, hour, minute, true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -418,8 +418,8 @@ public class OfferActivity extends AppCompatActivity
             public void onClick(View v) {
 
                 DynamicViews dnv = new DynamicViews(context);
-                gridStations.addView(dnv.descriptionStations(getApplicationContext(), getResources().getString(R.string.station)),0);
-                gridStations.addView(dnv.enterStations(getApplicationContext()),1);
+                gridStations.addView(dnv.getTextView(getApplicationContext(), getResources().getString(R.string.station)),0);
+                gridStations.addView(dnv.getEditText(getApplicationContext()),1);
             }
         });
     }

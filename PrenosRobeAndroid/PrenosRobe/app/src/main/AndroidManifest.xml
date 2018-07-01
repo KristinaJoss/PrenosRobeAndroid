@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.OfferActivity"
+            android:name=".activities.CreateDriverOfferActivity"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan"/>
         <activity

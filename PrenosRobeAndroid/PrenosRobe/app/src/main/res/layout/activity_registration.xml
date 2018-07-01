@@ -142,6 +142,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputPass" />
 
+    <ImageView
+        android:id="@+id/languagesError"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:src="@drawable/indicator_input_error"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/buttonMultiSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/inputPass"
+        android:visibility="invisible"/>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="0dp"

@@ -14,7 +14,7 @@ import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.ClaimerOffer;
 import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
-import com.example.toshiba.prenosrobe.util.ClaimerOfferAdapter;
+import com.example.toshiba.prenosrobe.adapters.ClaimerOfferAdapter;
 
 import java.util.List;
 

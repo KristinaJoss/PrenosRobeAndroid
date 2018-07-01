@@ -1,17 +1,21 @@
-package com.example.toshiba.prenosrobe.util;
+package com.example.toshiba.prenosrobe.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.toshiba.prenosrobe.R;
+import com.example.toshiba.prenosrobe.activities.MainActivity;
+import com.example.toshiba.prenosrobe.activities.ProfileActivity;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
 import com.example.toshiba.prenosrobe.data.DriverOfferStation;
+import com.example.toshiba.prenosrobe.dialogs.DriverOfferDialog;
+import com.example.toshiba.prenosrobe.util.DynamicViews;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +50,7 @@ public class DriverOfferAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int index, View view, ViewGroup viewGroup)
+    public View getView(final int index, View view, ViewGroup viewGroup)
     {
         DriverOfferViewHolder viewHolder;
 
@@ -79,9 +83,10 @@ public class DriverOfferAdapter extends BaseAdapter
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView textView = ((Activity) context).findViewById(R.id.textView2);
-                if (textView != null)
-                    textView.setText(tempDriverOffer.getArrivalLocation());
+                if (context instanceof MainActivity)
+                    DriverOfferDialog.openedFromMainActivity(context, tempDriverOffer);
+                else if (context instanceof ProfileActivity)
+                    DriverOfferDialog.openedFromProfileActivity(context, tempDriverOffer);
             }
         });
 
@@ -101,7 +106,7 @@ public class DriverOfferAdapter extends BaseAdapter
         for (String stationName : stationNames)
         {
             DynamicViews dynamicViews = new DynamicViews(context);
-            viewHolder.gridAllStations.addView(dynamicViews.descriptionStations(context, stationName));
+            viewHolder.gridAllStations.addView(dynamicViews.getTextView(context, stationName));
         }
     }
 
@@ -123,7 +128,7 @@ public class DriverOfferAdapter extends BaseAdapter
 
 class DriverOfferViewHolder
 {
-    android.widget.ImageView ImageView;
+    ImageView ImageView;
     TextView labelMsgListView, listViewDate, listViewUsername;
     GridLayout gridAllStations;
 }

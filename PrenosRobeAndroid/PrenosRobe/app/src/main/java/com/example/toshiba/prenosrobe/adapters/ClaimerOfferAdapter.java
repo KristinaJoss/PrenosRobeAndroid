@@ -1,6 +1,5 @@
-package com.example.toshiba.prenosrobe.util;
+package com.example.toshiba.prenosrobe.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

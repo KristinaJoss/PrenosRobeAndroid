@@ -24,6 +24,7 @@
     <string name="buttonNotifications">Obaveštenja</string>
     <string name="buttonHome">Početna</string>
     <string name="buttonOffer">Ponudi</string>
+    <string name="buttonBook">Bukiraj ponudu</string>
     <string name="buttonSearch">Traži</string>
     <string name="buttonReset">Obriši</string>
     <string name="buttonProfile">Profil</string>
@@ -54,8 +55,10 @@
     <string name="vehiclenumber">Registracioni broj vozila</string>
     <string name="vehiclenumber_empty">Registracioni broj vozila mora biti unet.</string>
     <string name="vehicletype">Tip vozila</string>
+    <string name="vehicle">Prevozno sredstvo</string>
     <string name="station">Međustanica</string>
-    <string name="stations">Međustanice:</string>
+    <string name="stationsAre">Međustanice:</string>
+    <string name="stations">Međustanice</string>
     <string name="noStations">Nema</string>
     <string name="offerDescription">Opis ponude...</string>
     <string name="noOffers">Trenutno nema ponuda.</string>
@@ -63,7 +66,9 @@
     <string name="addStations">Unesite međustanice</string>
     <string name="language">Jezici</string>
     <string name="buttonMultiSpinner">Izaberi jezike</string>
+    <string name="userLanguages">Jezici koje vozač govori</string>
     <string name="Dodaj">Dodaj</string>
     <string name="komentari">Komentari</string>
+    <string name="driverDate">Podaci o vozaču</string>
 
 </resources>

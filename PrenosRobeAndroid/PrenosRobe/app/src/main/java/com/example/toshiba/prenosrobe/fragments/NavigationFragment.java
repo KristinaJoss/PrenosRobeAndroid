@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.activities.LogInActivity;
 import com.example.toshiba.prenosrobe.activities.MainActivity;
-import com.example.toshiba.prenosrobe.activities.OfferActivity;
+import com.example.toshiba.prenosrobe.activities.CreateDriverOfferActivity;
 import com.example.toshiba.prenosrobe.activities.ProfileActivity;
 import com.example.toshiba.prenosrobe.activities.RegistrationActivity;
 import com.example.toshiba.prenosrobe.activities.SearchActivity;
@@ -54,10 +54,10 @@ public class NavigationFragment extends Fragment
                         if (RegistrationActivity.getUser() == null)
                         {
                             i = new Intent(getActivity(), LogInActivity.class);
-                            i.putExtra("class", "com.example.toshiba.prenosrobe.activities.OfferActivity");
+                            i.putExtra("class", "com.example.toshiba.prenosrobe.activities.CreateDriverOfferActivity");
                         }
                         else
-                            i = new Intent(getActivity(), OfferActivity.class);
+                            i = new Intent(getActivity(), CreateDriverOfferActivity.class);
 
                         startActivity(i);
                         break;

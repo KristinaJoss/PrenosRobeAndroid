@@ -1,6 +1,7 @@
 package com.example.toshiba.prenosrobe.util;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.text.InputType;
 import android.view.ViewGroup;
@@ -17,21 +18,25 @@ public class DynamicViews {
         this.ctx = ctx;
     }
 
-    public TextView descriptionStations (Context context, String text)
+    public TextView getTextView(Context context, String text, ColorStateList textColor)
     {
-        final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         final TextView textView = new TextView(context);
-        textView.setLayoutParams(lparams);
+        textView.setLayoutParams(params);
         textView.setText(text);
         textView.setTextSize(16);
-        textView.setTextColor(Color.BLACK);
+        textView.setTextColor(textColor);
         textView.setMaxEms(15);
         return textView;
     }
 
-    public EditText enterStations (Context context)
+    public TextView getTextView(Context context, String text)
     {
-        final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        return getTextView(context, text, ColorStateList.valueOf(Color.BLACK));
+    }
+
+    public EditText getEditText(Context context)
+    {
         final EditText editText = new EditText(context);
         int id = 0;
         editText.setId(id);
@@ -40,14 +45,4 @@ public class DynamicViews {
         editText.setInputType(InputType.TYPE_CLASS_TEXT);
         return editText;
     }
-
-//    public TextView stations (Context context, String text)
-//    {
-//        final ViewGroup.LayoutParams lparams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        final TextView textView = new TextView(context);
-//        textView.setLayoutParams(lparams);
-//        textView.setTextColor(Color.BLACK);
-//        textView.setText(text);
-//        return textView;
-//    }
 }

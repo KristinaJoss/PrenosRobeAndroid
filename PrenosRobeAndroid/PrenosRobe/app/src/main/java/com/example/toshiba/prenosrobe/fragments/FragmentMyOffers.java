@@ -14,7 +14,7 @@ import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
 import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
-import com.example.toshiba.prenosrobe.util.DriverOfferAdapter;
+import com.example.toshiba.prenosrobe.adapters.DriverOfferAdapter;
 
 import java.util.List;
 

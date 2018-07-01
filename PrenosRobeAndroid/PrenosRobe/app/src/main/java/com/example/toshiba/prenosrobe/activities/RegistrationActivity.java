@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.toshiba.prenosrobe.R;
@@ -35,6 +36,7 @@ public class RegistrationActivity extends AppCompatActivity
     private ApiInterface apiInterface;
     private EditText inputName, inputSurname, inputPhone, inputEmail, inputUser, inputPass;
     private TextView labelMsg2;
+    private ImageView languagesError;
     private static User user;
     private List<Language> languages;
     private List<Language> selectedLanguages = new ArrayList<>();
@@ -51,13 +53,14 @@ public class RegistrationActivity extends AppCompatActivity
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        inputName = (EditText) findViewById(R.id.inputName);
-        inputSurname = (EditText) findViewById(R.id.inputSurname);
-        inputUser = (EditText) findViewById(R.id.inputUser);
-        inputPass = (EditText) findViewById(R.id.inputPass);
-        inputPhone = (EditText) findViewById(R.id.inputPhone);
-        inputEmail = (EditText) findViewById(R.id.inputEmail);
-        labelMsg2 = (TextView) findViewById(R.id.labelMsg2);
+        inputName = findViewById(R.id.inputName);
+        inputSurname = findViewById(R.id.inputSurname);
+        inputUser = findViewById(R.id.inputUser);
+        inputPass = findViewById(R.id.inputPass);
+        inputPhone = findViewById(R.id.inputPhone);
+        inputEmail = findViewById(R.id.inputEmail);
+        labelMsg2 = findViewById(R.id.labelMsg2);
+        languagesError = findViewById(R.id.languagesError);
 
         registerListeners();
 
@@ -72,17 +75,10 @@ public class RegistrationActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        System.out.println("JOVU - onResume() REGISTRATION");
 
         getInitData();
         clearAllEditTexts();
         ((NavigationFragment) navigationFragment).setectItem(R.id.action_home);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("JOVU - onPause() REGISTRATION");
     }
 
     private User createUser()
@@ -133,6 +129,11 @@ public class RegistrationActivity extends AppCompatActivity
             inputPhone.setError(getResources().getString(R.string.phone_empty));
             isValid = false;
         }
+        if (newUser.getUserLanguages().isEmpty())
+        {
+            languagesError.setVisibility(View.VISIBLE);
+            isValid = false;
+        }
 
         return isValid;
     }
@@ -174,6 +175,7 @@ public class RegistrationActivity extends AppCompatActivity
         inputUser.setError(null);
         inputPass.setText("");
         inputPass.setError(null);
+        languagesError.setVisibility(View.INVISIBLE);
 
         labelMsg2.setText("");
 
@@ -194,7 +196,7 @@ public class RegistrationActivity extends AppCompatActivity
 
     private void registerListeners()
     {
-        ((Button) findViewById(R.id.buttonRegister)).setOnClickListener(new View.OnClickListener()
+        findViewById(R.id.buttonRegister).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -266,12 +268,13 @@ public class RegistrationActivity extends AppCompatActivity
             }
         });
 
-        ((Button) findViewById(R.id.buttonMultiSpinner)).setOnClickListener(new View.OnClickListener()
+        findViewById(R.id.buttonMultiSpinner).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
                 alertDialogBuilder = new AlertDialog.Builder(RegistrationActivity.this);
+                alertDialogBuilder.setTitle(getResources().getString(R.string.selectLanguageDialogTitle));
 
                 String[] languagesNames = new String[languages.size()];
                 selectedTrueFalse = new boolean[languages.size()];
@@ -288,9 +291,6 @@ public class RegistrationActivity extends AppCompatActivity
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {}
                 });
 
-                alertDialogBuilder.setCancelable(false);
-                alertDialogBuilder.setTitle(getResources().getString(R.string.selectLanguageDialogTitle));
-
                 alertDialogBuilder.setPositiveButton(getResources().getString(R.string.buttonOK), new DialogInterface.OnClickListener()
                 {
                     @Override
@@ -304,8 +304,13 @@ public class RegistrationActivity extends AppCompatActivity
                             if (selected)
                                 selectedLanguages.add(languages.get(i));
                         }
+
+                        if (!selectedLanguages.isEmpty())
+                            languagesError.setVisibility(View.INVISIBLE);
                     }
                 });
+
+                alertDialogBuilder.setCancelable(false);
 
                 alertDialogBuilder.setNeutralButton(getResources().getString(R.string.buttonCancel), new DialogInterface.OnClickListener()
                 {

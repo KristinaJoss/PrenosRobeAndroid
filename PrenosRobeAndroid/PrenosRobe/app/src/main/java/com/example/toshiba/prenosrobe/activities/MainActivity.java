@@ -17,8 +17,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.toshiba.prenosrobe.util.DriverOfferAdapter;
 import com.example.toshiba.prenosrobe.R;
+import com.example.toshiba.prenosrobe.adapters.DriverOfferAdapter;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
