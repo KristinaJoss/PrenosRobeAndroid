@@ -65,8 +65,8 @@ public class CreateDriverOfferActivity extends AppCompatActivity
     private TimePickerDialog.OnTimeSetListener onTimeSetListener;
     private Fragment navigationFragment;
     private GridLayout gridStations;
-    Context context;
-    Button buttonAdd;
+    private Context context;
+    private Button buttonAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,15 +76,15 @@ public class CreateDriverOfferActivity extends AppCompatActivity
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        inputDepLoc = (EditText) findViewById(R.id.inputDepLoc);
-        inputArrLoc = (EditText) findViewById(R.id.inputArrLoc);
-        inputDate = (EditText) findViewById(R.id.inputDate);
-        inputTime = (EditText) findViewById(R.id.inputTime);
-        inputVehicleNumber = (EditText) findViewById(R.id.inputVehicleNumber);
-        labelVehicleType = (TextView) findViewById(R.id.labelVehicleType);
-        spinnerVehicleType = (Spinner) findViewById(R.id.spinnerVehicleType);
-        gridStations = (GridLayout) findViewById(R.id.gridStations);
-        buttonAdd = (Button) findViewById(R.id.buttonAdd);
+        inputDepLoc = findViewById(R.id.inputDepLoc);
+        inputArrLoc = findViewById(R.id.inputArrLoc);
+        inputDate = findViewById(R.id.inputDate);
+        inputTime = findViewById(R.id.inputTime);
+        inputVehicleNumber = findViewById(R.id.inputVehicleNumber);
+        labelVehicleType = findViewById(R.id.labelVehicleType);
+        spinnerVehicleType = findViewById(R.id.spinnerVehicleType);
+        gridStations = findViewById(R.id.gridStations);
+        buttonAdd = findViewById(R.id.buttonAdd);
 
         registerListeners();
 
@@ -403,7 +403,6 @@ public class CreateDriverOfferActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                // Toast.makeText(getApplicationContext(),vehicleTypes.get(i).getName(), Toast.LENGTH_LONG).show();
                 selectedVehicleTypes = vehicleTypes.get(position);
             }
 
@@ -451,5 +450,13 @@ public class CreateDriverOfferActivity extends AppCompatActivity
             selectedVehicleTypes = vehicleTypes.get(0);
     }
 
-    public static List<OfferStatus> getOfferStatuses() { return offerStatuses; }
+    public static List<OfferStatus> getOfferStatuses()
+    {
+        return offerStatuses;
+    }
+
+    public static void setOfferStatuses(List<OfferStatus> newOfferStatuses)
+    {
+        offerStatuses = newOfferStatuses;
+    }
 }

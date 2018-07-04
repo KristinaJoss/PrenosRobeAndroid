@@ -10,7 +10,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
+import com.example.toshiba.prenosrobe.data.DriverOffer;
 import com.example.toshiba.prenosrobe.data.Language;
 import com.example.toshiba.prenosrobe.data.User;
 import com.example.toshiba.prenosrobe.data.UserLanguage;
@@ -370,6 +370,11 @@ public class RegistrationActivity extends AppCompatActivity
         String nextActivityName = getIntent().getExtras().getString("class");
         Intent i = new Intent(RegistrationActivity.this, PopActivity.class);
         i.putExtra("class", nextActivityName);
+
+        DriverOffer driverOffer = (DriverOffer) getIntent().getSerializableExtra("driver");
+        if (driverOffer != null)
+            i.putExtra("driver", driverOffer);
+
         startActivity(i);
     }
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.toshiba.prenosrobe.R;
 import com.example.toshiba.prenosrobe.api.ApiClient;
 import com.example.toshiba.prenosrobe.api.ApiInterface;
+import com.example.toshiba.prenosrobe.data.DriverOffer;
 import com.example.toshiba.prenosrobe.data.User;
 import com.example.toshiba.prenosrobe.dto.RestRespondeDto;
 import com.example.toshiba.prenosrobe.fragments.NavigationFragment;
@@ -35,12 +36,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        inputMail = (EditText) findViewById(R.id.inputMail);
-        inputPassword = (EditText) findViewById(R.id.inputPassword);
-        labelMsg1 = (TextView) findViewById(R.id.labelMsg1);
+        inputMail = findViewById(R.id.inputMail);
+        inputPassword = findViewById(R.id.inputPassword);
+        labelMsg1 = findViewById(R.id.labelMsg1);
 
-        ((Button) findViewById(R.id.buttonSignIn)).setOnClickListener(this);
-        ((Button) findViewById(R.id.buttonSignUp)).setOnClickListener(this);
+        findViewById(R.id.buttonSignIn).setOnClickListener(this);
+        findViewById(R.id.buttonSignUp).setOnClickListener(this);
 
         navigationFragment = new NavigationFragment();
         FragmentManager fm = getFragmentManager();
@@ -70,10 +71,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 
             case R.id.buttonSignUp:
 
-                Intent j = new Intent(this, RegistrationActivity.class);
+                Intent intentRegistration = new Intent(this, RegistrationActivity.class);
                 String newActivityName = getIntent().getExtras().getString("class");
-                j.putExtra("class", newActivityName);
-                startActivity(j);
+                intentRegistration.putExtra("class", newActivityName);
+
+                DriverOffer driverOffer = (DriverOffer) getIntent().getSerializableExtra("driver");
+                if (driverOffer != null)
+                    intentRegistration.putExtra("driver", driverOffer);
+
+                startActivity(intentRegistration);
                 break;
         }
     }
@@ -149,6 +155,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             newActivityClass = MainActivity.class;
         }
         Intent i = new Intent(LogInActivity.this, newActivityClass);
+
+        DriverOffer driverOffer = (DriverOffer) getIntent().getSerializableExtra("driver");
+        if (driverOffer != null)
+            i.putExtra("driver", driverOffer);
+
         startActivity(i);
     }
 

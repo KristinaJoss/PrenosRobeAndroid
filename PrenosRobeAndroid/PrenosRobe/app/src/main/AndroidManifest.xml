@@ -37,6 +37,10 @@
             android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan"/>
         <activity
+            android:name=".activities.CreateClaimerOfferActivity"
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
             android:name=".activities.SearchActivity"
             android:launchMode="singleInstance"
             android:windowSoftInputMode="adjustPan"/>

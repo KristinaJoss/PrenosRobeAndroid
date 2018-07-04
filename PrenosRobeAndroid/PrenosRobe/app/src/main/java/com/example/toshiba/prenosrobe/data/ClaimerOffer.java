@@ -140,7 +140,7 @@ public class ClaimerOffer implements Serializable
 	 *
 	 * @return data
 	 */
-	public String getDate()
+	public String getData()
 	{
 		return data;
 	}
@@ -150,7 +150,7 @@ public class ClaimerOffer implements Serializable
 	 *
 	 * @param data new data
 	 */
-	public void setDate(final String data)
+	public void setData(final String data)
 	{
 		this.data = data;
 	}

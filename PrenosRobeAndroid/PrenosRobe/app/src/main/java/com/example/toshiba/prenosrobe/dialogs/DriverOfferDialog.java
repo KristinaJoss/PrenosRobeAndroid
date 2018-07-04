@@ -3,6 +3,7 @@ package com.example.toshiba.prenosrobe.dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridLayout;
@@ -10,6 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.toshiba.prenosrobe.R;
+import com.example.toshiba.prenosrobe.activities.CreateClaimerOfferActivity;
+import com.example.toshiba.prenosrobe.activities.CreateDriverOfferActivity;
+import com.example.toshiba.prenosrobe.activities.LogInActivity;
+import com.example.toshiba.prenosrobe.activities.RegistrationActivity;
 import com.example.toshiba.prenosrobe.data.DriverOffer;
 import com.example.toshiba.prenosrobe.data.DriverOfferStation;
 import com.example.toshiba.prenosrobe.data.User;
@@ -51,7 +56,19 @@ public class DriverOfferDialog
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(context, "Book", Toast.LENGTH_SHORT).show();
+                Intent intent;
+
+                if (RegistrationActivity.getUser() == null)
+                {
+                    intent = new Intent(context, LogInActivity.class);
+                    intent.putExtra("class", "com.example.toshiba.prenosrobe.activities.CreateClaimerOfferActivity");
+                }
+                else
+                {
+                    intent = new Intent(context, CreateClaimerOfferActivity.class);
+                }
+                intent.putExtra("driver", driverOffer);
+                context.startActivity(intent);
             }
         });
 

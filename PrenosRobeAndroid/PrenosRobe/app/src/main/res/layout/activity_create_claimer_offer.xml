@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    tools:context="com.example.toshiba.prenosrobe.activities.CreateClaimerOfferActivity"
     android:background="@drawable/loginbg"
     android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/frameLayout2">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/labelLocations"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="5dp"
                 android:fadingEdge="none"
                 android:gravity="center"
                 android:text="@string/locations"
@@ -71,20 +73,10 @@
                         android:gravity="center_vertical"
                         android:text="@string/vehicle"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/labelStations"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="left"
-                        android:gravity="center_vertical"
-                        android:text="@string/stations"
-                        android:textSize="16sp" />
-
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="20dp"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"/>
 
                 <LinearLayout
@@ -121,38 +113,16 @@
                         android:text="@string/vehicle"
                         android:textSize="16sp" />
 
-                    <GridLayout
-                        android:id="@+id/gridAllStations"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="left"
-                        android:layout_marginTop="10dp"
-                        android:columnCount="1">
-
-                    </GridLayout>
-
                 </LinearLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/labelDriver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_gravity="left"
-                android:text="@string/driverDate"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:gravity="left" >
 
@@ -202,55 +172,87 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:gravity="left" >
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp">
 
-                <TextView
-                    android:id="@+id/labelLanguages"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="left"
-                    android:gravity="center_vertical"
-                    android:text="@string/userLanguages"
-                    android:textSize="16sp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center" >
+
+                    <TextView
+                        android:id="@+id/departureLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:gravity="center_vertical"
+                        android:text="@string/labelDepLoc"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/errivalLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="left"
+                        android:gravity="center_vertical"
+                        android:text="@string/labelArrLoc"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
 
                 <Space
-                    android:layout_width="10dp"
+                    android:layout_width="40dp"
                     android:layout_height="match_parent"/>
 
-                <GridLayout
-                    android:id="@+id/gridUserLanguages"
-                    android:layout_width="150dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="left"
-                    android:padding="10dp"
-                    android:layout_marginTop="10dp"
-                    android:columnCount="1">
-                </GridLayout>
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center" >
+
+                    <Spinner
+                        android:id="@+id/spinnerDepartureLocation"
+                        android:layout_width="160dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:visibility="visible" />
+
+                    <Spinner
+                        android:id="@+id/spinnerArrivalLocation"
+                        android:layout_width="160dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="13dp"
+                        android:visibility="visible" />
+                </LinearLayout>
+
 
             </LinearLayout>
 
-
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="40dp"
                 android:gravity="center">
 
                 <Button
                     android:id="@+id/buttonCancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center"
-                    android:gravity="center"
                     android:background="@drawable/buttonstylegradient"
-                    android:text="@string/buttonCancel"/>
+                    android:text="@string/buttonCancel"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"/>
 
                 <Space
                     android:layout_width="50dp"
@@ -260,14 +262,34 @@
                     android:id="@+id/buttonBook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center"
                     android:background="@drawable/buttonstylegradient"
-                    android:text="@string/buttonBook"/>
+                    android:text="@string/buttonBook"
+                    android:textSize="14dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"/>
 
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/frameLayout2"
+        android:layout_marginTop="0dp">
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:itemBackground="@color/colorPrimary"
+            app:itemIconTint="@drawable/nav_item_color_state"
+            app:itemTextColor="@drawable/nav_item_color_state"
+            app:menu="@menu/bottom_navigation_main" />
+
+    </FrameLayout>
 
 </RelativeLayout>

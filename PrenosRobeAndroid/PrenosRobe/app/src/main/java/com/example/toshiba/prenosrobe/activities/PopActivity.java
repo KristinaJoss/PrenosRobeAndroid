@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import com.example.toshiba.prenosrobe.R;
+import com.example.toshiba.prenosrobe.data.DriverOffer;
 
 
 public class PopActivity extends Activity
@@ -22,7 +23,7 @@ public class PopActivity extends Activity
 
         setContentView(R.layout.popup);
 
-        buttonOK = (Button) findViewById(R.id.buttonOK);
+        buttonOK = findViewById(R.id.buttonOK);
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -63,6 +64,11 @@ public class PopActivity extends Activity
             newActivityClass = MainActivity.class;
         }
         Intent i = new Intent(PopActivity.this, newActivityClass);
+
+        DriverOffer driverOffer = (DriverOffer) getIntent().getSerializableExtra("driver");
+        if (driverOffer != null)
+            i.putExtra("driver", driverOffer);
+
         startActivity(i);
     }
 }
